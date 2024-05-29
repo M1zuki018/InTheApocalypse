@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuOpen : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class MenuOpen : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            
+            SceneManager.LoadScene("Menu");
         }
     }
 }

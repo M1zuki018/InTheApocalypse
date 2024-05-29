@@ -1,68 +1,94 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rigidbody2D; // Rigidbody2DƒRƒ“ƒ|[ƒlƒ“ƒg‚Ö‚ÌQÆ
-    private float xSpeed; // X•ûŒüˆÚ“®‘¬“x
-    public CameraController cameraController; // ƒJƒƒ‰§ŒäƒNƒ‰ƒX
+    [SerializeField] float _movePower = 5f; //å·¦å³ç§»å‹•
+    [SerializeField] float _jumpPower = 15f; //ã‚¸ãƒ£ãƒ³ãƒ—
+    [SerializeField] bool _flipX = false; //å·¦å³åè»¢ã•ã›ã‚‹ã‹ã©ã†ã‹
 
-    // Start is called before the first frame update
+    Rigidbody2D _rb = default;
+
+    float m_h; //æ°´å¹³æ–¹å‘ã®å…¥åŠ›å€¤
+
+    Vector3 _initialPosition; //åˆæœŸä½ç½®
+
+    int _jampCount; //ã‚¸ãƒ£ãƒ³ãƒ—ã®å›æ•°
+
+    public CameraController _cameraController; //ã‚«ãƒ¡ãƒ©ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼
+
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        // ƒJƒƒ‰‰ŠúˆÊ’u
-        cameraController.SetPosition(transform.position);
+        _rb = GetComponent<Rigidbody2D>();
+        _initialPosition = this.transform.position; //
+        
+        _cameraController.SetPosition(transform.position); //
     }
 
     // Update is called once per frame
     void Update()
     {
-        PlayerMovement();
+
+        // å…¥åŠ›ã‚’å—ã‘å–ã‚‹
+        m_h = Input.GetAxisRaw("Horizontal");
+
         PlayerJump();
+        PlayerReset();
 
-        // ƒJƒƒ‰‚É©g‚ÌÀ•W‚ğ“n‚·
-        cameraController.SetPosition(transform.position);
-    }
+        // ã‚«ãƒ¡ãƒ©ã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ã‚»ãƒƒãƒˆã™ã‚‹
+        _cameraController.SetPosition(transform.position);
 
-    void PlayerMovement()
-    {
 
-        if (Input.GetKey(KeyCode.D)) // ‰E•ûŒü‚ÌˆÚ“®“ü—Í
+        // è¨­å®šã«å¿œã˜ã¦å·¦å³ã‚’åè»¢ã•ã›ã‚‹
+        if (_flipX)
         {
-            xSpeed = 6.0f;
-        }
-        else if (Input.GetKey(KeyCode.A)) // ¶•ûŒü‚ÌˆÚ“®“ü—Í
-        {
-            xSpeed = -6.0f;
-        }
-        else
-        {
-            xSpeed = 0.0f; // “ü—Í‚È‚µ X•ûŒü‚ÌˆÚ“®‚ğ’â~
+            FlipX(m_h);
         }
     }
 
     private void PlayerJump()
     {
-        // ƒWƒƒƒ“ƒv‘€ì
-        if (Input.GetKeyDown(KeyCode.Space))
+        //Debug.Log(Sensor._touchGround); æ¥åœ°åˆ¤å®šãƒ‡ãƒãƒƒã‚°ç”¨
+        if (Sensor._touchGround) //åœ°é¢ã«è§¦ã‚ŒãŸã‚‰ã‚«ã‚¦ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
         {
-            // ƒWƒƒƒ“ƒv—Í‚ğŒvZ
-            float jumpPower = 10.0f;
-            // ƒWƒƒƒ“ƒv—Í‚ğ“K—p
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpPower);
+            _jampCount = 0;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            _jampCount++; //ã‚¹ãƒšãƒ¼ã‚¹ã‚’æŠ¼ã•ã‚ŒãŸå›æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
+            //Debug.Log(_jampCount); 2æ®µã‚¸ãƒ£ãƒ³ãƒ—ãƒ‡ãƒãƒƒã‚°ç”¨
+            if (_jampCount < 2)
+            {
+                _rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
+            }
         }
     }
-    
-    // FixedUpdateiˆê’èŠÔ‚²‚Æ‚É1“x‚¸‚ÂÀsE•¨—‰‰Z—pj
+
+    private void PlayerReset()
+    {
+        // ä¸‹ã«è¡Œãã™ããŸã‚‰åˆæœŸä½ç½®ã«æˆ»ã™
+        if (this.transform.position.y < -10f)
+        {
+            this.transform.position = _initialPosition;
+        }
+    }
     private void FixedUpdate()
     {
-        // ˆÚ“®‘¬“xƒxƒNƒgƒ‹‚ğŒ»İ’l‚©‚çæ“¾
-        Vector2 velocity = rigidbody2D.velocity;
-        velocity.x = xSpeed; // X•ûŒü‚Ì‘¬“x‚ğ“ü—Í‚©‚çŒˆ’è
+        // åŠ›ã‚’åŠ ãˆã‚‹ã®ã¯ FixedUpdate ã§è¡Œã†
+        _rb.AddForce(Vector2.right * m_h * _movePower, ForceMode2D.Force);
+    }
 
-        // ŒvZ‚µ‚½ˆÚ“®‘¬“xƒxƒNƒgƒ‹‚ğRigidbody2D‚É”½‰f
-        rigidbody2D.velocity = velocity;
+    void FlipX(float horizontal)
+    {
+        if (horizontal > 0)
+        {
+            this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+        }
+        else if (horizontal < 0)
+        {
+            this.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+        }
     }
 }
