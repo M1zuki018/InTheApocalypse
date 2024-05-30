@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     //MP関係
     int _maxMP = 100;
     public static int _mp;
+    public int _mpConsumption1; //魔法1の消費MP
+    public int _mpConsumption2; //魔法2の消費MP
+    public GameObject _notEnoughMpObj;
 
     public CameraController _cameraController; //カメラコントローラー
 
@@ -45,6 +48,8 @@ public class PlayerController : MonoBehaviour
         //HP・MPの初期化
         _chara1HP = _chara1MaxHP;
         _mp = _maxMP;
+
+        _notEnoughMpObj.SetActive(false);
     }
 
     // Update is called once per frame
@@ -56,9 +61,13 @@ public class PlayerController : MonoBehaviour
 
         PlayerJump();
         PlayerReset();
+
+        //攻撃系のメソッド
         PlayerAttack();
         PlayerAvoid();
         PlayerMagic1();
+        PlayerMagic2();
+        AuthoritySkill();
 
         // カメラをプレイヤーにセットする
         _cameraController.SetPosition(transform.position);
@@ -122,7 +131,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlayerAttack()
+    void PlayerAttack() //通常攻撃
     {
         if(Input.GetButtonDown("Fire1"))
         {
@@ -130,7 +139,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlayerAvoid()
+    void PlayerAvoid() //回避
     {
         if (Input.GetButtonDown("Fire2"))
         {
@@ -138,13 +147,46 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlayerMagic1()
+    void PlayerMagic1() //魔法1
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Instantiate(m_bulletPrefab, _muzzlePosition, Quaternion.identity);
-            _mp = _mp - 10;
-            Debug.Log("魔法1");
+            if (_mp >= _mpConsumption1)
+            {
+                Instantiate(m_bulletPrefab, _muzzlePosition, Quaternion.identity);
+                _mp = _mp - _mpConsumption1;
+                Debug.Log("魔法1");
+            }
+            else
+            {
+                _notEnoughMpObj.SetActive(true);
+                Invoke("MpObjHidden", 3);
+            }
+        }
+    }
+    void PlayerMagic2() //魔法2
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (_mp >= _mpConsumption2)
+            {
+                Instantiate(m_bulletPrefab, _muzzlePosition, Quaternion.identity);
+                _mp = _mp - _mpConsumption2;
+                Debug.Log("魔法2");
+            }
+            else
+            {
+                _notEnoughMpObj.SetActive(true);
+                Invoke("MpObjHidden", 3);
+            }
+        }
+    }
+
+    void AuthoritySkill() //権限解放
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("権限解放");
         }
     }
 
@@ -153,6 +195,12 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             _chara1HP = _chara1HP - 10;
+            Debug.Log("敵に触れた");
         }
+    }
+
+    void MpObjHidden() //時間経過で非表示にするための関数
+    {
+        _notEnoughMpObj.SetActive(false);
     }
 }
