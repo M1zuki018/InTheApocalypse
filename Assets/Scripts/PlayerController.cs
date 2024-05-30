@@ -16,14 +16,20 @@ public class PlayerController : MonoBehaviour
     float m_h; //水平方向の入力値
 
     Vector3 _initialPosition; //初期位置
-    Vector3 m_muzzlePosition; //マズルの座標
+    Vector3 _muzzlePosition; //の座標
 
     int _jampCount; //ジャンプの回数
 
+    //プレイヤーの向きを取得するフラグ
     public static bool _facingLeft;
     public static bool _facingRight;
 
+    //プレイヤーの数値系
+    int _chara1MaxHP = 100;
+    public static int _chara1HP;
+
     public CameraController _cameraController; //カメラコントローラー
+
 
     void Start()
     {
@@ -31,6 +37,9 @@ public class PlayerController : MonoBehaviour
         _initialPosition = this.transform.position; //
         
         _cameraController.SetPosition(transform.position); //
+
+        //スライダーの初期化
+        _chara1HP = _chara1MaxHP;
     }
 
     // Update is called once per frame
@@ -44,12 +53,13 @@ public class PlayerController : MonoBehaviour
         PlayerReset();
         PlayerAttack();
         PlayerAvoid();
+        PlayerMagic1();
 
         // カメラをプレイヤーにセットする
         _cameraController.SetPosition(transform.position);
 
         // マズルの位置を取得する
-        m_muzzlePosition = m_muzzle.transform.position;
+        _muzzlePosition = m_muzzle.transform.position;
 
         // 設定に応じて左右を反転させる
         if (_flipX)
@@ -111,7 +121,6 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire1"))
         {
-            Instantiate(m_bulletPrefab, m_muzzlePosition, Quaternion.identity);
             Debug.Log("攻撃");
         }
     }
@@ -121,6 +130,23 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             Debug.Log("回避");
+        }
+    }
+
+    void PlayerMagic1()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Instantiate(m_bulletPrefab, _muzzlePosition, Quaternion.identity);
+            Debug.Log("魔法1");
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            _chara1HP = _chara1HP - 10;
         }
     }
 }
