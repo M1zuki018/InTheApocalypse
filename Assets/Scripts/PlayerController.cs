@@ -8,13 +8,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _jumpPower = 15f; //ジャンプ
     [SerializeField] bool _flipX = false; //左右反転させるかどうか
 
+    [SerializeField] GameObject m_bulletPrefab = default; //魔法のプレハブ
+    [SerializeField] Transform m_muzzle = default; //魔法が出る位置
+
     Rigidbody2D _rb = default;
 
     float m_h; //水平方向の入力値
 
     Vector3 _initialPosition; //初期位置
+    Vector3 m_muzzlePosition; //マズルの座標
 
     int _jampCount; //ジャンプの回数
+
+    public static bool _facingLeft;
+    public static bool _facingRight;
 
     public CameraController _cameraController; //カメラコントローラー
 
@@ -41,6 +48,8 @@ public class PlayerController : MonoBehaviour
         // カメラをプレイヤーにセットする
         _cameraController.SetPosition(transform.position);
 
+        // マズルの位置を取得する
+        m_muzzlePosition = m_muzzle.transform.position;
 
         // 設定に応じて左右を反転させる
         if (_flipX)
@@ -87,10 +96,14 @@ public class PlayerController : MonoBehaviour
         if (horizontal > 0)
         {
             this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            _facingRight = true;
+            _facingLeft = false;
         }
         else if (horizontal < 0)
         {
             this.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            _facingLeft = true;
+            _facingRight = false;
         }
     }
 
@@ -98,6 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire1"))
         {
+            Instantiate(m_bulletPrefab, m_muzzlePosition, Quaternion.identity);
             Debug.Log("攻撃");
         }
     }
