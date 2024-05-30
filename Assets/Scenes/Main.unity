@@ -452,7 +452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &358578012
 RectTransform:
   m_ObjectHideFlags: 0
@@ -469,7 +469,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -517, y: 370}
+  m_AnchoredPosition: {x: 644, y: -182}
   m_SizeDelta: {x: 592, y: 91.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &358578013
@@ -1646,8 +1646,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movePower: 13
   _jumpPower: 8
+  _avoidPower: 5
   _flipX: 1
-  m_bulletPrefab: {fileID: 5026020369471331617, guid: 12faec5f43db00e439e983a6cf6331a9, type: 3}
+  _bulletPrefab: {fileID: 5026020369471331617, guid: 12faec5f43db00e439e983a6cf6331a9, type: 3}
   m_muzzle: {fileID: 2087854764}
   _mpConsumption1: 10
   _mpConsumption2: 30

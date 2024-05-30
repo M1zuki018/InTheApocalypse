@@ -6,9 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float _movePower = 5f; //左右移動
     [SerializeField] float _jumpPower = 15f; //ジャンプ
+    [SerializeField] float _avoidPower = 15f; //回避の距離
     [SerializeField] bool _flipX = false; //左右反転させるかどうか
 
-    [SerializeField] GameObject m_bulletPrefab = default; //魔法のプレハブ
+    [SerializeField] GameObject _bulletPrefab = default; //魔法のプレハブ
     [SerializeField] Transform m_muzzle = default; //魔法が出る位置
 
     Rigidbody2D _rb = default;
@@ -138,22 +139,29 @@ public class PlayerController : MonoBehaviour
             Debug.Log("攻撃");
         }
     }
-
     void PlayerAvoid() //回避
     {
         if (Input.GetButtonDown("Fire2"))
         {
+            if (_facingLeft == true)
+            {
+                _rb.AddForce(Vector2.right * _avoidPower, ForceMode2D.Impulse);
+            }
+            else
+            {
+                _rb.AddForce(Vector2.left * _avoidPower, ForceMode2D.Impulse);
+            }
             Debug.Log("回避");
         }
     }
-
+ 
     void PlayerMagic1() //魔法1
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (_mp >= _mpConsumption1)
             {
-                Instantiate(m_bulletPrefab, _muzzlePosition, Quaternion.identity);
+                Instantiate(_bulletPrefab, _muzzlePosition, Quaternion.identity);
                 _mp = _mp - _mpConsumption1;
                 Debug.Log("魔法1");
             }
@@ -170,7 +178,7 @@ public class PlayerController : MonoBehaviour
         {
             if (_mp >= _mpConsumption2)
             {
-                Instantiate(m_bulletPrefab, _muzzlePosition, Quaternion.identity);
+                Instantiate(_bulletPrefab, _muzzlePosition, Quaternion.identity);
                 _mp = _mp - _mpConsumption2;
                 Debug.Log("魔法2");
             }
