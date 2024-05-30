@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
         PlayerJump();
         PlayerReset();
+        PlayerAttack();
+        PlayerAvoid();
 
         // カメラをプレイヤーにセットする
         _cameraController.SetPosition(transform.position);
@@ -89,6 +91,22 @@ public class PlayerController : MonoBehaviour
         else if (horizontal < 0)
         {
             this.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+        }
+    }
+
+    void PlayerAttack()
+    {
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Debug.Log("攻撃");
+        }
+    }
+
+    void PlayerAvoid()
+    {
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Debug.Log("回避");
         }
     }
 }
