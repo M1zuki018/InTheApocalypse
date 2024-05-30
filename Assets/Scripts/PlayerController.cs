@@ -28,6 +28,10 @@ public class PlayerController : MonoBehaviour
     int _chara1MaxHP = 100;
     public static int _chara1HP;
 
+    //MP関係
+    int _maxMP = 100;
+    public static int _mp;
+
     public CameraController _cameraController; //カメラコントローラー
 
 
@@ -38,8 +42,9 @@ public class PlayerController : MonoBehaviour
         
         _cameraController.SetPosition(transform.position); //
 
-        //スライダーの初期化
+        //HP・MPの初期化
         _chara1HP = _chara1MaxHP;
+        _mp = _maxMP;
     }
 
     // Update is called once per frame
@@ -138,6 +143,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Instantiate(m_bulletPrefab, _muzzlePosition, Quaternion.identity);
+            _mp = _mp - 10;
             Debug.Log("魔法1");
         }
     }

@@ -5,17 +5,20 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    public Slider HPSlider;
+    public Slider _hpSlider;
+    public Slider _mpSlider;
 
     // Start is called before the first frame update
     void Start()
     {
-        HPSlider.value = PlayerController._chara1HP;
+        _hpSlider.value = PlayerController._chara1HP;
+        _mpSlider.value = PlayerController._mp;
     }
 
     // Update is called once per frame
     void Update()
     {
-        HPSlider.value = (float)PlayerController._chara1HP;
+        _hpSlider.value = (float)PlayerController._chara1HP;
+        _mpSlider.value = (float)PlayerController._mp;
     }
 }
