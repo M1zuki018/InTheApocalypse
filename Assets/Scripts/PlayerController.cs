@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
         PlayerReset();
 
         //攻撃系のメソッド
-        PlayerAttack();
         PlayerAvoid();
         PlayerMagic1();
         PlayerMagic2();
@@ -132,13 +131,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlayerAttack() //通常攻撃
-    {
-        if(Input.GetButtonDown("Fire1"))
-        {
-            Debug.Log("攻撃");
-        }
-    }
     void PlayerAvoid() //回避
     {
         if (Input.GetButtonDown("Fire2"))
@@ -203,6 +195,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             _chara1HP = _chara1HP - 10;
+            _rb.AddForce(Vector2.left * 5.0f, ForceMode2D.Impulse);
             Debug.Log("敵に触れた");
         }
     }
