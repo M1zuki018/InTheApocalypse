@@ -35,10 +35,11 @@ public class PlayerController : MonoBehaviour
     public int _mpConsumption1; //魔法1の消費MP
     public int _mpConsumption2; //魔法2の消費MP
     public GameObject _notEnoughMpObj;
+    int _mpPlus = 0;
 
     //回避
-    private int _avoidCount = 0;
-    [SerializeField] int _avoidCoolTime = 1500;
+    public static int _avoidCount = 1000;
+    public static int _avoidCoolTime = 1000;
 
 
     void Start()
@@ -69,6 +70,8 @@ public class PlayerController : MonoBehaviour
         PlayerMagic1();
         PlayerMagic2();
         AuthoritySkill();
+
+        MagicPoint();
 
         // マズルの位置を取得する
         _muzzlePosition = m_muzzle.transform.position;
@@ -196,6 +199,16 @@ public class PlayerController : MonoBehaviour
             _chara1HP = _chara1HP - 10;
             _rb.AddForce(Vector2.left * 5.0f, ForceMode2D.Impulse);
             Debug.Log("敵に触れた");
+        }
+    }
+
+    void MagicPoint()
+    {
+        
+        _mpPlus++;
+        if(_mpPlus % 200 == 0)
+        {
+            _mp++;
         }
     }
 
