@@ -36,15 +36,11 @@ public class PlayerController : MonoBehaviour
     public int _mpConsumption2; //魔法2の消費MP
     public GameObject _notEnoughMpObj;
 
-    public CameraController _cameraController; //カメラコントローラー
-
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _initialPosition = this.transform.position; //
-        
-        _cameraController.SetPosition(transform.position); //
 
         //HP・MPの初期化
         _chara1HP = _chara1MaxHP;
@@ -68,9 +64,6 @@ public class PlayerController : MonoBehaviour
         PlayerMagic1();
         PlayerMagic2();
         AuthoritySkill();
-
-        // カメラをプレイヤーにセットする
-        _cameraController.SetPosition(transform.position);
 
         // マズルの位置を取得する
         _muzzlePosition = m_muzzle.transform.position;
