@@ -196,7 +196,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            _chara1HP = _chara1HP - 10;
             _rb.AddForce(Vector2.left * 5.0f, ForceMode2D.Impulse);
             Debug.Log("敵に触れた");
         }
