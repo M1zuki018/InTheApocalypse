@@ -9,7 +9,14 @@ public class Player_Skill1 : MonoBehaviour
 
     private void Update()
     {
-        PlayerSkill1();
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            PlayerSkill1();
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            PlayerSkill2();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,10 +37,19 @@ public class Player_Skill1 : MonoBehaviour
 
     private void PlayerSkill1()
     {
-        if (Input.GetKeyDown(KeyCode.C) && _approach)
+        if (_approach)
         {
             Destroy(_approachEnemy.gameObject);
             Debug.Log("スキル1");
+        }
+    }
+
+    private void PlayerSkill2()
+    {
+        if (_approach)
+        {
+            Destroy(_approachEnemy.gameObject);
+            Debug.Log("スキル2");
         }
     }
 }
