@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag == "Attack")
         {
             Destroy(this.gameObject);
+            PlayerController._mp = PlayerController._mp + 10;
         }
     }
 }

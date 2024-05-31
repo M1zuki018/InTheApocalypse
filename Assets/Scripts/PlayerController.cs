@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public static int _chara1HP;
 
     //MP関係
-    int _maxMP = 100;
+    int _maxMP = 150;
     public static int _mp;
     public int _mpConsumption1; //魔法1の消費MP
     public int _mpConsumption2; //魔法2の消費MP
@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
         PlayerAvoid();
         PlayerMagic1();
         PlayerMagic2();
+        PlayerSkill1();
         AuthoritySkill();
 
         MagicPoint();
@@ -181,6 +182,14 @@ public class PlayerController : MonoBehaviour
                 _notEnoughMpObj.SetActive(true);
                 Invoke("MpObjHidden", 3);
             }
+        }
+    }
+
+    void PlayerSkill1() //スキル1・琴葉物理・突進スキル
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            _rb.AddForce(Vector2.right * 10, ForceMode2D.Impulse);
         }
     }
 

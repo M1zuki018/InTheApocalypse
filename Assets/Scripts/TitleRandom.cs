@@ -15,11 +15,5 @@ public class TitleRandom : MonoBehaviour
         var go = _spriteArray[Random.Range(0, _spriteArray.Length)];
         spriteRenderer.sprite = go;
 
-        /*
-        if (go != null)
-        {
-            Destroy(go);
-        }   // あるなら破棄する
-        */
     }
 }
