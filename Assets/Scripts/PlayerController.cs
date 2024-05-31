@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     public int _mpConsumption2; //魔法2の消費MP
     public GameObject _notEnoughMpObj;
 
+    //回避
+    private int _avoidCount = 0;
+    [SerializeField] int _avoidCoolTime = 1500;
+
 
     void Start()
     {
@@ -52,6 +56,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        _avoidCount++;
 
         // 入力を受け取る
         m_h = Input.GetAxisRaw("Horizontal");
@@ -126,8 +131,9 @@ public class PlayerController : MonoBehaviour
 
     void PlayerAvoid() //回避
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && _avoidCount>= _avoidCoolTime) //回避のクールタイム
         {
+            _avoidCount = 0;
             if (_facingLeft == true)
             {
                 _rb.AddForce(Vector2.right * _avoidPower, ForceMode2D.Impulse);
