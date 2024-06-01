@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerJump()
     {
         //Debug.Log(Sensor._touchGround); 接地判定デバッグ用
-        if (Sensor._touchGround) //地面に触れたらカウントをリセットする
+        if (Player_Sensor._touchGround) //地面に触れたらカウントをリセットする
         {
             _jampCount = 0;
         }
@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            _rb.AddForce(Vector2.left * 5.0f, ForceMode2D.Impulse);
+            _rb.AddForce(Vector2.left * 4.0f, ForceMode2D.Impulse);
             Debug.Log("敵に触れた");
         }
     }
@@ -220,8 +220,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void MpObjHidden() //時間経過で非表示にするための関数
-    {
-        _notEnoughMpObj.SetActive(false);
-    }
 }

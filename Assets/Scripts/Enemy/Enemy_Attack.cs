@@ -17,7 +17,7 @@ public class Enemy_Attack : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("”½‰ž’†");
+        //Debug.Log("”½‰ž’†");
         count++;
         if (count % 100 == 0)
         {

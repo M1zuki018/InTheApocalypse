@@ -16,9 +16,6 @@ public class Enemy_Search : MonoBehaviour
     {
         _playerTr = _playerObj.GetComponent<Transform>();
         _enemyTr = _enemyObj.GetComponent<Transform>();
-        Debug.Log(_enemyTr.transform.position);
-        Debug.Log(_enemyTr);
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

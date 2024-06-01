@@ -5,51 +5,30 @@ using UnityEngine;
 public class Player_Skill1 : MonoBehaviour
 {
     GameObject _approachEnemy;
-    bool _approach = false;
+    public static int _skillCount1 = 5000;
+    public static int _skillCoolTime1 = 5000;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PlayerSkill1();
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            PlayerSkill2();
-        }
+        _skillCount1++;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.TryGetComponent(out EnemyController enemyHp))
         {
-            Debug.Log("Enter OnTriggerEnter2D.");
-            _approach = true;
             _approachEnemy = collision.gameObject;
 
-        }
-    }
+            if (Input.GetKeyDown(KeyCode.C)&& _skillCount1 >= _skillCoolTime1)
+            {
+                _skillCount1 = 0;
+                enemyHp._enemyHp = enemyHp._enemyHp - 80;
+            }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        _approach = false;
-    }
-
-    private void PlayerSkill1()
-    {
-        if (_approach)
-        {
-            Destroy(_approachEnemy.gameObject);
-            Debug.Log("スキル1");
-        }
-    }
-
-    private void PlayerSkill2()
-    {
-        if (_approach)
-        {
-            Destroy(_approachEnemy.gameObject);
-            Debug.Log("スキル2");
+            if (enemyHp._enemyHp <= 0)
+            {
+                Destroy(_approachEnemy.gameObject);
+            }
         }
     }
 }

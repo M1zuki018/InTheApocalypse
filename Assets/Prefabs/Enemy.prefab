@@ -287,7 +287,7 @@ Transform:
   m_GameObject: {fileID: 8234043976033605272}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.81, y: -1.9, z: 0}
+  m_LocalPosition: {x: 2.75, y: -1.9, z: -0.24}
   m_LocalScale: {x: 0.6956512, y: 0.7023849, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -395,6 +395,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c819f062084ce04f8584e2dc6e9a698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyHp: 100
+  _enemyHpSlider: {fileID: 0}
+  _enemyHpSliderObj: {fileID: 0}
 --- !u!114 &5356203225518823220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,8 +453,8 @@ MonoBehaviour:
   m_DefaultVelocity: {x: 2.84, y: -3.2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 1
-  m_IgnoreTag: 
+    m_Bits: 8
+  m_IgnoreTag: Ground
   m_UseImpactDirection: 0
   m_ScaleImpactWithMass: 0
   m_ScaleImpactWithSpeed: 0
