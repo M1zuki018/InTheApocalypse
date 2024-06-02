@@ -8,8 +8,6 @@ public class Player_Magic1 : MonoBehaviour
     [SerializeField] GameObject _bulletPrefab = default; //魔法のプレハブ
     Vector3 _muzzlePosition; //魔法が出る位置の座標
 
-    //与えられるダメージ量
-
     //MP関係
     public int _mpConsumption1; //魔法1の消費MP
 
@@ -26,6 +24,7 @@ public class Player_Magic1 : MonoBehaviour
         {
             MagicA();
         }
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Destroy(this.gameObject);
@@ -43,5 +42,15 @@ public class Player_Magic1 : MonoBehaviour
             PlayerController._mp = PlayerController._mp - _mpConsumption1;
             Debug.Log("魔法1");
         }
+        else if (PlayerController._mp < _mpConsumption1)
+        {
+            PlayerController._mpNotEnough = true;
+            Invoke("FlagReset", 2);
+        }
+    }
+
+    void FlagReset()
+    {
+        PlayerController._mpNotEnough = false;
     }
 }

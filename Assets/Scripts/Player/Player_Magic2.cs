@@ -43,5 +43,15 @@ public class Player_Magic : MonoBehaviour
             PlayerController._mp = PlayerController._mp - _mpConsumption1;
             Debug.Log("魔法2");
         }
+        else if (PlayerController._mp < _mpConsumption1)
+        {
+            PlayerController._mpNotEnough = true;
+            Invoke("FlagReset", 2);
+        }
+    }
+
+    void FlagReset()
+    {
+        PlayerController._mpNotEnough = false;
     }
 }

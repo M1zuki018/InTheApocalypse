@@ -23,7 +23,7 @@ public class Player_Skill1 : MonoBehaviour
         {
             _approachEnemy = collision.gameObject;
 
-            if (Input.GetKeyDown(KeyCode.C)&& _skillCount1 >= _skillCoolTime1)
+            if (Input.GetKeyDown(KeyCode.E)&& _skillCount1 >= _skillCoolTime1)
             {
                 _skillCount1 = 0;
                 enemyHp._enemyHp = enemyHp._enemyHp - 80;

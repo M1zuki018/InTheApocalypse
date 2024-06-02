@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     //MP関係
     int _maxMP = 150;
     public static int _mp;
+    public static bool _mpNotEnough;
     public GameObject _notEnoughMpObj; //MPが足りない時に出すテキスト
     int _mpPlus = 0;
 
@@ -36,12 +37,17 @@ public class PlayerController : MonoBehaviour
     public static int _avoidCoolTime = 1000;
 
     GameObject _skill1Area;
+    GameObject _magic1;
+    GameObject _magic2;
+    int _count;
 
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+
         _skill1Area = GameObject.Find("Skill1Area(Clone)");
+
         _initialPosition = this.transform.position; //初期位置にセット
 
         //HP・MPの初期化
@@ -61,7 +67,18 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            _skill1Area = GameObject.Find("Skill1Area(Clone)");
+            _count++;
+            Debug.Log(_count);
+            if(_count % 2 == 1)
+            {
+                _magic1 = GameObject.Find("Magic1(Clone)");
+                _magic2 = GameObject.Find("Magic2(Clone)");
+                Debug.Log(_magic1.name);
+            }
+            else
+            {
+                _skill1Area = GameObject.Find("Skill1Area(Clone)");
+            }
         }
 
         //ジャンプ
@@ -75,20 +92,35 @@ public class PlayerController : MonoBehaviour
         {
             PlayerAvoid();
         }
-        
-        //PlayerMagic1();
 
-        //スキル1の挙動
-        if (Input.GetKeyDown(KeyCode.C) && _skill1Area.activeSelf)
+        //Eキーを押したときの挙動
+        if (Input.GetKeyDown(KeyCode.E) && _count % 2 == 0)
         {
-            PlayerSkill1();
+            if (_skill1Area.activeSelf)
+            {
+                PlayerSkill1();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && _count % 2 == 1)
+        {
+            if (_magic1.activeSelf)
+            {
+                PlayerMagic();
+            }
+        }
+
+        //Rキーを押したときの処理
+        if (Input.GetKeyDown(KeyCode.R) && _count % 2 == 1)
+        {
+            if (_magic2.activeSelf)
+            {
+                PlayerMagic();
+            }
         }
         
-        AuthoritySkill();
+        AuthoritySkill(); //権限
+        MagicPoint(); //MP自動回復
 
-        MagicPoint();
-
-        
 
         /*
         //下に行きすぎたら初期位置に戻す
@@ -160,25 +192,20 @@ public class PlayerController : MonoBehaviour
         }
     }
  
-    /*
-    void PlayerMagic1() //魔法1
+    void PlayerMagic() //魔法発動時の処理
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        Debug.Log(_mpNotEnough);
+        if (_mpNotEnough == true)
         {
-            if (_mp >= _mpConsumption1)
-            {
-                Instantiate(_bulletPrefab, _muzzlePosition, Quaternion.identity);
-                _mp = _mp - _mpConsumption1;
-                Debug.Log("魔法1");
-            }
-            else
-            {
-                _notEnoughMpObj.SetActive(true);
-                Invoke("MpObjHidden", 3);
-            }
+            _notEnoughMpObj.SetActive(true);
+            Invoke("MpObjHidden", 3);
         }
     }
-    */
+
+    void MpObjHidden()
+    {
+        _notEnoughMpObj.SetActive(false);
+    }
 
     void PlayerSkill1() //スキル1・琴葉物理・突進スキルの挙動
     {
@@ -197,7 +224,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            _rb.AddForce(Vector2.left * 4.0f, ForceMode2D.Impulse);
+            _rb.AddForce(Vector2.left * 3.0f, ForceMode2D.Impulse);
             Debug.Log("敵に触れた");
         }
     }
