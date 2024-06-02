@@ -8,15 +8,15 @@ public class Player_Magic : MonoBehaviour
     [SerializeField] GameObject _bulletPrefab = default; //魔法のプレハブ
     Vector3 _muzzlePosition; //魔法が出る位置の座標
 
-    //与えられるダメージ量
-
     //MP関係
     public int _mpConsumption1; //魔法1の消費MP
+    GameObject _player;
 
     // Start is called before the first frame update
     void Start()
     {
-        _muzzlePosition = transform.position;
+        _player = GameObject.Find("Player");
+        _muzzlePosition = _player.transform.position;
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class Player_Magic : MonoBehaviour
         }
 
         // マズルの位置を取得する
-        _muzzlePosition = transform.position;
+        _muzzlePosition = _player.transform.position;
     }
 
     void MagicB()
@@ -46,7 +46,7 @@ public class Player_Magic : MonoBehaviour
         else if (PlayerController._mp < _mpConsumption1)
         {
             PlayerController._mpNotEnough = true;
-            Invoke("FlagReset", 2);
+            Invoke("FlagReset", 3);
         }
     }
 

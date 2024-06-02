@@ -9,7 +9,7 @@ public class MagicAController : MonoBehaviour
     /// <summary>íeÇÃê∂ë∂ä˙ä‘ÅiïbÅj</summary>
     [SerializeField] float _lifeTime = 5f;
 
-    float horizontal;
+    GameObject _approachEnemy;
 
     void Start()
     {
@@ -33,7 +33,18 @@ public class MagicAController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if (collision.TryGetComponent(out EnemyController enemyHp))
+        {
+            _approachEnemy = collision.gameObject;
+            enemyHp._enemyHp = enemyHp._enemyHp - 30;
+
+            if (enemyHp._enemyHp <= 0)
+            {
+                Destroy(_approachEnemy.gameObject);
+            }
+        }
+
+        if (collision.gameObject.tag == "Enemy")
         {
             Destroy(this.gameObject);
         }

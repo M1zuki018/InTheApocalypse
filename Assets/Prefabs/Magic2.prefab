@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 5026020369471331617, guid: 12faec5f43db00e439e983a6cf6331a9, type: 3}
-  _mpConsumption1: 60
+  _mpConsumption1: 30
