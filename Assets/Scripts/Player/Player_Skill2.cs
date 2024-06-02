@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_Skill2 : MonoBehaviour
 {
     GameObject _approachEnemy;
+
     public static int _skillCount2 = 6000;
     public static int _skillCoolTime2 = 6000;
 
@@ -30,5 +31,6 @@ public class Player_Skill2 : MonoBehaviour
                 Destroy(_approachEnemy.gameObject);
             }
         }
+
     }
 }

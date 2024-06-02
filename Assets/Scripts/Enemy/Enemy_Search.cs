@@ -6,7 +6,7 @@ public class Enemy_Search : MonoBehaviour
 {
     Transform _playerTr;
     Transform _enemyTr;
-    public GameObject _playerObj;
+    GameObject _playerObj;
     public GameObject _enemyObj;
     [SerializeField] float _speed = 2;
 
@@ -14,6 +14,7 @@ public class Enemy_Search : MonoBehaviour
 
     private void Start()
     {
+        _playerObj = GameObject.Find("Player");
         _playerTr = _playerObj.GetComponent<Transform>();
         _enemyTr = _enemyObj.GetComponent<Transform>();
     }

@@ -686,6 +686,10 @@ PrefabInstance:
       value: 4.96
       objectReference: {fileID: 0}
     - target: {fileID: 4575803162127624612, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: _enemyMaxHp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4575803162127624612, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
       propertyPath: _enemyHpSlider
       value: 
       objectReference: {fileID: 2088641785}
@@ -2488,6 +2492,75 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b0306f53a49e534bad872151732e97c, type: 3}
+--- !u!1001 &1421537275
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1303589302945165727, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: _playerObj
+      value: 
+      objectReference: {fileID: 2087854760}
+    - target: {fileID: 4575803162127624612, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: _enemyHp
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4575803162127624612, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: _enemyMaxHp
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518065979846676025, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518065979846676025, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518065979846676025, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518065979846676025, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518065979846676025, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518065979846676025, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518065979846676025, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518065979846676025, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518065979846676025, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6518065979846676025, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234043976033605272, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+      propertyPath: m_Name
+      value: Enemy (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
 --- !u!1 &1441030032
 GameObject:
   m_ObjectHideFlags: 0
@@ -3447,6 +3520,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2088641784}
   - component: {fileID: 2088641785}
+  - component: {fileID: 2088641786}
   m_Layer: 5
   m_Name: 'EnemyHPSlider '
   m_TagString: Untagged
@@ -3526,6 +3600,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2088641786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088641783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33127dd9876c5f40895e3c939853e43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 2087854760}
+  _enemyHpSlider: {fileID: 2088641785}
 --- !u!1 &2125263704
 GameObject:
   m_ObjectHideFlags: 0
@@ -3702,7 +3790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14107ee66cfd2224abead77da7127216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 2087854760}
 --- !u!4 &5917890870520663637
 Transform:
   m_ObjectHideFlags: 0
@@ -3799,3 +3886,4 @@ SceneRoots:
   - {fileID: 957998531}
   - {fileID: 683670278}
   - {fileID: 185527545}
+  - {fileID: 1421537275}
