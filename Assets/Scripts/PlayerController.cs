@@ -46,8 +46,6 @@ public class PlayerController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
 
-        _skill1Area = GameObject.Find("Skill1Area(Clone)");
-
         _initialPosition = this.transform.position; //初期位置にセット
 
         //HP・MPの初期化
@@ -65,22 +63,6 @@ public class PlayerController : MonoBehaviour
         // 入力を受け取る
         m_h = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            _count++;
-            Debug.Log(_count);
-            if(_count % 2 == 1)
-            {
-                _magic1 = GameObject.Find("Magic1(Clone)");
-                _magic2 = GameObject.Find("Magic2(Clone)");
-                Debug.Log(_magic1.name);
-            }
-            else
-            {
-                _skill1Area = GameObject.Find("Skill1Area(Clone)");
-            }
-        }
-
         //ジャンプ
         if (Input.GetButtonDown("Jump"))
         {
@@ -96,6 +78,11 @@ public class PlayerController : MonoBehaviour
         //Eキーを押したときの挙動
         if (Input.GetKeyDown(KeyCode.E) && _count % 2 == 0)
         {
+            if(_skill1Area == null)
+            {
+                _skill1Area = GameObject.Find("Skill1Area");
+            }
+
             if (_skill1Area.activeSelf)
             {
                 PlayerSkill1();
@@ -103,6 +90,12 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.E) && _count % 2 == 1)
         {
+            if (_skill1Area == null)
+            {
+                _magic1 = GameObject.Find("Magic1");
+                _magic2 = GameObject.Find("Magic2");
+            }
+
             if (_magic1.activeSelf)
             {
                 PlayerMagic();

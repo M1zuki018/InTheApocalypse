@@ -26,10 +26,6 @@ public class Player_Magic : MonoBehaviour
         {
             MagicB();
         }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Destroy(this.gameObject);
-        }
 
         // マズルの位置を取得する
         _muzzlePosition = _player.transform.position;

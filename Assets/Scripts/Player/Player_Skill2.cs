@@ -11,10 +11,6 @@ public class Player_Skill2 : MonoBehaviour
     private void Update()
     {
         _skillCount2++;
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Destroy(this.gameObject);
-        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
