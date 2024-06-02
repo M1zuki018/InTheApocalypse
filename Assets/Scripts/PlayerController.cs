@@ -76,19 +76,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Eキーを押したときの挙動
-        if (Input.GetKeyDown(KeyCode.E) && _count % 2 == 0)
-        {
-            if(_skill1Area == null)
-            {
-                _skill1Area = GameObject.Find("Skill1Area");
-            }
-
-            if (_skill1Area.activeSelf)
-            {
-                PlayerSkill1();
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.E) && _count % 2 == 1)
+        if (Input.GetKeyDown(KeyCode.E) && _count % 2 == 1)
         {
             if (_skill1Area == null)
             {
@@ -198,11 +186,6 @@ public class PlayerController : MonoBehaviour
     void MpObjHidden()
     {
         _notEnoughMpObj.SetActive(false);
-    }
-
-    void PlayerSkill1() //スキル1・琴葉物理・突進スキルの挙動
-    {
-        _rb.AddForce(Vector2.right * 10, ForceMode2D.Impulse);
     }
 
     void AuthoritySkill() //権限解放
