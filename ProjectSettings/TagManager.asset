@@ -8,6 +8,7 @@ TagManager:
   - Attack
   - Enemy
   - Sensor
+  - Crosshair
   layers:
   - Default
   - TransparentFX

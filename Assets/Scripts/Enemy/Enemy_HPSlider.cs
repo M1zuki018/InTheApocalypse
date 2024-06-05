@@ -42,8 +42,11 @@ public class Enemy_HPSlider : MonoBehaviour
 
     void GetDate() //ˆê”Ô‹ß‚¢“G‚ÌHP‚ğæ“¾‚µ‚ÄHPƒo[‚É”½‰f‚·‚é
     {
-        _nearestEnemy.TryGetComponent(out EnemyController enemyHp);
-        _enemyHpSlider.maxValue = enemyHp._enemyMaxHp;
-        _enemyHpSlider.value = enemyHp._enemyHp;
+        if (_nearestEnemy)
+        {
+            _nearestEnemy.TryGetComponent(out EnemyController enemyHp);
+            _enemyHpSlider.maxValue = enemyHp._enemyMaxHp;
+            _enemyHpSlider.value = enemyHp._enemyHp;
+        }
     }
 }

@@ -24,7 +24,7 @@ public class Enemy_Search : MonoBehaviour
         if(collision.gameObject.tag == "Player")//プレイヤーがセンサー内に入ってきたら
         {
             _search = true;
-            Debug.Log("反応中");
+            //Debug.Log("反応中");
         }
     }
 

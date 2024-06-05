@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float _movePower = 5f; //左右移動
-    [SerializeField] float _jumpPower = 15f; //ジャンプ
-    [SerializeField] float _avoidPower = 15f; //回避の距離
+
+
+    //移動系
+    [SerializeField] float _movePower = 13f; //左右移動
+    [SerializeField] float _jumpPower = 8f; //ジャンプ
+    [SerializeField] float _avoidPower = 5f; //回避の距離
     [SerializeField] bool _flipX = false; //左右反転させるかどうか
 
     Rigidbody2D _rb = default;
@@ -21,25 +24,22 @@ public class PlayerController : MonoBehaviour
     public static bool _facingLeft;
     public static bool _facingRight;
 
-    //プレイヤーの数値系
-    int _chara1MaxHP = 100;
+    //HP
+    int _chara1MaxHp = 100;
     public static int _chara1HP;
-
-    //MP関係
-    int _maxMP = 150;
-    public static int _mp;
-    public static bool _mpNotEnough;
-    public GameObject _notEnoughMpObj; //MPが足りない時に出すテキスト
-    int _mpPlus = 0;
 
     //回避
     public static int _avoidCount = 1000;
     public static int _avoidCoolTime = 1000;
 
+    GameObject _mpController;
+    EnvironmentMp mp;
+
     GameObject _skill1Area;
     GameObject _magic1;
     GameObject _magic2;
     int _count;
+    public static bool _magicMode;
 
 
     void Start()
@@ -48,11 +48,10 @@ public class PlayerController : MonoBehaviour
 
         _initialPosition = this.transform.position; //初期位置にセット
 
-        //HP・MPの初期化
-        _chara1HP = _chara1MaxHP;
-        _mp = _maxMP;
+        //HPの初期化
+        _chara1HP = _chara1MaxHp;
 
-        _notEnoughMpObj.SetActive(false);
+        _mpController = GameObject.Find("MpObj");
     }
 
     // Update is called once per frame
@@ -75,8 +74,22 @@ public class PlayerController : MonoBehaviour
             PlayerAvoid();
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            _count++;
+
+            if (_count % 2 == 1)
+            {
+                _magicMode = true;
+            }
+            else
+            {
+                _magicMode = false;
+            }
+        }
+
         //Eキーを押したときの挙動
-        if (Input.GetKeyDown(KeyCode.E) && _count % 2 == 1)
+        if (Input.GetKeyDown(KeyCode.E) && _magicMode)
         {
             if (_skill1Area == null)
             {
@@ -86,30 +99,24 @@ public class PlayerController : MonoBehaviour
 
             if (_magic1.activeSelf)
             {
-                PlayerMagic();
+                _mpController.TryGetComponent(out EnvironmentMp mp);
+                mp.PlayerMagic();
             }
         }
 
         //Rキーを押したときの処理
-        if (Input.GetKeyDown(KeyCode.R) && _count % 2 == 1)
+        if (Input.GetKeyDown(KeyCode.R) && _magicMode)
         {
             if (_magic2.activeSelf)
             {
-                PlayerMagic();
+                _mpController.TryGetComponent(out EnvironmentMp mp);
+                mp.PlayerMagic();
             }
         }
-        
+
         AuthoritySkill(); //権限
-        MagicPoint(); //MP自動回復
 
 
-        /*
-        //下に行きすぎたら初期位置に戻す
-        if (this.transform.position.y < -10f)
-        {
-            this.transform.position = _initialPosition;
-        }
-        */
 
         // 設定に応じて左右を反転させる
         if (_flipX)
@@ -120,9 +127,9 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerJump()
     {
-        
+
         _jampCount++; //スペースを押された回数をカウント
-        
+
         if (_jampCount < 2)
         {
             _rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
@@ -157,7 +164,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerAvoid() //回避。キーが押されたら呼ばれる
     {
-        if (_avoidCount>= _avoidCoolTime) //回避のクールタイム
+        if (_avoidCount >= _avoidCoolTime) //回避のクールタイム
         {
             _avoidCount = 0;
 
@@ -172,27 +179,12 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("回避");
         }
     }
- 
-    void PlayerMagic() //魔法発動時の処理
-    {
-        Debug.Log(_mpNotEnough);
-        if (_mpNotEnough == true)
-        {
-            _notEnoughMpObj.SetActive(true);
-            Invoke("MpObjHidden", 3);
-        }
-    }
-
-    void MpObjHidden()
-    {
-        _notEnoughMpObj.SetActive(false);
-    }
 
     void AuthoritySkill() //権限解放
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("権限解放");
+            //Debug.Log("権限解放");
         }
     }
 
@@ -201,18 +193,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             _rb.AddForce(Vector2.left * 3.0f, ForceMode2D.Impulse);
-            Debug.Log("敵に触れた");
+            //Debug.Log("敵に触れた");
         }
     }
-
-    void MagicPoint() //MPの自動回復
-    {
-        _mpPlus++;
-
-        if(_mpPlus % 200 == 0)
-        {
-            _mp++;
-        }
-    }
-
 }

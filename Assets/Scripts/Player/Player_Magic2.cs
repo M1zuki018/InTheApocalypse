@@ -12,11 +12,16 @@ public class Player_Magic : MonoBehaviour
     public int _mpConsumption1; //魔法1の消費MP
     GameObject _player;
 
+    GameObject _mpController;
+
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player");
         _muzzlePosition = _player.transform.position;
+
+        _mpController = GameObject.Find("MpObj");
+
     }
 
     // Update is called once per frame
@@ -33,21 +38,24 @@ public class Player_Magic : MonoBehaviour
 
     void MagicB()
     {
-        if (PlayerController._mp >= _mpConsumption1)
+        _mpController.TryGetComponent(out EnvironmentMp mp);
+
+        if (mp._mp >= _mpConsumption1)
         {
             Instantiate(_bulletPrefab, _muzzlePosition, Quaternion.identity);
-            PlayerController._mp = PlayerController._mp - _mpConsumption1;
-            Debug.Log("魔法2");
+            mp._mp = mp._mp - _mpConsumption1;
+            //Debug.Log("魔法1");
         }
-        else if (PlayerController._mp < _mpConsumption1)
+        else if (mp._mp < _mpConsumption1)
         {
-            PlayerController._mpNotEnough = true;
+            mp._mpNotEnough = true;
             Invoke("FlagReset", 3);
         }
     }
 
     void FlagReset()
     {
-        PlayerController._mpNotEnough = false;
+        _mpController.TryGetComponent(out EnvironmentMp mp);
+        mp._mpNotEnough = false;
     }
 }

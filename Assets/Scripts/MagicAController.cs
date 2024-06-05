@@ -15,6 +15,7 @@ public class MagicAController : MonoBehaviour
     {
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
         if (PlayerController._facingRight)
         {
             rb.velocity = Vector2.right * _speed; // ‰E•ûŒü‚É”ò‚Î‚·
@@ -27,6 +28,7 @@ public class MagicAController : MonoBehaviour
         {
             rb.velocity = Vector2.right * _speed;
         }
+
         // ¶‘¶ŠúŠÔ‚ªŒo‰ß‚µ‚½‚ç©•ª©g‚ğ”jŠü‚·‚é
         Destroy(this.gameObject, _lifeTime);
     }
