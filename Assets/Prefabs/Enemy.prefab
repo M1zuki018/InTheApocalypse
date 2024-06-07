@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1454217808750196836}
   - component: {fileID: 9016955310042681287}
   - component: {fileID: 4987918822655454310}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyAttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7415657429700565571}
   - component: {fileID: 2121363214309873158}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 2184572239873503792}
   - component: {fileID: 2787839585497867971}
   - component: {fileID: 1303589302945165727}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SearchSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7d50cb8efa34c4ab05cbe8468ab2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerObj: {fileID: 0}
   _enemyObj: {fileID: 8234043976033605272}
   _speed: 1
 --- !u!1 &8234043976033605272
@@ -271,7 +270,7 @@ GameObject:
   - component: {fileID: 7794527466855498453}
   - component: {fileID: 4575803162127624612}
   - component: {fileID: 5356203225518823220}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -395,9 +394,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c819f062084ce04f8584e2dc6e9a698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyHp: 100
-  _enemyHpSlider: {fileID: 0}
-  _enemyHpSliderObj: {fileID: 0}
+  _enemyMaxHp: 80
+  _enemyHp: 80
 --- !u!114 &5356203225518823220
 MonoBehaviour:
   m_ObjectHideFlags: 0

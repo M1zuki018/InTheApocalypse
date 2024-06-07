@@ -114,8 +114,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        AuthoritySkill(); //権限
-
 
 
         // 設定に応じて左右を反転させる
@@ -177,14 +175,6 @@ public class PlayerController : MonoBehaviour
                 _rb.AddForce(Vector2.left * _avoidPower, ForceMode2D.Impulse);
             }
             //Debug.Log("回避");
-        }
-    }
-
-    void AuthoritySkill() //権限解放
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            //Debug.Log("権限解放");
         }
     }
 

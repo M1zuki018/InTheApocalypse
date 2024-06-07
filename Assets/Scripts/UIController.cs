@@ -26,6 +26,6 @@ public class UIController : MonoBehaviour
         _hpSlider.value = (float)PlayerController._chara1HP;
         _avoidSlider.value = (float)PlayerController._avoidCount;
         _skill1Slider.value = (float)Player_Skill1._skillCount1;
-        _skill2Slider.value = (float)Player_Skill2._skillCount2;
+        _skill2Slider.value = (float)Player_Skill2._skillTimerCount2;
     }
 }

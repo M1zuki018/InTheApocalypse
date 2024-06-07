@@ -1,36 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Player_Skill2 : MonoBehaviour
 {
-    GameObject _approachEnemy;
+    [SerializeField] LayerMask _enemyLayer;
+    [SerializeField] Vector2 _skillBounds = Vector2.one;
 
-    public static int _skillCount2 = 6000;
-    public static int _skillCoolTime2 = 6000;
+    public static float _skillCoolTime2 = 6000f;
+    public static float _skillTimerCount2 = 6000f;
 
     private void Update()
     {
-        _skillCount2++;
+        // 経過時間の計測
+        _skillTimerCount2 += Time.deltaTime;
+
+        RaycastHit2D[] hitInfo;
+        hitInfo = Physics2D.BoxCastAll(transform.parent.position, _skillBounds, 0, Vector2.up, 100f, _enemyLayer, -10, 10);
+        TaskOfInsideBounds(hitInfo);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private static void TaskOfInsideBounds(RaycastHit2D[] hitInfo)
     {
-        if (collision.TryGetComponent(out EnemyController enemyHp))
+        if (hitInfo is not null)  /* hitInfo != null */
+        //  hitInfo はキャストの結果を返すので失敗したなら
+        //  Nullを返すからここで一度ヴァリデーション
         {
-            _approachEnemy = collision.gameObject;
-
-            if (Input.GetKeyDown(KeyCode.R) && _skillCount2 >= _skillCoolTime2)
+            if (Input.GetKeyDown(KeyCode.R) && _skillTimerCount2 >= _skillCoolTime2)
             {
-                _skillCount2 = 0;
-                enemyHp._enemyHp = enemyHp._enemyHp - 60;
-            }
+                // 範囲内の全てのオブジェクトに対して特定の操作　（ダメージ処理）
+                foreach (RaycastHit2D hit in hitInfo)
+                {
+                    Debug.Log($"{hit.transform.name} is Hit");
 
-            if (enemyHp._enemyHp <= 0)
-            {
-                Destroy(_approachEnemy.gameObject);
+                    // 敵かどうかここで保障
+                    if (hit.transform.TryGetComponent<EnemyController>(out var enemy))
+                    {
+                        enemy._enemyHp = enemy._enemyHp - 60;
+                        Debug.Log($"{hit.transform.name} is Damaged");
+
+                        if (enemy._enemyHp <= 0)
+                        {
+                            Destroy(hit.collider.gameObject);
+                        }
+                    }
+
+                }
+
+                // 全てのオブジェクトに対する処理が完了して初めてタイマーの初期化
+                _skillTimerCount2 = 0;
             }
         }
+    }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, _skillBounds);
     }
 }
