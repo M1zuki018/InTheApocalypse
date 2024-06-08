@@ -1,28 +1,33 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
+    #region Finish
     [SerializeField] GameObject _txtCtrl;
     TextController _textController;
+    InputController _inputController;
 
     [Header("Event1：スタート時のイベント")]
     public bool _event1;
-    [SerializeField] GameObject _playerObj;
-    [SerializeField] int _stopSeconds;
+    [SerializeField] int _event1StopSeconds;
 
     [Header("Event2：敵と遭遇")]
     bool _isFirst2;
     public bool _event2;
+    [SerializeField] int _event2StopSeconds;
     //敵をスポーンさせる
     [SerializeField] GameObject _enemyPrefab;
     [SerializeField] Vector3 _sponePosition;
     //カメラを動かす
+    #endregion
 
     [Header("Event3：操作のチュートリアル")]
     public bool _event3;
-    //パネルを表示する
+    [SerializeField] GameObject _event3PanelArea;
+    SpriteRenderer _event3Panel;
+    [SerializeField] Sprite[] _event3Panels; //パネルを表示する
+    int _panelIndex;
     //終わったら行動できるようにする
 
     [Header("Event4：敵が全滅したら会話を開始")]
@@ -40,10 +45,13 @@ public class EventManager : MonoBehaviour
     void Start()
     {
         _textController = _txtCtrl.GetComponent<TextController>();
+        _inputController = GetComponent<InputController>();
+
+        _event3Panel = _event3PanelArea.GetComponent<SpriteRenderer>();
 
         _event1 = true;
         StartCoroutine("Event1");
-        
+
     }
     void Update()
     {
@@ -52,24 +60,28 @@ public class EventManager : MonoBehaviour
             _isFirst2 = true;
             Event2();
         }
+
+        if (_event3)
+        {
+            Event3();
+        }
     }
 
-    //最初は動けないようにする
     IEnumerator Event1()
     {
-        PlayerController controller = _playerObj.GetComponent<PlayerController>();
-        controller.enabled = false; //プレイヤーコントローラーを無効化
-        
-        yield return new WaitForSeconds(_stopSeconds);
-        
-        controller.enabled = true;
-        
+        _inputController.PlayerStop();
+
+        yield return new WaitForSeconds(_event1StopSeconds);
+
+        _inputController.PlayerAwake();
+
         yield break;
     }
 
+    #region Event2
+
     public void Event2()
     {
-        Debug.Log("Event2 start");
         _textController.Event2Story();
         Instantiate(_enemyPrefab, _sponePosition, Quaternion.identity);
         StartCoroutine("Event2Coroutine");
@@ -77,21 +89,41 @@ public class EventManager : MonoBehaviour
 
     IEnumerator Event2Coroutine()
     {
-
-        PlayerController controller = _playerObj.GetComponent<PlayerController>();
-        controller.enabled = false; //プレイヤーコントローラーを無効化
+        _inputController.PlayerStop();
 
         EnemyController enemyController = _enemyPrefab.GetComponent<EnemyController>();
         enemyController.enabled = false;
 
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(_event2StopSeconds);
 
-        controller.enabled = true;
-        enemyController.enabled = true;
-        Destroy(GameObject.Find("Event2"));
+        _event3Panel.sprite = _event3Panels[0];
         _event3 = true;
+        Destroy(GameObject.Find("Event2"));
 
         yield break;
+    }
+    #endregion
+
+    void Event3()
+    {
+        if (_panelIndex >= _event3Panels.Length)
+        {
+            Destroy(_event3PanelArea);
+            _inputController.PlayerAwake();
+            EnemyController enemyController = _enemyPrefab.GetComponent<EnemyController>();
+            enemyController.enabled = true;
+            _event3 = false;
+        }
+        else 
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                _panelIndex++;
+                _event3Panel.sprite = _event3Panels[_panelIndex];
+                Debug.Log(_panelIndex);
+                Debug.Log(_event3Panel.sprite.name);
+            }
+        }
     }
 
 }
