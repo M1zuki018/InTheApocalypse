@@ -17,7 +17,6 @@ public class Player_Attack : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-
             // ìGÇ©Ç«Ç§Ç©Ç±Ç±Ç≈ï€è·
             if (hit.transform.TryGetComponent<EnemyController>(out var enemy))
             {
@@ -29,8 +28,6 @@ public class Player_Attack : MonoBehaviour
                     Destroy(hit.collider.gameObject);
                 }
             }
-
-
         }
 
     }

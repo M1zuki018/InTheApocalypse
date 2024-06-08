@@ -6,8 +6,8 @@ public class Player_Skill2 : MonoBehaviour
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] Vector2 _skillBounds = Vector2.one;
 
-    public static float _skillCoolTime2 = 6000f;
-    public static float _skillTimerCount2 = 6000f;
+    public static float _skillCoolTime2 = 45f;
+    public static float _skillTimerCount2 = 45f;
 
     private void Update()
     {

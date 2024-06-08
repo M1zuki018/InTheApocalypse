@@ -1,42 +1,78 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Skill1 : MonoBehaviour
 {
+
     GameObject _player;
     Rigidbody2D _playerRb;
-    GameObject _approachEnemy;
-    public static int _skillCount1 = 5000;
-    public static int _skillCoolTime1 = 5000;
+
+    [SerializeField] LayerMask _enemyLayer;
+    [SerializeField] Vector2 _skillBounds = Vector2.one;
+
+    public static float _skillCoolTime1 = 30f;
+    public static float _skillTimerCount1 = 30f;
 
     private void Start()
     {
         _player = GameObject.Find("Player");
         _playerRb = _player.GetComponent<Rigidbody2D>();
     }
+
     private void Update()
     {
-        _skillCount1++;
+        // 経過時間の計測
+        _skillTimerCount1 += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.E) && _skillTimerCount1 >= _skillCoolTime1)
+        {
+            _playerRb.AddForce(Vector2.right * 20, ForceMode2D.Impulse);
+        }
+
+        RaycastHit2D[] hitInfo;
+        hitInfo = Physics2D.BoxCastAll(transform.parent.position, _skillBounds, 0, Vector2.up, 1000f, _enemyLayer, -10, 10);
+        TaskOfInsideBounds(hitInfo);
+
+
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private static void TaskOfInsideBounds(RaycastHit2D[] hitInfo)
     {
-        if (collision.TryGetComponent(out EnemyController enemyHp))
+        if (hitInfo is not null)  /* hitInfo != null */
+        //  hitInfo はキャストの結果を返すので失敗したなら
+        //  Nullを返すからここで一度ヴァリデーション
         {
-            _approachEnemy = collision.gameObject;
-
-            if (Input.GetKeyDown(KeyCode.E)&& _skillCount1 >= _skillCoolTime1)
+            if (Input.GetKeyDown(KeyCode.E) && _skillTimerCount1 >= _skillCoolTime1)
             {
-                _skillCount1 = 0;
-                _playerRb.AddForce(Vector2.right * 10, ForceMode2D.Impulse);
-                enemyHp._enemyHp = enemyHp._enemyHp - 80;
-            }
+                // 範囲内の全てのオブジェクトに対して特定の操作　（ダメージ処理）
+                foreach (RaycastHit2D hit in hitInfo)
+                {
+                    Debug.Log($"{hit.transform.name} is Hit");
 
-            if (enemyHp._enemyHp <= 0)
-            {
-                Destroy(_approachEnemy.gameObject);
+                    // 敵かどうかここで保障
+                    if (hit.transform.TryGetComponent<EnemyController>(out var enemy))
+                    {
+                        enemy._enemyHp = enemy._enemyHp - 80;
+
+                        Debug.Log($"{hit.transform.name} is Damaged");
+
+                        if (enemy._enemyHp <= 0)
+                        {
+                            Destroy(hit.collider.gameObject);
+                        }
+                    }
+
+                }
+
+                // 全てのオブジェクトに対する処理が完了して初めてタイマーの初期化
+                _skillTimerCount1 = 0;
             }
         }
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, _skillBounds);
+    }
+
 }
