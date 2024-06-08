@@ -30,15 +30,23 @@ public class EventManager : MonoBehaviour
     int _panelIndex;
     //終わったら行動できるようにする
 
-    [Header("Event4：敵が全滅したら会話を開始")]
+    [Header("Event4：バトル①")]
     public bool _event4;
 
-    [Header("Event5：バトル②")]
+    [Header("Event5：バトル後の会話")]
     public bool _event5;
-    //敵を沸かせる
+    bool _isFirst5;
+    [SerializeField] int _event5StopSeconds;
 
     [Header("Event6：バトル③")]
     public bool _event6;
+    bool _isFirst6;
+    [SerializeField] Vector3 _sponePosition2;
+    [SerializeField] Vector3 _sponePosition3;
+    //敵を沸かせる
+
+    [Header("Event7：バトル③")]
+    public bool _event7;
     //敵を沸かせる
 
     // Start is called before the first frame update
@@ -64,6 +72,23 @@ public class EventManager : MonoBehaviour
         if (_event3)
         {
             Event3();
+        }
+
+        if(_event4)
+        {
+            Event4();
+        }
+
+        if (_event5 && !_isFirst5)
+        {
+            _isFirst5 = true;
+            Event5();
+        }
+
+        if (_event6 && !_isFirst6)
+        {
+            _isFirst6 = true;
+            Event6();
         }
     }
 
@@ -98,7 +123,7 @@ public class EventManager : MonoBehaviour
 
         _event3Panel.sprite = _event3Panels[0];
         _event3 = true;
-        Destroy(GameObject.Find("Event2"));
+        Destroy(GameObject.Find("Event2-5"));
 
         yield break;
     }
@@ -112,6 +137,7 @@ public class EventManager : MonoBehaviour
             _inputController.PlayerAwake();
             EnemyController enemyController = _enemyPrefab.GetComponent<EnemyController>();
             enemyController.enabled = true;
+            _event4 = true;
             _event3 = false;
         }
         else 
@@ -120,10 +146,53 @@ public class EventManager : MonoBehaviour
             {
                 _panelIndex++;
                 _event3Panel.sprite = _event3Panels[_panelIndex];
-                Debug.Log(_panelIndex);
-                Debug.Log(_event3Panel.sprite.name);
             }
         }
     }
 
+    void Event4()
+    {
+        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+
+        if(enemys.Length == 0)
+        {
+            _event5 = true;
+            _event4 = false;
+        }
+    }
+
+    #region Event5
+
+    public void Event5()
+    {
+        _textController.Event5Story();
+        StartCoroutine("Event5Coroutine");
+    }
+
+    IEnumerator Event5Coroutine()
+    {
+        _inputController.PlayerStop();
+
+        yield return new WaitForSeconds(_event5StopSeconds);
+
+        _inputController.PlayerAwake();
+        _event5 = false;
+
+        yield break;
+    }
+    #endregion
+
+    void Event6()
+    {
+        Instantiate(_enemyPrefab, _sponePosition2, Quaternion.identity);
+        Instantiate(_enemyPrefab, _sponePosition3, Quaternion.identity);
+
+        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+
+        if (enemys.Length == 0)
+        {
+            Destroy(GameObject.Find("Event6"));
+            _event6 = false;
+        }
+    }
 }

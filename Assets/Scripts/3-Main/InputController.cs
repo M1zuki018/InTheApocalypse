@@ -19,10 +19,9 @@ public class InputController : MonoBehaviour
     //“®‚¯‚È‚­‚·‚éEUŒ‚‚Å‚«‚È‚­‚·‚é
     //“G‚Ì“®‚«‚ğ~‚ß‚é
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-         _playerController = _player.GetComponent<PlayerController>();
+        _playerController = _player.GetComponent<PlayerController>();
         _attack = _player.GetComponentInChildren<Player_Attack>();
         _skill1 = _player.GetComponentInChildren<Player_Skill1>();
         _skill2 = _player.GetComponentInChildren<Player_Skill2>();

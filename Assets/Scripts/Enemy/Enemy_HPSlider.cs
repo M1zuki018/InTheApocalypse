@@ -20,6 +20,10 @@ public class Enemy_HPSlider : MonoBehaviour
         {
             _enemyHpSlider.gameObject.SetActive(false);
         }
+        else
+        {
+            _enemyHpSlider.gameObject.SetActive(true);
+        }
 
         GetDate();
     }

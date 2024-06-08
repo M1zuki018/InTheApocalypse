@@ -47,4 +47,11 @@ public class TextController : MonoBehaviour
         _textcount = 5;
         _number = 10;
     }
+
+    public void Event5Story()
+    {
+        _textbox.SetActive(true);
+        _textcount = 10;
+        _number = 18;
+    }
 }
