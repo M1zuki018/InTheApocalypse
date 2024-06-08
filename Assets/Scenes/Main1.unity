@@ -7276,7 +7276,7 @@ GameObject:
   - component: {fileID: 1907538801}
   - component: {fileID: 1907538803}
   m_Layer: 0
-  m_Name: Tutorial
+  m_Name: Event2
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7514,10 +7514,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e464ddae62811c4ca609fea2908d24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _txtCtrl: {fileID: 1144726504}
   _event1: 0
   _playerObj: {fileID: 219567234}
   _stopSeconds: 0
   _event2: 0
+  _enemyPrefab: {fileID: 8234043976033605272, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+  _sponePosition: {x: 19.9, y: -52, z: 0}
   _event3: 0
   _event4: 0
   _event5: 0

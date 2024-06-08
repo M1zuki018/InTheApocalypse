@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
+    [SerializeField] GameObject _txtCtrl;
+    TextController _textController;
+
     [Header("Event1：スタート時のイベント")]
     public bool _event1;
     [SerializeField] GameObject _playerObj;
     [SerializeField] int _stopSeconds;
 
     [Header("Event2：敵と遭遇")]
+    bool _isFirst2;
     public bool _event2;
     //敵をスポーンさせる
+    [SerializeField] GameObject _enemyPrefab;
+    [SerializeField] Vector3 _sponePosition;
     //カメラを動かす
-    //操作を止める
-    //終わったらコライダーを消す
-    //終わったらイベント3をtrueにする
 
     [Header("Event3：操作のチュートリアル")]
     public bool _event3;
@@ -36,14 +39,17 @@ public class EventManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _textController = _txtCtrl.GetComponent<TextController>();
+
         _event1 = true;
         StartCoroutine("Event1");
         
     }
     void Update()
     {
-        if (_event2)
+        if (_event2 && !_isFirst2)
         {
+            _isFirst2 = true;
             Event2();
         }
     }
@@ -64,7 +70,28 @@ public class EventManager : MonoBehaviour
     public void Event2()
     {
         Debug.Log("Event2 start");
+        _textController.Event2Story();
+        Instantiate(_enemyPrefab, _sponePosition, Quaternion.identity);
+        StartCoroutine("Event2Coroutine");
     }
 
+    IEnumerator Event2Coroutine()
+    {
+
+        PlayerController controller = _playerObj.GetComponent<PlayerController>();
+        controller.enabled = false; //プレイヤーコントローラーを無効化
+
+        EnemyController enemyController = _enemyPrefab.GetComponent<EnemyController>();
+        enemyController.enabled = false;
+
+        yield return new WaitForSeconds(10);
+
+        controller.enabled = true;
+        enemyController.enabled = true;
+        Destroy(GameObject.Find("Event2"));
+        _event3 = true;
+
+        yield break;
+    }
 
 }
