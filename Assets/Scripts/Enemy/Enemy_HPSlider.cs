@@ -8,9 +8,18 @@ public class Enemy_HPSlider : MonoBehaviour
 
     //ÉvÉåÉCÉÑÅ[Ç∆àÍî‘ãﬂÇ¢ìG
     private float _shortestDistance;
-    private GameObject _nearestEnemy;
+    GameObject _nearestEnemy;
     public GameObject _player;
     public Slider _enemyHpSlider;
+    GameObject _sliderBackground;
+    GameObject _sliderFillArea;
+
+    private void Start()
+    {
+        _sliderBackground = transform.GetChild(0).gameObject;
+        _sliderFillArea = transform.GetChild(1).gameObject;
+
+    }
 
     void Update()
     {
@@ -18,11 +27,13 @@ public class Enemy_HPSlider : MonoBehaviour
         
         if (_nearestEnemy == null)
         {
-            _enemyHpSlider.gameObject.SetActive(false);
+            _sliderBackground.SetActive(false);
+            _sliderFillArea.SetActive(false);
         }
         else
         {
-            _enemyHpSlider.gameObject.SetActive(true);
+            _sliderBackground.SetActive(true);
+            _sliderFillArea.SetActive(true);
         }
 
         GetDate();

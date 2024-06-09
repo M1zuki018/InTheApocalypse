@@ -22,6 +22,7 @@ public class TextController : MonoBehaviour
     SpriteRenderer _spriteRenderer;
     public GameObject _charaObj;
     [SerializeField] Sprite[] _chara;
+    string _nameIndex;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +30,11 @@ public class TextController : MonoBehaviour
         _spriteRenderer = _charaObj.GetComponent<SpriteRenderer>();
 
         _text.text = (_nameList[0] + Regex.Unescape(_textList[0]));
+        _nameIndex = _nameList[_namecount].ToString();
+        SpriteChange();
         _namecount++;
         _textcount++;
-        //SpriteChange();
+        
     }
 
     // Update is called once per frame
@@ -48,30 +51,32 @@ public class TextController : MonoBehaviour
             }
 
             _text.text = (_nameList[_namecount] + Regex.Unescape(_textList[_textcount]));
+            _nameIndex = _nameList[_namecount].ToString();
+            SpriteChange();
             _textcount++;
             _namecount++;
             _timeElapsed = 0.0f;
-            //SpriteChange();
+            
         }
     }
 
-    /*
+   
     void SpriteChange()
     {
-        if (_nameList[_namecount] == "ã’ót")
+        if (_nameIndex == "ã’ót")
         {
             _spriteRenderer.sprite = _chara[0];
         }
-        else if (_nameList[_namecount] == "ãøäÛ")
+        else if (_nameIndex == "ãøäÛ")
         {
             _spriteRenderer.sprite = _chara[1];
         }
-        else if (_nameList[_namecount] == "êm")
+        else if (_nameIndex == "êm")
         {
             _spriteRenderer.sprite= _chara[2];
         }
     }
-    */
+    
 
     public void Event2Story()
     {

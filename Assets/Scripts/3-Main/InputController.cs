@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,9 +15,9 @@ public class InputController : MonoBehaviour
     //Player_Magic2 _magic2;
     Player_AuthoritySkill _authortySkill;
 
-    //UŒ‚‚Å‚«‚È‚­‚·‚é
-    //“®‚¯‚È‚­‚·‚éEUŒ‚‚Å‚«‚È‚­‚·‚é
-    //“G‚Ì“®‚«‚ğ~‚ß‚é
+    //æ”»æ’ƒã§ããªãã™ã‚‹
+    //å‹•ã‘ãªãã™ã‚‹ãƒ»æ”»æ’ƒã§ããªãã™ã‚‹
+    //æ•µã®å‹•ãã‚’æ­¢ã‚ã‚‹
 
     private void Awake()
     {
@@ -29,6 +29,11 @@ public class InputController : MonoBehaviour
         _magic1 = _player.GetComponentInChildren<Player_Magic1>();
         //_magic2 = _player.GetComponentInChildren<Player_Magic2>();
         _authortySkill = _player.GetComponentInChildren<Player_AuthoritySkill>();
+    }
+
+    private void Start()
+    {
+        _authortySkill.enabled = false;
     }
 
     public void NonAttack()
@@ -50,7 +55,6 @@ public class InputController : MonoBehaviour
         _skillChange.enabled = true;
         _magic1.enabled = true;
         //_magic2.enabled = true;
-        _authortySkill.enabled = true;
     }
 
     public void PlayerStop()
@@ -62,7 +66,6 @@ public class InputController : MonoBehaviour
         _skillChange.enabled = false;
         _magic1.enabled = false;
         //_magic2.enabled = false;
-        _authortySkill.enabled = false;
     }
 
     public void PlayerAwake()
@@ -74,6 +77,10 @@ public class InputController : MonoBehaviour
         _skillChange.enabled = true;
         _magic1.enabled = true;
         //_magic2.enabled = true;
+    }
+
+    public void AuthortySkill()
+    {
         _authortySkill.enabled = true;
     }
 

@@ -8,6 +8,9 @@ public class EventManager : MonoBehaviour
     TextController _textController;
     InputController _inputController;
 
+    [SerializeField] GameObject _uiCtrl;
+    UIController _uiController;
+
     [Header("Event1：スタート時のイベント")]
     public bool _event1;
     [SerializeField] int _event1StopSeconds;
@@ -54,6 +57,7 @@ public class EventManager : MonoBehaviour
     {
         _textController = _txtCtrl.GetComponent<TextController>();
         _inputController = GetComponent<InputController>();
+        _uiController = _uiCtrl.GetComponent<UIController>();
 
         _event3Panel = _event3PanelArea.GetComponent<SpriteRenderer>();
 
@@ -122,6 +126,8 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(_event2StopSeconds);
 
         _event3Panel.sprite = _event3Panels[0];
+        _uiController.Group1();
+        _uiController.Group2();
         _event3 = true;
         Destroy(GameObject.Find("Event2-5"));
 
@@ -131,6 +137,12 @@ public class EventManager : MonoBehaviour
 
     void Event3()
     {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            _panelIndex++;
+
+        }
+
         if (_panelIndex >= _event3Panels.Length)
         {
             Destroy(_event3PanelArea);
@@ -139,15 +151,9 @@ public class EventManager : MonoBehaviour
             enemyController.enabled = true;
             _event4 = true;
             _event3 = false;
+            return;
         }
-        else 
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                _panelIndex++;
-                _event3Panel.sprite = _event3Panels[_panelIndex];
-            }
-        }
+            _event3Panel.sprite = _event3Panels[_panelIndex];
     }
 
     void Event4()
