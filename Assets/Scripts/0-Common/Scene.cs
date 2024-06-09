@@ -1,15 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Scene : MonoBehaviour
 {
 
-    [SerializeField] private string _loadScene;
+    [SerializeField] string _loadScene;
 
     public void SceneChange()
     {
+        if (_loadScene == string.Empty )
+        {
+            Debug.Log("_loadScene is not set.");
+            return;
+        }
         SceneManager.LoadScene(_loadScene);
     }
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpriteController : MonoBehaviour
@@ -11,12 +10,17 @@ public class SpriteController : MonoBehaviour
 
     GameObject _sceneChanger;
     OpningSceneChange _sceneChange;
+    GameObject _seObj;
+    SEController _seController;
 
     // Start is called before the first frame update
     void Start()
     {
         _sceneChanger = GameObject.Find("SceneChanger");
         _sceneChange = _sceneChanger.GetComponent<OpningSceneChange>();
+
+        _seObj = GameObject.Find("SE");
+        _seController = _seObj.GetComponent<SEController>();
 
         _sprite = GetComponent<SpriteRenderer>();
         _sprite.sprite = _sprites[0];
@@ -25,16 +29,20 @@ public class SpriteController : MonoBehaviour
 
     IEnumerator SpriteChange()
     {
-        if (_spriteIndex == _sprites.Length)
-        {
-            _sceneChange.TimeLag();
-            yield break;
-        }
+
         _sprite.sprite = _sprites[_spriteIndex];
 
         yield return new WaitForSeconds(5.0f);
 
         _spriteIndex++; //画像を更新
+        if (_spriteIndex == _sprites.Length)
+        {
+            _sceneChange.TimeLag();
+            yield break;
+        }
+
+        _seController.Opning();
+
         StartCoroutine("SpriteChange");
     }
 }
