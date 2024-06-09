@@ -5723,8 +5723,8 @@ MonoBehaviour:
   _charaObj: {fileID: 1010835578}
   _chara:
   - {fileID: 21300000, guid: 51369e8b94bceb548b86d5e1538545a2, type: 3}
-  - {fileID: 21300000, guid: 090926c3651f6234c9613aa4ea9dc5f3, type: 3}
-  - {fileID: 21300000, guid: 0c50a1e2bdd3c3741a6ecfbb4db97438, type: 3}
+  - {fileID: 21300000, guid: 1564632cc755d4541982558ec0384b41, type: 3}
+  - {fileID: 21300000, guid: 416bd377c3258e248bf3e3cd9cfeb21c, type: 3}
   _nameList:
   - "\u7434\u8449"
   - "\u97FF\u5E0C"
