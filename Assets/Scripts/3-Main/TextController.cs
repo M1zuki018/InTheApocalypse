@@ -83,8 +83,19 @@ public class TextController : MonoBehaviour
             _spriteRenderer.sprite = _chara[2];
         }
     }
+    public void Enabled()
+    {
+        _textArea.SetActive(false);
+    }
+
+    public void Set()
+    {
+        _textArea.SetActive(true);
+    }
+
     #endregion
 
+    #region Main1
     public void Event2Story()
     {
         _textArea.SetActive(true); //オブジェクトを表示
@@ -99,5 +110,15 @@ public class TextController : MonoBehaviour
         _textcount = 10;
         _namecount = 10;
         _number = 18;
+    }
+
+    #endregion
+
+    public void ZeppaStory()
+    {
+        _textArea.SetActive(true);
+        _textcount = 0;
+        _namecount = 0;
+        _number = 5;
     }
 }
