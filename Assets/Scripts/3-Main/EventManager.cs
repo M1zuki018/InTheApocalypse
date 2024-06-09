@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    #region Finish
+    #region 宣言
     [SerializeField] GameObject _txtCtrl;
     TextController _textController;
     InputController _inputController;
@@ -12,59 +12,75 @@ public class EventManager : MonoBehaviour
     UIController _uiController;
 
     [Header("Event1：スタート時のイベント")]
-    public bool _event1;
     [SerializeField] int _event1StopSeconds;
 
     [Header("Event2：敵と遭遇")]
     bool _isFirst2;
     public bool _event2;
     [SerializeField] int _event2StopSeconds;
-    //敵をスポーンさせる
     [SerializeField] GameObject _enemyPrefab;
     [SerializeField] Vector3 _sponePosition;
-    //カメラを動かす
-    #endregion
+    GameObject _eventZone2;
 
     [Header("Event3：操作のチュートリアル")]
-    public bool _event3;
-    [SerializeField] GameObject _event3PanelArea;
+    bool _event3;
+    GameObject _event3PanelArea;
     SpriteRenderer _event3Panel;
     [SerializeField] Sprite[] _event3Panels; //パネルを表示する
     int _panelIndex;
-    //終わったら行動できるようにする
 
     [Header("Event4：バトル①")]
-    public bool _event4;
+    bool _event4;
+    GameObject _eventZone4;
 
     [Header("Event5：バトル後の会話")]
-    public bool _event5;
+    bool _event5;
     bool _isFirst5;
     [SerializeField] int _event5StopSeconds;
 
-    [Header("Event6：バトル③")]
+    [Header("Event6：バトル②")]
     public bool _event6;
     bool _isFirst6;
     [SerializeField] Vector3 _sponePosition2;
     [SerializeField] Vector3 _sponePosition3;
-    //敵を沸かせる
+    GameObject _event6Col1;
+    GameObject _event6Col2;
 
     [Header("Event7：バトル③")]
     public bool _event7;
     //敵を沸かせる
 
-    // Start is called before the first frame update
+    #endregion
+
     void Start()
+    {
+        GetComponents();
+        Initialization();
+        StartCoroutine("Event1");
+    }
+
+    void GetComponents() //componentを取得してくる
     {
         _textController = _txtCtrl.GetComponent<TextController>();
         _inputController = GetComponent<InputController>();
         _uiController = _uiCtrl.GetComponent<UIController>();
 
+        _event3PanelArea = GameObject.Find("Event3SpriteArea");
         _event3Panel = _event3PanelArea.GetComponent<SpriteRenderer>();
 
-        _event1 = true;
-        StartCoroutine("Event1");
-
+        _eventZone2 = GameObject.Find("Event2-5");
+        _eventZone4 = GameObject.Find("Event4");
+        _event6Col1 = GameObject.Find("Event6col1");
+        _event6Col2 = GameObject.Find("Event6col2");
     }
+
+    void Initialization()
+    {
+        _eventZone4.SetActive(false);
+        _event6Col1.SetActive(false);
+        _event6Col2.SetActive(false);
+    }
+
     void Update()
     {
         if (_event2 && !_isFirst2)
@@ -78,7 +94,7 @@ public class EventManager : MonoBehaviour
             Event3();
         }
 
-        if(_event4)
+        if (_event4)
         {
             Event4();
         }
@@ -89,9 +105,16 @@ public class EventManager : MonoBehaviour
             Event5();
         }
 
-        if (_event6 && !_isFirst6)
+        if (_event6)
         {
-            _isFirst6 = true;
+            if (!_isFirst6)
+            {
+                Instantiate(_enemyPrefab, _sponePosition2, Quaternion.identity);
+                Instantiate(_enemyPrefab, _sponePosition3, Quaternion.identity);
+                _event6Col1.SetActive(true);
+                _event6Col2.SetActive(true);
+                _isFirst6 = true;
+            }
             Event6();
         }
     }
@@ -129,13 +152,13 @@ public class EventManager : MonoBehaviour
         _uiController.Group1();
         _uiController.Group2();
         _event3 = true;
-        Destroy(GameObject.Find("Event2-5"));
+        Destroy(_eventZone2);
 
         yield break;
     }
     #endregion
 
-    void Event3()
+    void Event3() //操作のチュートリアルを表示する
     {
         if (Input.GetButtonDown("Fire1"))
         {
@@ -149,24 +172,27 @@ public class EventManager : MonoBehaviour
             _inputController.PlayerAwake();
             EnemyController enemyController = _enemyPrefab.GetComponent<EnemyController>();
             enemyController.enabled = true;
+
+            _eventZone4.SetActive(true);
             _event4 = true;
             _event3 = false;
             return;
         }
-            _event3Panel.sprite = _event3Panels[_panelIndex];
+        _event3Panel.sprite = _event3Panels[_panelIndex];
     }
 
-    void Event4()
+    void Event4() //バトル
     {
         GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
-        if(enemys.Length == 0)
+        if (enemys.Length == 0)
         {
+            Destroy(_eventZone4);
             _event5 = true;
             _event4 = false;
         }
     }
-
+   
     #region Event5
 
     public void Event5()
@@ -188,11 +214,8 @@ public class EventManager : MonoBehaviour
     }
     #endregion
 
-    void Event6()
+    void Event6() //通常戦闘
     {
-        Instantiate(_enemyPrefab, _sponePosition2, Quaternion.identity);
-        Instantiate(_enemyPrefab, _sponePosition3, Quaternion.identity);
-
         GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
         if (enemys.Length == 0)
