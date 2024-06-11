@@ -31,7 +31,7 @@ public class Main2_EventManager : MonoBehaviour
     [SerializeField] int _zeppaEventStopSeconds3;
     [SerializeField] Vector3 _sponePosition2;
     [SerializeField] GameObject _zeppaPanel;
-  //GameObject _zeppaEventCol1;
+    GameObject _zeppaEventCol;
   //GameObject _zeppaEventCol2;
 
     [Header("âÔòbÉVÅ[Éì")]
@@ -61,14 +61,13 @@ public class Main2_EventManager : MonoBehaviour
 
         _battle1Col1 = GameObject.Find("Battle1Col1");
         _battle1Col2 = GameObject.Find("Battle1Col2");
-   //   _zeppaEventCol1 = GameObject.Find("ZeppaEventCol1");
+        _zeppaEventCol = GameObject.Find("ZeppaEvent");
    //   _zeppaEventCol2 = GameObject.Find("ZeppaEventCol2");
     }
 
     void Initialization()
     {
         _battle1Col1.SetActive(false);
-  //    _zeppaEventCol1.SetActive(false);
         _textController.Enabled();
         _textController.enabled =false;
     }
@@ -101,6 +100,8 @@ public class Main2_EventManager : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
+                _zeppaPanel.SetActive(false);
+                Destroy(_zeppaEventCol);
                 StartCoroutine("ZeppaEvent2");
                 _explanation = false;
             }

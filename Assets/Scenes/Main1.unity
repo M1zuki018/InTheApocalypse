@@ -1097,7 +1097,7 @@ Transform:
   m_GameObject: {fileID: 219567234}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71, y: -51.9, z: -0.24}
+  m_LocalPosition: {x: -7.5, y: -2.543, z: -0.24}
   m_LocalScale: {x: 1, y: 1, z: 0.2827}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2844,7 +2844,7 @@ Transform:
   m_GameObject: {fileID: 676233037}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 72.75, y: -51.15, z: -10.24}
+  m_LocalPosition: {x: -5.75, y: -1.793, z: -10.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7541,7 +7541,7 @@ Transform:
   m_GameObject: {fileID: 1763114380}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 72.75, y: -51.15, z: -10.24}
+  m_LocalPosition: {x: -5.75, y: -1.793, z: -10.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8544,9 +8544,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _txtCtrl: {fileID: 1144726504}
   _uiCtrl: {fileID: 1243883866}
-  _event1StopSeconds: 1
+  _event1StopSeconds: 20
   _event2: 0
-  _event2StopSeconds: 1
+  _event2StopSeconds: 20
   _enemyPrefab: {fileID: 8234043976033605272, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
   _sponePosition: {x: 19.9, y: -52, z: 0}
   _event3Panels:

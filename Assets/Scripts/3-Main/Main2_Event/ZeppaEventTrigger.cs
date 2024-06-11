@@ -14,7 +14,7 @@ public class ZeppaEventTrigger : MonoBehaviour
         _eventManager = _eventManagerObj.GetComponent<Main2_EventManager>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         _eventManager._zeppaEvent = true;
     }
