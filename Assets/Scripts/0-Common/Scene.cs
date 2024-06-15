@@ -23,4 +23,18 @@ public class Scene : MonoBehaviour
         Invoke("SceneChange", 1);
     }
 
+    public void Main2SceneChange()
+    {
+        GameObject audioObj = GameObject.Find("Audio");
+        DontDestroyOnLoad(audioObj);
+        Invoke("SceneChange", 1);
+    }
+
+    public void Main3SceneChange()
+    {
+        //GameObject audioObj = GameObject.Find("Audio");
+        //Destroy(audioObj);
+        Invoke("SceneChange", 1);
+    }
+
 }

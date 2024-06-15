@@ -19,7 +19,7 @@ public class Player_SkillChange : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             SkillSet();
         }

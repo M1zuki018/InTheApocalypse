@@ -17,6 +17,6 @@ public class SceneChanger : MonoBehaviour
     {
         _fadePanel.SetActive(true);
         _animator.Play("MainChange");
-        _scene.MainSceneChange();
+        _scene.Main2SceneChange();
     }
 }

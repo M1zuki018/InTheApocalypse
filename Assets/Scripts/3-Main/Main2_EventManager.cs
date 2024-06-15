@@ -18,6 +18,7 @@ public class Main2_EventManager : MonoBehaviour
     bool _isFirst1;
     [SerializeField] GameObject _enemyPrefab;
     [SerializeField] Vector3 _sponePosition;
+    [SerializeField] Vector3 _sponePosition2;
     GameObject _battle1Col1;
     GameObject _battle1Col2;
 
@@ -29,13 +30,16 @@ public class Main2_EventManager : MonoBehaviour
     [SerializeField] int _zeppaEventStopSeconds;
     [SerializeField] int _zeppaEventStopSeconds2;
     [SerializeField] int _zeppaEventStopSeconds3;
-    [SerializeField] Vector3 _sponePosition2;
+    [SerializeField] Vector3 _sponePosition3;
+    [SerializeField] Vector3 _sponePosition4;
+    [SerializeField] Vector3 _sponePosition5;
+    [SerializeField] Vector3 _sponePosition6;
+    [SerializeField] Vector3 _sponePosition7;
     [SerializeField] GameObject _zeppaPanel;
     GameObject _zeppaEventCol;
   //GameObject _zeppaEventCol2;
 
     [Header("会話シーン")]
-    bool _talk;
     [SerializeField] int _talkStopSeconds;
 
     //[Header("Buttle2")]
@@ -82,7 +86,7 @@ public class Main2_EventManager : MonoBehaviour
                 _uiController.Group1();
                 _uiController.Group2();
                 Instantiate(_enemyPrefab, _sponePosition, Quaternion.identity);
-                Instantiate(_enemyPrefab, _sponePosition, Quaternion.identity);
+                Instantiate(_enemyPrefab, _sponePosition2, Quaternion.identity);
                 _battle1Col1.SetActive(true);
                 _battle1Col2.SetActive(true);
                 _isFirst1 = true;
@@ -112,11 +116,6 @@ public class Main2_EventManager : MonoBehaviour
             ZeppaBattle();
         }
 
-        if(_talk)
-        {
-            StartCoroutine("Talk");
-        }
-
     }
     void Battle1() //通常戦闘
     {
@@ -139,11 +138,11 @@ public class Main2_EventManager : MonoBehaviour
         yield return new WaitForSeconds(_zeppaEventStopSeconds);
 
         //敵を出現させる
-        Instantiate(_enemyPrefab, _sponePosition2, Quaternion.identity);
-        Instantiate(_enemyPrefab, _sponePosition2, Quaternion.identity);
-        Instantiate(_enemyPrefab, _sponePosition2, Quaternion.identity);
-        Instantiate(_enemyPrefab, _sponePosition2, Quaternion.identity);
-        Instantiate(_enemyPrefab, _sponePosition2, Quaternion.identity);
+        Instantiate(_enemyPrefab, _sponePosition3, Quaternion.identity);
+        Instantiate(_enemyPrefab, _sponePosition4, Quaternion.identity);
+        Instantiate(_enemyPrefab, _sponePosition5, Quaternion.identity);
+        Instantiate(_enemyPrefab, _sponePosition6, Quaternion.identity);
+        Instantiate(_enemyPrefab, _sponePosition7, Quaternion.identity);
 
         //ストーリーが進む
 
@@ -174,8 +173,8 @@ public class Main2_EventManager : MonoBehaviour
 
         if (enemys.Length == 0)
         {
-            _talk = true;
             _zeppaBattle = false;
+            StartCoroutine("Talk");
         }
     }
 
