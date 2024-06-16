@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Traning.unity
     guid: 7405e66f5d7d2214892922ca625127aa
+  - enabled: 1
+    path: Assets/Scenes/Date.unity
+    guid: 5e1eb03e66d88b24c959982ca5f79f76
   m_configObjects: {}
