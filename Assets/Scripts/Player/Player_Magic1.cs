@@ -15,6 +15,9 @@ public class Player_Magic1 : MonoBehaviour
 
     GameObject _mpController;
 
+    GameObject _seObj;
+    Main1_SEController _seController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +25,9 @@ public class Player_Magic1 : MonoBehaviour
         _muzzlePosition = _player.transform.position;
 
         _mpController = GameObject.Find("MpObj");
-        
+
+        _seObj = GameObject.Find("SE");
+        _seController = _seObj.GetComponent<Main1_SEController>();
     }
 
     // Update is called once per frame
@@ -43,6 +48,7 @@ public class Player_Magic1 : MonoBehaviour
 
         if (mp._mp >= _mpConsumption1)
         {
+            _seController.Magic1();
             Instantiate(_bulletPrefab, _muzzlePosition, Quaternion.identity);
             mp._mp = mp._mp - _mpConsumption1;
             //Debug.Log("魔法1");

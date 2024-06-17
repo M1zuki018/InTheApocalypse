@@ -10,10 +10,15 @@ public class Player_Magic : MonoBehaviour
     public int _mpConsumption1; //魔法1の消費MP
     GameObject _mpController;
 
+    GameObject _seObj;
+    Main1_SEController _seController;
+
     // Start is called before the first frame update
     void Start()
     {
         _mpController = GameObject.Find("MpObj");
+        _seObj = GameObject.Find("SE");
+        _seController = _seObj.GetComponent<Main1_SEController>();
 
     }
 
@@ -34,6 +39,7 @@ public class Player_Magic : MonoBehaviour
         if (mp._mp >= _mpConsumption1 || PlayerController._chara1HP >= 100)
         {
             mp._mp = mp._mp - _mpConsumption1;
+            _seController.Magic2();
             PlayerController._chara1HP = PlayerController._chara1HP + 10;
             //Debug.Log("魔法1");
         }

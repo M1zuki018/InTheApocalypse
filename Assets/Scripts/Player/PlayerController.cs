@@ -41,10 +41,16 @@ public class PlayerController : MonoBehaviour
     int _count;
     public static bool _magicMode;
 
+    GameObject _seObj;
+    Main1_SEController _seController;
+
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+
+        _seObj = GameObject.Find("SE");
+        _seController = _seObj.GetComponent<Main1_SEController>();
 
         _initialPosition = this.transform.position; //初期位置にセット
 
@@ -77,6 +83,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             _count++;
+            _seController.StateChange();
 
             if (_count % 2 == 1)
             {
@@ -131,6 +138,7 @@ public class PlayerController : MonoBehaviour
         if (_jampCount < 2)
         {
             _rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
+            _seController.Jump();
 
         }
         if (Player_Sensor._touchGround) //地面に触れたらカウントをリセットする
@@ -165,6 +173,7 @@ public class PlayerController : MonoBehaviour
         if (_avoidCount >= _avoidCoolTime) //回避のクールタイム
         {
             _avoidCount = 0;
+            _seController.Avoid();
 
             if (_facingLeft == true)
             {

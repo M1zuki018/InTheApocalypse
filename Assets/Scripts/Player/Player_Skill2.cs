@@ -1,4 +1,5 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player_Skill2 : MonoBehaviour
@@ -9,15 +10,33 @@ public class Player_Skill2 : MonoBehaviour
     public static float _skillCoolTime2 = 45f;
     public static float _skillTimerCount2 = 45f;
 
+    GameObject _seObj;
+    Main1_SEController _seController;
+
+    private void Start()
+    {
+        _seObj = GameObject.Find("SE");
+        _seController = _seObj.GetComponent<Main1_SEController>();
+
+    }
     private void Update()
     {
+       
         // 経過時間の計測
         _skillTimerCount2 += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.R) && _skillTimerCount2 >= _skillCoolTime2)
+        {
+            _seController.Skill2();
+        }
 
         RaycastHit2D[] hitInfo;
         hitInfo = Physics2D.BoxCastAll(transform.parent.position, _skillBounds, 0, Vector2.up, 100f, _enemyLayer, -10, 10);
         TaskOfInsideBounds(hitInfo);
     }
+
+   
+
 
     private static void TaskOfInsideBounds(RaycastHit2D[] hitInfo)
     {
@@ -27,6 +46,7 @@ public class Player_Skill2 : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R) && _skillTimerCount2 >= _skillCoolTime2)
             {
+
                 // 範囲内の全てのオブジェクトに対して特定の操作　（ダメージ処理）
                 foreach (RaycastHit2D hit in hitInfo)
                 {

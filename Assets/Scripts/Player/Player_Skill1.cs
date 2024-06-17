@@ -12,10 +12,15 @@ public class Player_Skill1 : MonoBehaviour
     public static float _skillCoolTime1 = 30f;
     public static float _skillTimerCount1 = 30f;
 
+    GameObject _seObj;
+    Main1_SEController _seController;
+
     private void Start()
     {
         _player = GameObject.Find("Player");
         _playerRb = _player.GetComponent<Rigidbody2D>();
+        _seObj = GameObject.Find("SE");
+        _seController = _seObj.GetComponent<Main1_SEController>();
     }
 
     private void Update()
@@ -25,6 +30,7 @@ public class Player_Skill1 : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && _skillTimerCount1 >= _skillCoolTime1)
         {
+            _seController.Skill1();
             _playerRb.AddForce(Vector2.right * 20, ForceMode2D.Impulse);
         }
 

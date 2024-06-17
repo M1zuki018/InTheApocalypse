@@ -5,10 +5,24 @@ public class Player_AuthoritySkill : MonoBehaviour
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] Vector2 _skillBounds = Vector2.one;
 
+    GameObject _seObj;
+    Main1_SEController _seController;
+
     //使用条件　宝石アイコンを消して使う
+
+    private void Start()
+    {
+        _seObj = GameObject.Find("SE");
+        _seController = _seObj.GetComponent<Main1_SEController>();
+    }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _seController.AuthoritySkill();
+        }
+
         RaycastHit2D[] hitInfo;
         hitInfo = Physics2D.BoxCastAll(transform.parent.position, _skillBounds, 0, Vector2.up, 100f, _enemyLayer, -10, 10);
         TaskOfInsideBounds(hitInfo);
