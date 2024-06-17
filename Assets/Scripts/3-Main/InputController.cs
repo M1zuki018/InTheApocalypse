@@ -12,7 +12,7 @@ public class InputController : MonoBehaviour
     Player_Skill2 _skill2;
     Player_SkillChange _skillChange;
     Player_Magic1 _magic1;
-    //Player_Magic2 _magic2;
+    Player_Magic2 _magic2;
     Player_AuthoritySkill _authortySkill;
 
     //攻撃できなくする
@@ -27,7 +27,7 @@ public class InputController : MonoBehaviour
         _skill2 = _player.GetComponentInChildren<Player_Skill2>();
         _skillChange = _player.GetComponentInChildren<Player_SkillChange>();
         _magic1 = _player.GetComponentInChildren<Player_Magic1>();
-        //_magic2 = _player.GetComponentInChildren<Player_Magic2>();
+        _magic2 = _player.GetComponentInChildren<Player_Magic2>();
         _authortySkill = _player.GetComponentInChildren<Player_AuthoritySkill>();
     }
 
@@ -43,7 +43,7 @@ public class InputController : MonoBehaviour
         _skill2.enabled = false;   
         _skillChange.enabled = false;
         _magic1.enabled = false;
-        //_magic2.enabled = false;
+        _magic2.enabled = false;
         _authortySkill.enabled = false;
     }
 
@@ -54,7 +54,7 @@ public class InputController : MonoBehaviour
         _skill2.enabled = true;
         _skillChange.enabled = true;
         _magic1.enabled = true;
-        //_magic2.enabled = true;
+        _magic2.enabled = true;
     }
 
     public void PlayerStop()
@@ -65,7 +65,7 @@ public class InputController : MonoBehaviour
         _skill2.enabled = false;
         _skillChange.enabled = false;
         _magic1.enabled = false;
-        //_magic2.enabled = false;
+        _magic2.enabled = false;
     }
 
     public void PlayerAwake()
@@ -76,7 +76,7 @@ public class InputController : MonoBehaviour
         _skill2.enabled = true;
         _skillChange.enabled = true;
         _magic1.enabled = true;
-        //_magic2.enabled = true;
+        _magic2.enabled = true;
     }
 
     public void AuthortySkill()

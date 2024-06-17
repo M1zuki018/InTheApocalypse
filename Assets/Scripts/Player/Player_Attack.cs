@@ -20,7 +20,7 @@ public class Player_Attack : MonoBehaviour
             // ìGÇ©Ç«Ç§Ç©Ç±Ç±Ç≈ï€è·
             if (hit.transform.TryGetComponent<EnemyController>(out var enemy))
             {
-                enemy._enemyHp = enemy._enemyHp - 20;
+                enemy._enemyHp = enemy._enemyHp - 5;
                 Debug.Log($"{hit.transform.name} is Damaged");
 
                 if (enemy._enemyHp <= 0)

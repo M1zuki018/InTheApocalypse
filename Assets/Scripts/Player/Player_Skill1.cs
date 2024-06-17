@@ -9,8 +9,10 @@ public class Player_Skill1 : MonoBehaviour
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] Vector2 _skillBounds = Vector2.one;
 
-    public static float _skillCoolTime1 = 30f;
-    public static float _skillTimerCount1 = 30f;
+    public static float _skillCoolTime1 = 20f;
+    public static float _skillTimerCount1 = 20f;
+
+    [SerializeField] int _charge = 15; //ìÀêiéûâ¡Ç¶ÇÈóÕ
 
     GameObject _seObj;
     Main1_SEController _seController;
@@ -30,8 +32,16 @@ public class Player_Skill1 : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && _skillTimerCount1 >= _skillCoolTime1)
         {
+            
             _seController.Skill1();
-            _playerRb.AddForce(Vector2.right * 20, ForceMode2D.Impulse);
+            if (PlayerController._facingRight)
+            {
+                _playerRb.AddForce(Vector2.right * _charge, ForceMode2D.Impulse);
+            }
+            else if (PlayerController._facingLeft)
+            {
+                _playerRb.AddForce(Vector2.left * _charge, ForceMode2D.Impulse);
+            }
         }
 
         RaycastHit2D[] hitInfo;
@@ -57,7 +67,7 @@ public class Player_Skill1 : MonoBehaviour
                     // ìGÇ©Ç«Ç§Ç©Ç±Ç±Ç≈ï€è·
                     if (hit.transform.TryGetComponent<EnemyController>(out var enemy))
                     {
-                        enemy._enemyHp = enemy._enemyHp - 80;
+                        enemy._enemyHp = enemy._enemyHp - 60;
 
                         Debug.Log($"{hit.transform.name} is Damaged");
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -21,6 +22,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] GameObject _enemyPrefab;
     [SerializeField] Vector3 _sponePosition;
     GameObject _eventZone2;
+    GameObject _enemySensor;
 
     [Header("Event3：操作のチュートリアル")]
     bool _event3;
@@ -136,15 +138,14 @@ public class EventManager : MonoBehaviour
     {
         _textController.Event2Story();
         Instantiate(_enemyPrefab, _sponePosition, Quaternion.identity);
+        _enemySensor = _enemyPrefab.transform.GetChild(0).gameObject;
+        _enemySensor.SetActive(false);
         StartCoroutine("Event2Coroutine");
     }
 
     IEnumerator Event2Coroutine()
     {
         _inputController.PlayerStop();
-
-        EnemyController enemyController = _enemyPrefab.GetComponent<EnemyController>();
-        enemyController.enabled = false;
 
         yield return new WaitForSeconds(_event2StopSeconds);
 
@@ -170,8 +171,7 @@ public class EventManager : MonoBehaviour
         {
             Destroy(_event3PanelArea);
             _inputController.PlayerAwake();
-            EnemyController enemyController = _enemyPrefab.GetComponent<EnemyController>();
-            enemyController.enabled = true;
+            _enemySensor.SetActive(true);
 
             _eventZone4.SetActive(true);
             _event4 = true;
