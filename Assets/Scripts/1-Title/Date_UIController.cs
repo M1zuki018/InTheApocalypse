@@ -9,10 +9,15 @@ public class Date_UIController : MonoBehaviour
 
     SpriteRenderer _sr;
 
+    GameObject _seObj;
+    AudioSource _audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         Initialization();
+        _seObj = GameObject.Find("SE");
+        _audioSource = _seObj.GetComponent<AudioSource>();
     }
 
     void Initialization()
@@ -42,6 +47,7 @@ public class Date_UIController : MonoBehaviour
                 return;
             }
             _listIndex--;
+            _audioSource.Play();
             
         }
         else if (Input.GetKeyDown(KeyCode.S))
@@ -51,6 +57,7 @@ public class Date_UIController : MonoBehaviour
                 return;
             }
             _listIndex++;
+            _audioSource.Play();
         }
     }
 

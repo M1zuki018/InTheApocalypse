@@ -8547,7 +8547,7 @@ MonoBehaviour:
   _event1StopSeconds: 1
   _event2: 0
   _event2StopSeconds: 1
-  _enemyPrefab: {fileID: 8234043976033605272, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+  _enemyPrefab: {fileID: 8234043976033605272, guid: a0c514a4ffbbfa649956a07a7fe4e4fd, type: 3}
   _sponePosition: {x: 19.9, y: -52, z: 0}
   _event3Panels:
   - {fileID: 21300000, guid: 806b4c609f2616340b45f7d21fd6f2d8, type: 3}

@@ -20,8 +20,11 @@ public class OpningSceneChange : MonoBehaviour
 
     public void TimeLag()
     {
-        Invoke("Scene", 2); //2秒後にシーン遷移する。フェードアニメーションの時間と合わせる
-        StartCoroutine("VolumeDown"); //音量をだんだんさげる
+        Invoke("Scene", 5); //2秒後にシーン遷移する。フェードアニメーションの時間と合わせる
+        if (_audioSource != null)
+        {
+            StartCoroutine("VolumeDown"); //音量をだんだんさげる
+        }
         _fedeOut.SetActive(true);
         _moveObject.Play("OpningChange"); //流したいアニメーションファイルの名前に書き換える
     }
