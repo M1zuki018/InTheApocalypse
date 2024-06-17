@@ -14,6 +14,10 @@ public class Event6Trigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _eventManager._event6 = true;
+        if(collision.tag == "Player")
+        {
+            _eventManager._event6 = true;
+        }
+
     }
 }

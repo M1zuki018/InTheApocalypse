@@ -5,21 +5,14 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class Player_Magic : MonoBehaviour
 {
-    [SerializeField] GameObject _bulletPrefab = default; //魔法のプレハブ
-    Vector3 _muzzlePosition; //魔法が出る位置の座標
 
     //MP関係
     public int _mpConsumption1; //魔法1の消費MP
-    GameObject _player;
-
     GameObject _mpController;
 
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.Find("Player");
-        _muzzlePosition = _player.transform.position;
-
         _mpController = GameObject.Find("MpObj");
 
     }
@@ -32,18 +25,16 @@ public class Player_Magic : MonoBehaviour
             MagicB();
         }
 
-        // マズルの位置を取得する
-        _muzzlePosition = _player.transform.position;
     }
 
     void MagicB()
     {
         _mpController.TryGetComponent(out EnvironmentMp mp);
 
-        if (mp._mp >= _mpConsumption1)
+        if (mp._mp >= _mpConsumption1 || PlayerController._chara1HP >= 100)
         {
-            Instantiate(_bulletPrefab, _muzzlePosition, Quaternion.identity);
             mp._mp = mp._mp - _mpConsumption1;
+            PlayerController._chara1HP = PlayerController._chara1HP + 10;
             //Debug.Log("魔法1");
         }
         else if (mp._mp < _mpConsumption1)
