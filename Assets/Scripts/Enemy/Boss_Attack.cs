@@ -74,7 +74,7 @@ public class Boss_Attack : MonoBehaviour
     IEnumerator Attack1Coroutine()
     {
         _sponeCount++;
-        //Debug.Log(_sponeCount);
+        Debug.Log(_sponeCount);
 
         if (_sponeCount >= 5)
         {
@@ -82,14 +82,13 @@ public class Boss_Attack : MonoBehaviour
             _sponeCount = 0;
             yield break;
         }
-        else
-        {
+
             Attack1();
 
             yield return new WaitForSeconds(_sponeInterval);
 
             StartCoroutine("Attack1Coroutine");
-        }
+
     }
 
     //攻撃パターン② 赤枠→１秒後にそこに敵が流れてくる×横方向２回
@@ -177,7 +176,6 @@ public class Boss_Attack : MonoBehaviour
             StartCoroutine("Generation");
             _isFirst = true;
         }
-
         
         //breakテスト用
         if (Input.GetKeyDown(KeyCode.G))
@@ -185,20 +183,19 @@ public class Boss_Attack : MonoBehaviour
             _enemyController._break = true;
         }
         
-
         if (_enemyController._break)
         {
             _enemyController._danger = false; //Gageを時間内に削りきれたらブレイク
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.gravityScale = 1;
-            _time = 0;
+            
             _isFirst = false;
             return;
         }
         else if (_time >= _dangerAttackLimit && _enemyController._break == false)
         {
             Debug.Log("大ダメージ"); //削りきれなかったら大ダメージ
-            _time = 0;
+            _enemyController._danger = false;
             Attack1(); //攻撃の最初に戻る
             _isFirst = false;
         }
@@ -206,19 +203,16 @@ public class Boss_Attack : MonoBehaviour
 
     IEnumerator Generation() //ぽこぽこ手下を沸かす
     {
-        if (_time >= _dangerAttackLimit)
+        if (_time >= _dangerAttackLimit || _enemyController._break)
         {
+            _time = 0;
             yield break;
-
         }
-        else
-        {
-            Instantiate(_underling, _generationArea, UnityEngine.Quaternion.identity);
+        Instantiate(_underling, _generationArea, UnityEngine.Quaternion.identity);
 
-            yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(6);
 
-            StartCoroutine("Generation");
-        }
+        StartCoroutine("Generation");
 
     }
 
@@ -227,8 +221,9 @@ public class Boss_Attack : MonoBehaviour
         yield return new WaitForSeconds(_breakTime);
 
         StartCoroutine("Attack1Coroutine");
+        _enemyController._break = false;
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 1;
+        rb.gravityScale = 0;
         transform.position = _point.position;
         _isFirstBreakUpdate = false;
 

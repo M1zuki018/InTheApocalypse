@@ -1869,7 +1869,7 @@ MonoBehaviour:
   _txtCtrl: {fileID: 1162083755}
   _uiCtrl: {fileID: 1043985829}
   _event1StopSeconds: 1
-  _bossPrefab: {fileID: 8234043976033605272, guid: 7da3ba50bcb435d4eb7d3d16d43fdf70, type: 3}
+  _bossPrefab: {fileID: 6407158214356321888, guid: d6de27182a894a9489beb5b599dd5990, type: 3}
   _bossSponePosition: {x: -2, y: -2.5, z: 0}
   _event2: 0
   _event2StopSeconds: 1
