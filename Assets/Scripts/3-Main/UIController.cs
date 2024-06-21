@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
     [SerializeField] Slider _avoidSlider;
     [SerializeField] Slider _skill1Slider;
     [SerializeField] Slider _skill2Slider;
+    [SerializeField] Slider _breakSlider;
 
     [SerializeField] GameObject _group1;
     [SerializeField] GameObject _group2;
@@ -29,6 +30,8 @@ public class UIController : MonoBehaviour
         _avoidSlider.value = PlayerController._avoidCoolTime;
         _skill1Slider.value = Player_Skill1._skillCoolTime1;
         _skill2Slider.value = Player_Skill2._skillCoolTime2;
+        //_breakSlider.maxValue = _enemyMaxHp;
+        //_breakSlider.value = _enemyHp;
     }
 
     void SliderUpdate() //スライダーの更新
@@ -37,6 +40,7 @@ public class UIController : MonoBehaviour
         _avoidSlider.value = (float)PlayerController._avoidCount;
         _skill1Slider.value = (float)Player_Skill1._skillTimerCount1;
         _skill2Slider.value = (float)Player_Skill2._skillTimerCount2;
+        //_breakSlider.value = _enemyHp;
     }
 
     public void Group1() //HP、回避、スキルクールタイムのグループ
