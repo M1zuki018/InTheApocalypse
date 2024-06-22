@@ -362,6 +362,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyMaxHp: 80
   _enemyHp: 80
+  _danger: 0
+  _break: 0
+  _breakMaxCount: 0
+  _breakCount: 0
 --- !u!61 &2668826524252186720
 BoxCollider2D:
   m_ObjectHideFlags: 0

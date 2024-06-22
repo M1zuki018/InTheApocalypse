@@ -14,6 +14,7 @@ public class EventManager : MonoBehaviour
 
     [Header("Event1：スタート時のイベント")]
     [SerializeField] int _event1StopSeconds;
+    [SerializeField] GameObject _movePanel;
 
     [Header("Event2：敵と遭遇")]
     bool _isFirst2;
@@ -78,6 +79,7 @@ public class EventManager : MonoBehaviour
 
     void Initialization()
     {
+        _movePanel.SetActive(false);
         _eventZone4.SetActive(false);
         _event6Col1.SetActive(false);
         _event6Col2.SetActive(false);
@@ -85,6 +87,11 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
+        if (_movePanel.activeSelf == true && Input.GetButtonDown("Fire1"))
+        {
+            MoveStart();
+        }
+
         if (_event2 && !_isFirst2)
         {
             _isFirst2 = true;
@@ -127,9 +134,15 @@ public class EventManager : MonoBehaviour
 
         yield return new WaitForSeconds(_event1StopSeconds);
 
-        _inputController.PlayerAwake();
+        _movePanel.SetActive(true);
 
         yield break;
+    }
+
+    void MoveStart()
+    {
+        _movePanel.SetActive(false);
+        _inputController.PlayerAwake();
     }
 
     #region Event2

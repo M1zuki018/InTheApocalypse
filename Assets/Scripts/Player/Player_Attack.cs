@@ -8,7 +8,7 @@ public class Player_Attack : MonoBehaviour
     private void Update()
     {
         RaycastHit2D hit;
-        hit = Physics2D.BoxCast(transform.parent.position, _skillBounds, 0, Vector2.right, 10f, _enemyLayer, -10, 10);
+        hit = Physics2D.BoxCast(transform.parent.position, _skillBounds, 0, Vector2.right, 1f, _enemyLayer, -10, 10);
         TaskOfInsideBounds(hit);
     }
 

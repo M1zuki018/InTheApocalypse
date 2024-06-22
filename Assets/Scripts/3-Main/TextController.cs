@@ -121,4 +121,37 @@ public class TextController : MonoBehaviour
         _namecount = 0;
         _number = 5;
     }
+
+    public void ZeppaStory1_2()
+    {
+        _textArea.SetActive(true);
+        _textcount = 5;
+        _namecount = 5;
+        _number = 16;
+    }
+
+    public void Talk()
+    {
+        _textArea.SetActive(true);
+        _textcount = 16;
+        _namecount = 16;
+        _number = 27;
+    }
+
+    public void Main3()
+    {
+        _textArea.SetActive(true);
+        _textcount = 0;
+        _namecount = 0;
+        _number = 10;
+    }
+
+    public void Main3End()
+    {
+        _textArea.SetActive(true);
+        _textcount = 10;
+        _namecount = 10;
+        _number = 20;
+    }
+
 }

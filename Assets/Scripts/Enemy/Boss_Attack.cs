@@ -12,19 +12,22 @@ using UnityEngine;
 public class Boss_Attack : MonoBehaviour
 {
     EnemyController _enemyController;
-
     [SerializeField] Transform _point;
 
     [SerializeField] GameObject _underling;
     [SerializeField] int _sponeInterval = 4;
     int _sponeCount;
+
     public bool _move;
+    public bool _horizontarMove;
 
     [SerializeField] GameObject _attack2Zone;
+    [SerializeField] GameObject _attack2;
     [SerializeField] Transform[] _attackHeight;
     int _attackCount;
 
     [SerializeField] GameObject _attack3Zone;
+    [SerializeField] GameObject _attack3;
     int _turn;
 
     bool _isFirst;
@@ -38,8 +41,9 @@ public class Boss_Attack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Initialization();
+        
         _enemyController = GetComponent<EnemyController>();
+        Initialization();
         StartCoroutine("Attack1Coroutine");
         _move = true;
     }
@@ -47,7 +51,9 @@ public class Boss_Attack : MonoBehaviour
     void Initialization()
     {
         _attack2Zone.SetActive(false);
+        _attack2.SetActive(false);
         _attack3Zone.SetActive(false);
+        _attack3.SetActive(false);
     }
 
     // Update is called once per frame
@@ -66,7 +72,7 @@ public class Boss_Attack : MonoBehaviour
         }
     }
 
-    //攻撃パターン① 自分の元から一定間隔で雑魚を産み落とす×4
+    #region 攻撃パターン① 自分の元から一定間隔で雑魚を産み落とす×4
     void Attack1()
     {
         UnityEngine.Vector3 vector3 = transform.position;
@@ -76,11 +82,12 @@ public class Boss_Attack : MonoBehaviour
     IEnumerator Attack1Coroutine()
     {
         _sponeCount++;
-        Debug.Log(_sponeCount);
+        //Debug.Log(_sponeCount);
 
         if (_sponeCount >= 5)
         {
             StartCoroutine("Attack2Coroutine");
+            _move = false;
             _sponeCount = 0;
             yield break;
         }
@@ -89,14 +96,16 @@ public class Boss_Attack : MonoBehaviour
 
             yield return new WaitForSeconds(_sponeInterval);
 
-            StartCoroutine("Attack1Coroutine");
-
+        StartCoroutine("Attack1Coroutine");
     }
+    #endregion
 
-    //攻撃パターン② 赤枠→１秒後にそこに敵が流れてくる×横方向２回
+    #region 攻撃パターン② 赤枠→１秒後にそこに敵が流れてくる×横方向２回
     IEnumerator Attack2Coroutine()
     {
         //Debug.Log("攻撃②スタート");
+        _horizontarMove = true;
+
 
         //危険エリアを表示
         _attack2Zone.transform.position = _attackHeight[_attackCount].position;
@@ -110,19 +119,20 @@ public class Boss_Attack : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         //ダメージエリアを生成
-        _attack2Zone.SetActive(true);
-        //ダメージ判定のスクリプトをアクティブにする
+        _attack2.transform.position = _attackHeight[_attackCount].position;
+        _attack2.SetActive(true);
 
         yield return new WaitForSeconds(2);
-
-        _attack2Zone.SetActive(false);
+        _attack2.SetActive(false);
         _attackCount++;
+
+        yield return new WaitForSeconds(0.5f);
 
         if (_attackCount == 2)
         {
             StartCoroutine("Attack3Coroutine");
             _attackCount = 0;
-            _move = false;
+            _horizontarMove= false;
             //Debug.Log("_attackCount:" + _attackCount);
             yield break;
         }
@@ -130,11 +140,14 @@ public class Boss_Attack : MonoBehaviour
         {
             StartCoroutine("Attack2Coroutine");
         }
-
     }
-    //攻撃パターン③ 縦方向に5本同時×1回
+    #endregion
+
+    #region 攻撃パターン③ 縦方向に5本同時×1回
     IEnumerator Attack3Coroutine()
     {
+        gameObject.transform.position = _point.position;
+
         yield return new WaitForSeconds(4f);
 
         //危険エリアを表示
@@ -148,12 +161,11 @@ public class Boss_Attack : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         //ダメージエリアを生成
-        _attack3Zone.SetActive(true);
-        //ダメージ判定のスクリプトをアクティブにする
+        _attack3.SetActive(true);
 
         yield return new WaitForSeconds(1);
 
-        _attack3Zone.SetActive(false);
+        _attack3.SetActive(false);
         _turn++;
 
         if (_turn == 1)
@@ -169,6 +181,7 @@ public class Boss_Attack : MonoBehaviour
             yield break;
         }
     }
+    #endregion
 
     //攻撃パターン④
     //Update関数内で、「_danger」がtrueの時に呼ばれる
@@ -197,7 +210,7 @@ public class Boss_Attack : MonoBehaviour
         }
         else if (_time >= _dangerAttackLimit && _enemyController._break == false)
         {
-            Debug.Log("大ダメージ"); //削りきれなかったら大ダメージ
+            PlayerController._chara1HP -= 90;
             _enemyController._danger = false;
             StartCoroutine("Attack1Coroutine"); //攻撃の最初に戻る
             _move = true;

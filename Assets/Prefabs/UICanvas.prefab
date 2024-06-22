@@ -1173,13 +1173,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9056924528745302192}
+  - component: {fileID: 7934465774942295743}
   m_Layer: 5
   m_Name: AuthorityGage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9056924528745302192
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1202,6 +1203,22 @@ RectTransform:
   m_AnchoredPosition: {x: -78, y: 9.000034}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7934465774942295743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765627514014406475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8c89a7c05378b4eaa29d9e38d1f8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gage:
+  - {fileID: 5389032591170368618}
+  - {fileID: 6863108089494021406}
+  - {fileID: 7049942612512344905}
 --- !u!1001 &742125942108384477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1423,6 +1440,10 @@ PrefabInstance:
     - target: {fileID: 7689317598949145966, guid: d7c1ddfa7061aba48b2797f624f60142, type: 3}
       propertyPath: m_Name
       value: 'EnemyHPSlider '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7689317598949145966, guid: d7c1ddfa7061aba48b2797f624f60142, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8192957302063579894, guid: d7c1ddfa7061aba48b2797f624f60142, type: 3}
       propertyPath: m_Pivot.x

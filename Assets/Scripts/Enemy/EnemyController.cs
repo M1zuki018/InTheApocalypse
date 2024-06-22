@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     //ŠëŒ¯ó‘Ô
     public bool _danger;
     public bool _break;
-    public int _breakMaxCount;
-    public int _breakCount;
+    public int _breakMaxCount = 300;
+    public int _breakCount = 300;
 
 }

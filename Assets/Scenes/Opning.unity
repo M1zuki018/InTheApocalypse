@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2b2971a758e364bb6b33adf5bedbec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadScene: Main1
+  _loadScene: Intro
   _moveObject: {fileID: 581123210}
   _fedeOut: {fileID: 581123209}
 --- !u!4 &424861087

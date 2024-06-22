@@ -10,6 +10,7 @@ public class Main3_EventManager : MonoBehaviour
 
     [SerializeField] GameObject _uiCtrl;
     UIController _uiController;
+    [SerializeField] GameObject _authorityGage;
 
     AudioSource _audio;
     Scene _scene;
@@ -25,10 +26,16 @@ public class Main3_EventManager : MonoBehaviour
     [SerializeField] AudioClip _bossBGM;
 
     [Header("Event3：戦闘開始")]
+    [SerializeField] GameObject _bossSlider;
     [SerializeField] int _event3StopSeconds;
 
     [Header("Event4：討伐")]
     bool _event4;
+
+    [Header("End")]
+    [SerializeField] AudioClip _endBGM;
+    [SerializeField] int _endStopSeconds;
+    [SerializeField] GameObject _fadePanel;
 
 
     #endregion
@@ -37,8 +44,7 @@ public class Main3_EventManager : MonoBehaviour
     {
         GetComponents();
         StartCoroutine("Event1");
-        _textController.Enabled();
-        _textController.enabled = false;
+
     }
 
     void GetComponents() //componentを取得してくる
@@ -65,13 +71,14 @@ public class Main3_EventManager : MonoBehaviour
     IEnumerator Event1() //会話のあとBGMを止める・BOSSを沸かせる
     {
         _inputController.PlayerStop();
+        _textController.Main3();
 
         yield return new WaitForSeconds(_event1StopSeconds);
 
         _audio.Stop();
         Instantiate(_bossPrefab, _bossSponePosition, Quaternion.identity);
-        EnemyController enemyController = _bossPrefab.GetComponent<EnemyController>();
-        enemyController.enabled = false;
+        Boss_Attack bossAttack = _bossPrefab.GetComponent<Boss_Attack>();
+        bossAttack.enabled = false;
         StartCoroutine("Event2");
         yield break;
     }
@@ -90,9 +97,13 @@ public class Main3_EventManager : MonoBehaviour
     {
         yield return new WaitForSeconds(_event3StopSeconds);
 
+        _bossSlider.SetActive(true);
+        _authorityGage.SetActive(true);
+        _uiController.Group1();
+        _uiController.Group2();
         _inputController.PlayerAwake();
-        EnemyController enemyController = _bossPrefab.GetComponent<EnemyController>();
-        enemyController.enabled = true;
+        Boss_Attack bossAttack = _bossPrefab.GetComponent<Boss_Attack>();
+        bossAttack.enabled = true;
         _event4 = true;
     }
 
@@ -102,9 +113,24 @@ public class Main3_EventManager : MonoBehaviour
 
         if (enemys.Length == 0)
         {
-            _scene.SceneChange();
+            StartCoroutine("EndScene");
             _event4 = false;
         }
     }
 
+    IEnumerator EndScene()
+    {
+        _inputController.PlayerStop();
+        _audio.clip = _endBGM;
+        _audio.Play();
+        _textController.Main3End();
+
+        yield return new WaitForSeconds(_endStopSeconds);
+
+        _fadePanel.SetActive(true); //暗転アニメーション
+
+        yield return new WaitForSeconds(7);
+
+        _scene.SceneChange();
+    }
 }

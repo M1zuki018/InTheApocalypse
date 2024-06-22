@@ -32,13 +32,22 @@ public class Boss_Move : MonoBehaviour
     {
         if (_attack._move)
         {
-            HorizontalMovement();
+           Movement();
+        }
+        else if (_attack._horizontarMove)
+        {
+            HorizontarMovement();
         }
         
     }
     
-    void HorizontalMovement() //プレイヤーと一定の距離をとって移動
+    void Movement() //プレイヤーと一定の距離をとって移動（高さも変わる）
     {
         transform.position = _playerTf.position + _offset;
+    }
+
+    void HorizontarMovement() //プレイヤーと一定の距離をとって移動
+    {
+        transform.position = new Vector3(_playerTf.position.x + _offset.x, 0, 0);
     }
 }
