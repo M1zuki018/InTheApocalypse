@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Sensor
   - Crosshair
+  - Boss
   layers:
   - Default
   - TransparentFX

@@ -18,6 +18,7 @@ public class Boss_Attack : MonoBehaviour
     [SerializeField] GameObject _underling;
     [SerializeField] int _sponeInterval = 4;
     int _sponeCount;
+    public bool _move;
 
     [SerializeField] GameObject _attack2Zone;
     [SerializeField] Transform[] _attackHeight;
@@ -40,6 +41,7 @@ public class Boss_Attack : MonoBehaviour
         Initialization();
         _enemyController = GetComponent<EnemyController>();
         StartCoroutine("Attack1Coroutine");
+        _move = true;
     }
 
     void Initialization()
@@ -120,6 +122,7 @@ public class Boss_Attack : MonoBehaviour
         {
             StartCoroutine("Attack3Coroutine");
             _attackCount = 0;
+            _move = false;
             //Debug.Log("_attackCount:" + _attackCount);
             yield break;
         }
@@ -156,6 +159,7 @@ public class Boss_Attack : MonoBehaviour
         if (_turn == 1)
         {
             StartCoroutine("Attack1Coroutine");
+            _move = true;
             yield break;
         }
         else
@@ -188,7 +192,6 @@ public class Boss_Attack : MonoBehaviour
             _enemyController._danger = false; //Gageを時間内に削りきれたらブレイク
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.gravityScale = 1;
-            
             _isFirst = false;
             return;
         }
@@ -196,7 +199,8 @@ public class Boss_Attack : MonoBehaviour
         {
             Debug.Log("大ダメージ"); //削りきれなかったら大ダメージ
             _enemyController._danger = false;
-            Attack1(); //攻撃の最初に戻る
+            StartCoroutine("Attack1Coroutine"); //攻撃の最初に戻る
+            _move = true;
             _isFirst = false;
         }
     }
@@ -225,6 +229,7 @@ public class Boss_Attack : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
         transform.position = _point.position;
+        _move = true;
         _isFirstBreakUpdate = false;
 
         yield break;
