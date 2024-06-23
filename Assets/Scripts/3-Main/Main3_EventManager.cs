@@ -77,7 +77,8 @@ public class Main3_EventManager : MonoBehaviour
 
         _audio.Stop();
         Instantiate(_bossPrefab, _bossSponePosition, Quaternion.identity);
-        Boss_Attack bossAttack = _bossPrefab.GetComponent<Boss_Attack>();
+        GameObject boss = GameObject.FindWithTag("Boss");
+        Boss_Attack bossAttack = boss.GetComponent<Boss_Attack>();
         bossAttack.enabled = false;
         StartCoroutine("Event2");
         yield break;
@@ -102,14 +103,15 @@ public class Main3_EventManager : MonoBehaviour
         _uiController.Group1();
         _uiController.Group2();
         _inputController.PlayerAwake();
-        Boss_Attack bossAttack = _bossPrefab.GetComponent<Boss_Attack>();
+        GameObject boss = GameObject.FindWithTag("Boss");
+        Boss_Attack bossAttack = boss.GetComponent<Boss_Attack>();
         bossAttack.enabled = true;
         _event4 = true;
     }
 
     void Event4() //バトル
     {
-        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Boss");
 
         if (enemys.Length == 0)
         {
@@ -121,6 +123,8 @@ public class Main3_EventManager : MonoBehaviour
     IEnumerator EndScene()
     {
         _inputController.PlayerStop();
+        GameObject uiCanvas = GameObject.Find("UICanvas");
+        uiCanvas.SetActive(false);
         _audio.clip = _endBGM;
         _audio.Play();
         _textController.Main3End();

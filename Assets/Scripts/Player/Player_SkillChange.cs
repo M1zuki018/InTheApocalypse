@@ -10,6 +10,9 @@ public class Player_SkillChange : MonoBehaviour
     [SerializeField] GameObject _stateChange;
     StateChange _sc;
 
+    [SerializeField] GameObject _skillIcon;
+    [SerializeField] GameObject _MagicIcon;
+
     Vector3 _initialPosition; //初期位置
 
     void Start()
@@ -38,16 +41,20 @@ public class Player_SkillChange : MonoBehaviour
             _sc._sr.sprite = _sc._sprites[1];   
             _skill[0].SetActive(false);
             _skill[1].SetActive(false);
+            _skillIcon.SetActive(false);
             _skill[2].SetActive(true);
             _skill[3].SetActive(true);
+            _MagicIcon.SetActive(true);
         }
         else
         {
             _sc._sr.sprite = _sc._sprites[0];
             _skill[0].SetActive(true);
             _skill[1].SetActive(true);
+            _skillIcon.SetActive(true);
             _skill[2].SetActive(false);
             _skill[3].SetActive(false);
+            _MagicIcon.SetActive(false);
         }
     }
 }

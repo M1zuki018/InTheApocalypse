@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Reflection;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Boss_Slider : MonoBehaviour
 {
     [SerializeField] Slider _bossSlider;
-    [SerializeField] GameObject _boss;
+    GameObject _boss;
     EnemyController _bossEc;
     bool _isFirst;
     bool _isFirst2;
@@ -13,6 +14,7 @@ public class Boss_Slider : MonoBehaviour
 
     private void Awake()
     {
+        _boss = GameObject.FindWithTag("Boss");
         _bossEc = _boss.GetComponent<EnemyController>();
     }
 
@@ -45,6 +47,11 @@ public class Boss_Slider : MonoBehaviour
             }
         }
         BossHp();
+
+        if(_boss == null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void SliderReset() //HPをセットする

@@ -943,6 +943,8 @@ MonoBehaviour:
   - {fileID: 1852067312}
   - {fileID: 700513096}
   _stateChange: {fileID: 164749662}
+  _skillIcon: {fileID: 357368814800700631}
+  _MagicIcon: {fileID: 357368814800700630}
 --- !u!114 &219567237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7927,6 +7929,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83518dce41e8c7d418e128d71913b7ba, type: 3}
+--- !u!1 &357368814800700630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4618920110656586081, guid: 83518dce41e8c7d418e128d71913b7ba, type: 3}
+  m_PrefabInstance: {fileID: 357368814800700629}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &357368814800700631 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4160174731499760623, guid: 83518dce41e8c7d418e128d71913b7ba, type: 3}
+  m_PrefabInstance: {fileID: 357368814800700629}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6773633127296814066
 PrefabInstance:
   m_ObjectHideFlags: 0

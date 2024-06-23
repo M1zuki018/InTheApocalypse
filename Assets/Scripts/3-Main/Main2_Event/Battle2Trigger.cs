@@ -16,6 +16,10 @@ public class Battle2Trigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _eventManager._battle2 = true;
+        if (collision.tag == "Player")
+        {
+            _eventManager._battle2 = true;
+
+        }
     }
 }

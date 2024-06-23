@@ -360,8 +360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c819f062084ce04f8584e2dc6e9a698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyMaxHp: 80
-  _enemyHp: 80
+  _enemyMaxHp: 50
+  _enemyHp: 50
   _danger: 0
   _break: 0
   _breakMaxCount: 0
