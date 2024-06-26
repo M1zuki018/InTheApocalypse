@@ -115,6 +115,11 @@ public class Main3_EventManager : MonoBehaviour
 
         if (enemys.Length == 0)
         {
+            GameObject[] underlings = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject enemy in underlings)
+            {
+                Destroy(enemy);
+            }
             StartCoroutine("EndScene");
             _event4 = false;
         }
