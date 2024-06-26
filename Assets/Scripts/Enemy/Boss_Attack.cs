@@ -37,6 +37,7 @@ public class Boss_Attack : MonoBehaviour
 
     bool _isFirstBreakUpdate;
     [SerializeField] int _breakTime;
+    [SerializeField] Transform _breakPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -203,8 +204,7 @@ public class Boss_Attack : MonoBehaviour
         if (_enemyController._break)
         {
             _enemyController._danger = false; //Gageを時間内に削りきれたらブレイク
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.gravityScale = 1;
+            transform.position = _breakPoint.position;
             _isFirst = false;
             return;
         }
@@ -239,8 +239,6 @@ public class Boss_Attack : MonoBehaviour
 
         StartCoroutine("Attack1Coroutine");
         _enemyController._break = false;
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0;
         transform.position = _point.position;
         _move = true;
         _isFirstBreakUpdate = false;

@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Main2_EventManager : MonoBehaviour
 {
@@ -38,7 +35,7 @@ public class Main2_EventManager : MonoBehaviour
     [SerializeField] GameObject _zeppaPanel;
     [SerializeField] GameObject _authorityGage;
     GameObject _zeppaEventCol;
-  //GameObject _zeppaEventCol2;
+    //GameObject _zeppaEventCol2;
 
     [Header("âÔòbÉVÅ[Éì")]
     [SerializeField] int _talkStopSeconds;
@@ -68,7 +65,7 @@ public class Main2_EventManager : MonoBehaviour
     {
         GetComponents();
         Initialization();
-        
+
     }
 
     void GetComponents()
@@ -84,7 +81,7 @@ public class Main2_EventManager : MonoBehaviour
         _battle1Col5 = GameObject.Find("Battle1Col5");
         _battle1Col6 = GameObject.Find("Battle1Col6");
         _zeppaEventCol = GameObject.Find("ZeppaEvent");
-   //   _zeppaEventCol2 = GameObject.Find("ZeppaEventCol2");
+        //   _zeppaEventCol2 = GameObject.Find("ZeppaEventCol2");
     }
 
     void Initialization()
@@ -93,18 +90,18 @@ public class Main2_EventManager : MonoBehaviour
         _battle1Col3.SetActive(false);
         _battle1Col5.SetActive(false);
         _textController.Enabled();
-        _textController.enabled =false;
+        _textController.enabled = false;
         _uiController.Group1();
         _uiController.Group2();
         _authorityGage.SetActive(false);
     }
-    
+
     // Update is called once per frame
     void Update()
     {
-        if(_battle1)
+        if (_battle1)
         {
-            if(!_isFirst1)
+            if (!_isFirst1)
             {
                 Instantiate(_enemyPrefab, _sponePosition, Quaternion.identity);
                 Instantiate(_enemyPrefab, _sponePosition2, Quaternion.identity);
@@ -121,7 +118,7 @@ public class Main2_EventManager : MonoBehaviour
             StartCoroutine("ZeppaEvent");
         }
 
-        if(_explanation)
+        if (_explanation)
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -132,7 +129,7 @@ public class Main2_EventManager : MonoBehaviour
             }
         }
 
-        if(_zeppaBattle)
+        if (_zeppaBattle)
         {
             ZeppaBattle();
         }
@@ -203,7 +200,7 @@ public class Main2_EventManager : MonoBehaviour
         _zeppaPanel.SetActive(true);
         _authorityGage.SetActive(true);
         AuthorityGage._gageCount = 1;
-        _explanation = true; 
+        _explanation = true;
     }
 
     IEnumerator ZeppaEvent2()

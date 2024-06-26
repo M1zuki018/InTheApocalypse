@@ -14,6 +14,11 @@ public class Player_Attack : MonoBehaviour
 
     private static void TaskOfInsideBounds(RaycastHit2D hit)
     {
+        if (hit == false)
+        {
+            Debug.Log("ãﬂÇ≠Ç…ëŒè€Ç™ë∂ç›ÇµÇ‹ÇπÇÒ");
+            return;
+        }
 
         if (Input.GetButtonDown("Fire1"))
         {

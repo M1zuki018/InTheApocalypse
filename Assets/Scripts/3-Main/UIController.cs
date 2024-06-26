@@ -11,8 +11,6 @@ public class UIController : MonoBehaviour
     [SerializeField] GameObject _group1;
     [SerializeField] GameObject _group2;
 
-    
-
     void Start()
     {
         SliderReset();

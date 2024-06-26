@@ -17,6 +17,7 @@ public class Boss_Move : MonoBehaviour
     Transform _playerTf;
     public Vector3 _offset;
 
+    [SerializeField] float _attack2Y = -0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +49,6 @@ public class Boss_Move : MonoBehaviour
 
     void HorizontarMovement() //ƒvƒŒƒCƒ„[‚Æˆê’è‚Ì‹——£‚ğ‚Æ‚Á‚ÄˆÚ“®
     {
-        transform.position = new Vector3(_playerTf.position.x + _offset.x, 0, 0);
+        transform.position = new Vector3(_playerTf.position.x + _offset.x, _attack2Y, 0);
     }
 }

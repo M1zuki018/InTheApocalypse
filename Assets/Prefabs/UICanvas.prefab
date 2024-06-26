@@ -2293,6 +2293,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5812433741870692737, guid: 34417c506e924fd4fbb317438db1f87c, type: 3}
+      propertyPath: m_Value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5812433741870692737, guid: 34417c506e924fd4fbb317438db1f87c, type: 3}
+      propertyPath: m_MaxValue
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7953023631352836404, guid: 34417c506e924fd4fbb317438db1f87c, type: 3}
       propertyPath: m_Name
       value: Skill1CoolTime

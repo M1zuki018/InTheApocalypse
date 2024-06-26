@@ -1,15 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Ending : MonoBehaviour
 {
     [SerializeField] string _loadScene;
+    [SerializeField] GameObject _fadeOut;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("BackTitle", 5);
+        _fadeOut.SetActive(false);
+        Invoke("FadeOut", 5);
+        Invoke("BackTitle", 7);
+    }
+
+    void FadeOut()
+    {
+        _fadeOut.SetActive(true);
     }
 
     void BackTitle()

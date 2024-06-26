@@ -8,21 +8,19 @@ public class Player_Sensor : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(_touchGround);
+        Debug.Log(_touchGround);
+        
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        //ínñ Ç…êGÇÍÇΩÇÁtrue
-        if (collision.gameObject.tag == "Ground")
+        if(collision.gameObject.tag == "Ground")
         {
             _touchGround = true;
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        //ínñ Ç©ÇÁó£ÇÍÇΩéûÇ…false
-        _touchGround = false;
+        else
+        {
+            _touchGround = false;
+        }
     }
 }

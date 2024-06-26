@@ -9,8 +9,8 @@ public class Player_Skill1 : MonoBehaviour
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] Vector2 _skillBounds = Vector2.one;
 
-    public static float _skillCoolTime1 = 20f;
-    public static float _skillTimerCount1 = 20f;
+    public static float _skillCoolTime1 = 10f;
+    public static float _skillTimerCount1 = 10f;
 
     [SerializeField] int _charge = 15; //“Ëi‰Á‚¦‚é—Í
 
