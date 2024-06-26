@@ -9,6 +9,8 @@ public class Enemy_Search : MonoBehaviour
     GameObject _playerObj;
     public GameObject _enemyObj;
     [SerializeField] float _speed = 2;
+    [SerializeField] Vector3 _scale;
+    [SerializeField] Vector3 _flipScale;
 
     bool _search;
 
@@ -44,11 +46,11 @@ public class Enemy_Search : MonoBehaviour
             _enemyObj.transform.position = Vector2.MoveTowards(_enemyTr.transform.position, new Vector2(_playerTr.position.x, _playerTr.position.y), _speed * Time.deltaTime);
             if(_playerTr.transform.position.x >= _enemyTr.transform.position.x)
             {
-                _enemyTr.transform.localScale = new Vector3(-1, 1, 1);
+                _enemyTr.transform.localScale = _flipScale;
             }
             else
             {
-                _enemyTr.transform.localScale = new Vector3(1, 1, 1);
+                _enemyTr.transform.localScale = _scale;
             }
         }
     }

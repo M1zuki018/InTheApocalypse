@@ -1,11 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Attack : MonoBehaviour
+public class Enemy2Attack : MonoBehaviour
 {
-    bool _player;
-    public static int _damage = 10;
-    [SerializeField] int _wait = 5;
+    public bool _playerAttack2;
+    int _damage = 20;
+    [SerializeField] int _wait = 6;
+    GameObject _circle;
 
     //É_ÉÅÅ[ÉWÇó^Ç¶ÇΩéû
     GameObject _playerObj;
@@ -20,32 +22,26 @@ public class Enemy_Attack : MonoBehaviour
         _playerSpriteRenderer = _playerObj.GetComponent<SpriteRenderer>();
         _seController = _seObj.GetComponent<Main1_SEController>();
 
+        _circle = transform.GetChild(2).gameObject;
+
+        _circle.SetActive(false);
+
         StartCoroutine(AttackCoroutine());
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            _player = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            _player = false;
-        }
     }
 
     IEnumerator AttackCoroutine()
     {
         yield return new WaitForSeconds(_wait);
 
-        if (_player)
+        if (_playerAttack2)
         {
+            //åxçêÅ®çUåÇ
 
+            _circle.SetActive(true);
+
+            yield return new WaitForSeconds(3);
+
+            _circle.SetActive(false);
             PlayerController._chara1HP = PlayerController._chara1HP - _damage;
             _playerSpriteRenderer.color = new Color(1, 0.2f, 0.2f);
             _seController.Dameged();
@@ -66,3 +62,4 @@ public class Enemy_Attack : MonoBehaviour
         StartCoroutine(AttackCoroutine());
     }
 }
+

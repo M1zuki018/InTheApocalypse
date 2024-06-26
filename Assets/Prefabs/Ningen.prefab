@@ -108,7 +108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2184572239873503792
 Transform:
   m_ObjectHideFlags: 0
@@ -173,6 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyObj: {fileID: 8234043976033605272}
   _speed: 0.5
+  _scale: {x: 1, y: 1, z: 1}
+  _flipScale: {x: -1, y: 1, z: 1}
 --- !u!1 &8234043976033605272
 GameObject:
   m_ObjectHideFlags: 0

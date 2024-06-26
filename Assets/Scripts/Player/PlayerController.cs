@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public static bool _facingRight;
 
     //HP
-    int _chara1MaxHp = 250;
+    int _chara1MaxHp = 20; //250
     public static int _chara1HP;
 
     //回避
@@ -42,6 +40,7 @@ public class PlayerController : MonoBehaviour
     GameObject _seObj;
     Main1_SEController _seController;
 
+    [SerializeField] GameObject _gameOverPanel;
 
     void Start()
     {
@@ -119,13 +118,13 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
-
         // 設定に応じて左右を反転させる
         if (_flipX)
         {
             FlipX(m_h);
         }
+
+        GameOver();
     }
 
     private void PlayerJump()
@@ -191,6 +190,22 @@ public class PlayerController : MonoBehaviour
         {
             _rb.AddForce(Vector2.left * 3.0f, ForceMode2D.Impulse);
             //Debug.Log("敵に触れた");
+        }
+    }
+
+    void GameOver()
+    {
+        if (_chara1HP <= 0)
+        {
+            _gameOverPanel.SetActive(true);
+            GameObject audio = GameObject.Find("Audio");
+            Destroy(audio);
+            GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject enemy in enemys)
+            {
+                enemy.SetActive(false);
+            }
+            //ボス用の処理も書く
         }
     }
 }

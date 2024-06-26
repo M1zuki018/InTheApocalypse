@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,9 +13,12 @@ public class EventManager : MonoBehaviour
     [SerializeField] GameObject _uiCtrl;
     UIController _uiController;
 
+    [SerializeField] GameObject _mainCamera;
+
     [Header("Event1：スタート時のイベント")]
     [SerializeField] int _event1StopSeconds;
     [SerializeField] GameObject _movePanel;
+    [SerializeField] GameObject _event1Camera;
 
     [Header("Event2：敵と遭遇")]
     bool _isFirst2;
@@ -24,6 +28,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] Vector3 _sponePosition;
     GameObject _eventZone2;
     GameObject _enemySensor;
+    [SerializeField] GameObject _event2Camera;
 
     [Header("Event3：操作のチュートリアル")]
     bool _event3;
@@ -142,6 +147,7 @@ public class EventManager : MonoBehaviour
     void MoveStart()
     {
         _movePanel.SetActive(false);
+        _event1Camera.SetActive(false);
         _inputController.PlayerAwake();
     }
 
@@ -153,6 +159,11 @@ public class EventManager : MonoBehaviour
         Instantiate(_enemyPrefab, _sponePosition, Quaternion.identity);
         _enemySensor = _enemyPrefab.transform.GetChild(0).gameObject;
         _enemySensor.SetActive(false);
+        _event2Camera.SetActive(true);
+        CinemachineVirtualCamera event2cvc;
+        event2cvc = _event2Camera.GetComponent<CinemachineVirtualCamera>();
+        GameObject enemy = GameObject.FindWithTag("Enemy");
+        event2cvc.LookAt = enemy.transform;
         StartCoroutine("Event2Coroutine");
     }
 
@@ -183,6 +194,7 @@ public class EventManager : MonoBehaviour
         if (_panelIndex >= _event3Panels.Length)
         {
             Destroy(_event3PanelArea);
+            _event2Camera.SetActive(false);
             _inputController.PlayerAwake();
             _enemySensor.SetActive(true);
 
