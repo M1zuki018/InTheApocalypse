@@ -12,7 +12,7 @@ public class Ending : MonoBehaviour
     {
         _fadeOut.SetActive(false);
         Invoke("FadeOut", 5);
-        Invoke("BackTitle", 7);
+        Invoke("BackTitle", 9);
     }
 
     void FadeOut()
