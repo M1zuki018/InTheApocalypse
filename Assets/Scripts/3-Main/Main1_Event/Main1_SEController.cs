@@ -60,4 +60,9 @@ public class Main1_SEController : MonoBehaviour
         _audioSource.PlayOneShot(_audioClip[9]);
 
     }
+
+    public void Dameged()
+    {
+        _audioSource.PlayOneShot(_audioClip[10]);
+    }
 }

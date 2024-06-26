@@ -191,6 +191,7 @@ public class Boss_Attack : MonoBehaviour
         _time += Time.deltaTime;
         if (!_isFirst)
         {
+            transform.position = _breakPoint.position;
             StartCoroutine("Generation");
             _isFirst = true;
         }
@@ -204,7 +205,6 @@ public class Boss_Attack : MonoBehaviour
         if (_enemyController._break)
         {
             _enemyController._danger = false; //Gageを時間内に削りきれたらブレイク
-            transform.position = _breakPoint.position;
             _isFirst = false;
             return;
         }

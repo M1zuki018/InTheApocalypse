@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-
     //移動系
     [SerializeField] float _movePower = 13f; //左右移動
     [SerializeField] float _jumpPower = 8f; //ジャンプ

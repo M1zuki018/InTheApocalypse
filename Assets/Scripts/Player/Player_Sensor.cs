@@ -6,11 +6,12 @@ public class Player_Sensor : MonoBehaviour
 {
     public static bool _touchGround;
 
+    /*
     private void Update()
     {
-        Debug.Log(_touchGround);
-        
+        Debug.Log(_touchGround); 
     }
+    */
 
     private void OnTriggerStay2D(Collider2D collision)
     {

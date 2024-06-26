@@ -42,6 +42,14 @@ public class Enemy_Search : MonoBehaviour
         {
             //ƒvƒŒƒCƒ„[‚ÉŒü‚¯‚Ä‹ß‚Ã‚­
             _enemyObj.transform.position = Vector2.MoveTowards(_enemyTr.transform.position, new Vector2(_playerTr.position.x, _playerTr.position.y), _speed * Time.deltaTime);
+            if(_playerTr.transform.position.x >= _enemyTr.transform.position.x)
+            {
+                _enemyTr.transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+            {
+                _enemyTr.transform.localScale = new Vector3(1, 1, 1);
+            }
         }
     }
 }
