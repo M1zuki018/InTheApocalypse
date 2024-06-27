@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class InputController : MonoBehaviour
@@ -33,10 +34,40 @@ public class InputController : MonoBehaviour
 
     private void Start()
     {
+        _playerController.enabled = false;
         _authortySkill.enabled = false;
     }
 
-    public void NonAttack()
+    public void MoveOnly() //行動だけできる
+    {
+        _playerController.enabled = true;
+    }
+
+    public void AttackOnly() //通常攻撃だけできる
+    {
+        _playerController.enabled = true;
+        _attack.enabled = true;
+    }
+
+    public void Event3()
+    {
+        _playerController.enabled = true;
+        _attack.enabled = true;
+        _skill1.enabled = true;
+        _skill2.enabled = true;
+    }
+    public void Event3_2()
+    {
+        _playerController.enabled = true;
+        _attack.enabled = true;
+        _skill1.enabled = true;
+        _skill2.enabled = true;
+        _skillChange.enabled = true;
+        _magic1.enabled = true;
+        _magic2.enabled = true;
+    }
+
+    public void NonAttack() //7種類　何もできない
     {
         _attack.enabled = false;
         _skill1.enabled = false;
@@ -47,7 +78,7 @@ public class InputController : MonoBehaviour
         _authortySkill.enabled = false;
     }
 
-    public void Attack()
+    public void Attack()　//全部使えるようにする
     {
         _attack.enabled = true;
         _skill1.enabled = true;
@@ -57,7 +88,7 @@ public class InputController : MonoBehaviour
         _magic2.enabled = true;
     }
 
-    public void PlayerStop()
+    public void PlayerStop() //スキルが使えない+動きもできない
     {
         _playerController.enabled = false;
         _attack.enabled = false;
@@ -66,9 +97,10 @@ public class InputController : MonoBehaviour
         _skillChange.enabled = false;
         _magic1.enabled = false;
         _magic2.enabled = false;
+        _authortySkill.enabled = false;
     }
 
-    public void PlayerAwake()
+    public void PlayerAwake()　//権限スキルだけつけない
     {
         _playerController.enabled = true;
         _attack.enabled = true;

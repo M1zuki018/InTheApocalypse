@@ -14,6 +14,10 @@ public class Event2Trigger : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        _eventManager._event2 = true;
+        if(collision.gameObject.tag == ("Player"))
+        {
+            _eventManager._event2 = true;
+        }
+        
     }
 }
