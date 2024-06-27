@@ -20,13 +20,13 @@ public class TextController : MonoBehaviour
 
     int _namecount;
     public int _textcount;
-    int _number = 5; //テキストの終わり
+    public int _number = 5; //テキストの終わり
 
     //時間経過関係
     [SerializeField] float _interval = 5; //間隔
     float _timeElapsed;
 
-    void Start()
+    void Awake()
     {
         _spriteRenderer = _charaObj.GetComponent<SpriteRenderer>();
         TextSet();
@@ -37,29 +37,16 @@ public class TextController : MonoBehaviour
     {
         _timeElapsed += Time.deltaTime;
 
-        if (_timeElapsed >= _interval)
+        //最後のテキストが表示されたらスキップテキストを表示→スキップ処理
+        if (_textcount == _number - 1)
         {
-            if (_textcount == _number)　//カウントがナンバーに追いついたらテキストボックスを消す
-            {
-                _textArea.SetActive(false);
-                return;
-            }
-
-            TextUpdate();
-
+            _skipText.SetActive(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Return) && _textcount <= _number -1)
+        if (_timeElapsed >= _interval) //時間を計測して、
         {
             TextUpdate();
-        }
-
-        _skipText.SetActive(_textcount == _number - 1);
-        if (_skipText.activeSelf == true && Input.GetKeyDown(KeyCode.Return))
-        {
-            _skipText.SetActive(false);
-            _textArea.SetActive(false);
-        }
+        } 
     }
 
     #region これ以上の変更なし
@@ -68,20 +55,37 @@ public class TextController : MonoBehaviour
         _text.text = (_nameList[0] + Regex.Unescape(_textList[0]));
         _nameIndex = _nameList[_namecount].ToString();
         SpriteChange();
-        _namecount++;
-        _textcount++;
     }
 
-    void TextUpdate() //テキストを更新する
+    public void TextUpdate() //テキストを更新する
     {
+        //カウントを進める
+        _namecount++;
+        _textcount++;
+
+        //カウントがナンバーに追いついたらテキストボックスを消す
+        if (_textcount == _number + 1) 
+        {
+            _textArea.SetActive(false);
+            return;
+        }
+
+        //表示を変更する
         _text.text = (_nameList[_namecount] + Regex.Unescape(_textList[_textcount]));
         _nameIndex = _nameList[_namecount].ToString();
         SpriteChange();
-        _textcount++;
-        _namecount++;
-        _timeElapsed = 0.0f;
+
+        //最後のテキストのスキップ処理
+        if (_skipText.activeSelf == true && Input.GetKeyDown(KeyCode.Return))
+        {
+            _skipText.SetActive(false);
+            _textArea.SetActive(false);
+        }
+
+        _timeElapsed = 0.0f;　//タイマーリセット
     }
 
+    //画像登録
     void SpriteChange()
     {
         if (_nameIndex == "琴葉")
@@ -100,6 +104,7 @@ public class TextController : MonoBehaviour
     public void Enabled()
     {
         _textArea.SetActive(false);
+        _skipText.SetActive(false);
     }
 
     public void Set()
@@ -128,19 +133,20 @@ public class TextController : MonoBehaviour
 
     #endregion
 
+    #region Main2
     public void ZeppaStory()
     {
         _textArea.SetActive(true);
         _textcount = 0;
         _namecount = 0;
-        _number = 5;
+        _number = 4;
     }
 
     public void ZeppaStory1_2()
     {
         _textArea.SetActive(true);
-        _textcount = 5;
-        _namecount = 5;
+        _textcount = 4;
+        _namecount = 4;
         _number = 16;
     }
 
@@ -149,8 +155,11 @@ public class TextController : MonoBehaviour
         _textArea.SetActive(true);
         _textcount = 16;
         _namecount = 16;
-        _number = 27;
+        _number = 26;
     }
+    #endregion
+
+    #region Main3
 
     public void Main3()
     {
@@ -167,5 +176,5 @@ public class TextController : MonoBehaviour
         _namecount = 10;
         _number = 20;
     }
-
+    #endregion
 }
