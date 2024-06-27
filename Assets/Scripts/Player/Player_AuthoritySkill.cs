@@ -36,6 +36,7 @@ public class Player_AuthoritySkill : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q) && AuthorityGage._gageCount >= 1)
             {
+                AuthorityGage._gageCount--;
                 // 範囲内の全てのオブジェクトに対して特定の操作　（ダメージ処理）
                 foreach (RaycastHit2D hit in hitInfo)
                 {
@@ -46,8 +47,6 @@ public class Player_AuthoritySkill : MonoBehaviour
                     {
                         enemy._enemyHp = enemy._enemyHp - 200;
                         Debug.Log($"{hit.transform.name} is Damaged");
-
-                        AuthorityGage._gageCount--;
 
                         if (enemy._enemyHp <= 0)
                         {

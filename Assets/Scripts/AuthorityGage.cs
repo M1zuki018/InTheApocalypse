@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AuthorityGage : MonoBehaviour
 {
     [SerializeField] SpriteRenderer[] _gage;
-    public static int _gageCount = 0;
+    public static int _gageCount = 3;
 
     [SerializeField] int _countUpCount = 20;
     int _push = 0;
@@ -14,50 +11,50 @@ public class AuthorityGage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _gage[0].color = new Color(35, 35, 35, 255);
-        _gage[1].color = new Color(35, 35, 35, 255);
-        _gage[2].color = new Color(35, 35, 35, 255);
+        _gage[0].color = new Color(0.13f, 0.13f, 0.13f, 1);
+        _gage[1].color = new Color(0.13f, 0.13f, 0.13f, 1);
+        _gage[2].color = new Color(0.13f, 0.13f, 0.13f, 1);
     }
 
     // Update is called once per frame
     void Update()
     {
-      // ColorChange();
+        ColorChange();
         CountUp();
-        //Debug.Log(_gageCount);
+        //Debug.Log(_push);
     }
-    
+
     void ColorChange()
     {
         if (_gageCount == 0)
         {
-            _gage[0].color = new Color(35, 35, 35, 255);
-            _gage[1].color = new Color(35, 35, 35, 255);
-            _gage[2].color = new Color(35, 35, 35, 255);
+            _gage[0].color = new Color(0.13f, 0.13f, 0.13f, 1);
+            _gage[1].color = new Color(0.13f, 0.13f, 0.13f, 1);
+            _gage[2].color = new Color(0.13f, 0.13f, 0.13f, 1);
         }
         else if (_gageCount == 1)
         {
-            _gage[0].color = new Color(255, 221, 204, 255);
-            _gage[1].color = new Color(35, 35, 35, 255);
-            _gage[2].color = new Color(35, 35, 35, 255);
+            _gage[0].color = new Color(1, 0.85f, 0.79f, 1);
+            _gage[1].color = new Color(0.13f, 0.13f, 0.13f, 1);
+            _gage[2].color = new Color(0.13f, 0.13f, 0.13f, 1);
         }
         else if (_gageCount == 2)
         {
-            _gage[0].color = new Color(255, 221, 204, 255);
-            _gage[1].color = new Color(255, 221, 204, 255);
-            _gage[2].color = new Color(35, 35, 35, 255);
+            _gage[0].color = new Color(1, 0.85f, 0.79f, 1);
+            _gage[1].color = new Color(1, 0.85f, 0.79f, 1);
+            _gage[2].color = new Color(0.13f, 0.13f, 0.13f, 1);
         }
         else if (_gageCount == 3)
         {
-            _gage[0].color = new Color(255, 221, 204, 255);
-            _gage[1].color = new Color(255, 221, 204, 255);
-            _gage[2].color = new Color(255, 221, 204, 255);
+            _gage[0].color = new Color(1, 0.85f, 0.79f, 1);
+            _gage[1].color = new Color(1, 0.85f, 0.79f, 1);
+            _gage[2].color = new Color(1, 0.85f, 0.79f, 1);
         }
     }
 
     void CountUp()
     {
-        
+
         if (Input.GetButtonDown("Fire1"))
         {
             _push++;

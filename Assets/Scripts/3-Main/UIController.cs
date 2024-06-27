@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
     [SerializeField] Slider _avoidSlider;
     [SerializeField] Slider _skill1Slider;
     [SerializeField] Slider _skill2Slider;
+    [SerializeField] GameObject _authoritySkillGage;
 
     [SerializeField] GameObject _group1;
     [SerializeField] GameObject _group2;
@@ -16,6 +17,7 @@ public class UIController : MonoBehaviour
         SliderReset();
         _group1.SetActive(false);
         _group2.SetActive(false);
+        _authoritySkillGage.SetActive(false);
     }
 
     void Update()

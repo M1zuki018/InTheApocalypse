@@ -65,7 +65,6 @@ public class Main2_EventManager : MonoBehaviour
     {
         GetComponents();
         Initialization();
-
     }
 
     void GetComponents()
@@ -94,6 +93,7 @@ public class Main2_EventManager : MonoBehaviour
         _uiController.Group1();
         _uiController.Group2();
         _authorityGage.SetActive(false);
+        _inputController.PlayerAwake();
     }
 
     // Update is called once per frame
@@ -115,7 +115,7 @@ public class Main2_EventManager : MonoBehaviour
         if (_zeppaEvent && !_isFirst2)
         {
             _isFirst2 = true;
-            StartCoroutine("ZeppaEvent");
+            ZeppaEvent();
         }
 
         if (_explanation)
@@ -171,13 +171,20 @@ public class Main2_EventManager : MonoBehaviour
         }
     }
 
-    IEnumerator ZeppaEvent()
+    void ZeppaEvent()
     {
-        //ストーリーを流す
         _inputController.PlayerStop();
+
+        //テキストをセットする
         _textController.enabled = true;
         _textController.Set();
         _textController.ZeppaStory();
+
+    }
+
+    IEnumerator ZeppaEvent1()
+    {
+        
 
         yield return new WaitForSeconds(_zeppaEventStopSeconds);
 

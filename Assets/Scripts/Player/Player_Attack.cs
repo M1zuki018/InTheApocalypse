@@ -5,11 +5,25 @@ public class Player_Attack : MonoBehaviour
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] Vector2 _skillBounds = Vector2.one;
 
+    GameObject _seObj;
+    Main1_SEController _seController;
+
+    private void Start()
+    {
+        _seObj = GameObject.Find("SE");
+        _seController = _seObj.GetComponent<Main1_SEController>();
+    }
+
     private void Update()
     {
         RaycastHit2D hit;
         hit = Physics2D.BoxCast(transform.parent.position, _skillBounds, 0, Vector2.right, 1f, _enemyLayer, -10, 10);
         TaskOfInsideBounds(hit);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            _seController.Attack();
+        }
     }
 
     private static void TaskOfInsideBounds(RaycastHit2D hit)
@@ -35,6 +49,8 @@ public class Player_Attack : MonoBehaviour
             }
         }
     }
+
+
 
     void OnDrawGizmos()
     {

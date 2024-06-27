@@ -10,6 +10,7 @@ public class TextController : MonoBehaviour
     //立ち絵関係
     [SerializeField] GameObject _charaObj;
     [SerializeField] Sprite[] _chara;
+    [SerializeField] GameObject _skipText;
     SpriteRenderer _spriteRenderer;
     string _nameIndex;
 
@@ -29,6 +30,7 @@ public class TextController : MonoBehaviour
     {
         _spriteRenderer = _charaObj.GetComponent<SpriteRenderer>();
         TextSet();
+        _skipText.SetActive(false);
     }
 
     void Update()
@@ -50,6 +52,13 @@ public class TextController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) && _textcount <= _number -1)
         {
             TextUpdate();
+        }
+
+        _skipText.SetActive(_textcount == _number - 1);
+        if (_skipText.activeSelf == true && Input.GetKeyDown(KeyCode.Return))
+        {
+            _skipText.SetActive(false);
+            _textArea.SetActive(false);
         }
     }
 

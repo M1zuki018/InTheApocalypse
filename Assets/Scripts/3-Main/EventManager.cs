@@ -1,7 +1,5 @@
 ﻿using Cinemachine;
 using System.Collections;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -131,7 +129,7 @@ public class EventManager : MonoBehaviour
         }
 
         //Event2()が呼び出される&テキストが再生し終わる
-        if(_panel1 && !_textController._textArea.activeSelf)
+        if (_panel1 && !_textController._textArea.activeSelf)
         {
             Event2Panel();
         }
@@ -144,7 +142,7 @@ public class EventManager : MonoBehaviour
         ///<summary>
         /// Event2-2　操作説明②
         ///</summary>
-        
+
         //Event2Battleが終わる
         if (_event2_2 && !_isFirst2_2)
         {
@@ -221,7 +219,7 @@ public class EventManager : MonoBehaviour
     #region Event1
     //操作説明
     void MoveStart()
-    {  
+    {
         _movePanel.SetActive(false);
         _event1Camera.SetActive(false);
         _inputController.MoveOnly();　//移動だけ
@@ -246,7 +244,7 @@ public class EventManager : MonoBehaviour
         CinemachineVirtualCamera event2cvc;
         event2cvc = _event2Camera.GetComponent<CinemachineVirtualCamera>();
         event2cvc.LookAt = enemy.transform;
-        
+
         //操作を止める
         _inputController.PlayerStop();
         _panel1 = true;
@@ -311,7 +309,7 @@ public class EventManager : MonoBehaviour
 
     void Event2_2Panel()　//待機中
     {
-        
+
         //クリックしたら次の処理
         if (Input.GetButtonDown("Fire1"))
         {
@@ -392,7 +390,7 @@ public class EventManager : MonoBehaviour
     {
         Instantiate(_enemyPrefab, _sponePosition4, Quaternion.identity);
         _event4Battle = true;
-        
+
     }
 
     void Event4Battle()

@@ -22,20 +22,27 @@ public class Main3_EventManager : MonoBehaviour
 
     [Header("Event2：会話・BGMをつける")]
     public bool _event2;
-    [SerializeField] int _event2StopSeconds;
+    bool _isFirst2;
     [SerializeField] AudioClip _bossBGM;
 
     [Header("Event3：戦闘開始")]
+    bool _event3;
+    bool _isFirst3;
     [SerializeField] GameObject _bossSlider;
-    [SerializeField] int _event3StopSeconds;
 
     [Header("Event4：討伐")]
     bool _event4;
 
     [Header("End")]
     [SerializeField] AudioClip _endBGM;
-    [SerializeField] int _endStopSeconds;
     [SerializeField] GameObject _fadePanel;
+    bool _endScene;
+    bool _isFirstEnd;
+
+    [Header("Camera")]
+    [SerializeField] GameObject _mainCamera;
+    [SerializeField] GameObject _bossCamera;
+    [SerializeField] GameObject _nearCamera;
 
 
     #endregion
@@ -44,7 +51,9 @@ public class Main3_EventManager : MonoBehaviour
     {
         GetComponents();
         StartCoroutine("Event1");
-
+        _nearCamera.SetActive(true);
+        _bossCamera.SetActive(false);
+        _mainCamera.SetActive(false);
     }
 
     void GetComponents() //componentを取得してくる
@@ -61,11 +70,27 @@ public class Main3_EventManager : MonoBehaviour
     void Update()
     {
 
+        if(_textController._textcount == 6 && !_isFirst2)
+        {
+            Event2();
+        }
+
+        if(!_textController._textArea.activeSelf && _event3 && !_isFirst3)
+        {
+            Event3();
+            _isFirst3 = true;
+        }
+
         if (_event4)
         {
             Event4();
         }
 
+        if (!_textController._textArea.activeSelf && _endScene && !_isFirstEnd)
+        {
+            EndScene();
+            _isFirstEnd = true;
+        }
     }
 
     IEnumerator Event1() //会話のあとBGMを止める・BOSSを沸かせる
@@ -76,33 +101,40 @@ public class Main3_EventManager : MonoBehaviour
         yield return new WaitForSeconds(_event1StopSeconds);
 
         _audio.Stop();
+
+        //ボスを沸かせる
         Instantiate(_bossPrefab, _bossSponePosition, Quaternion.identity);
         GameObject boss = GameObject.FindWithTag("Boss");
         Boss_Attack bossAttack = boss.GetComponent<Boss_Attack>();
         bossAttack.enabled = false;
-        StartCoroutine("Event2");
-        yield break;
+
+        //カメラ
+        _nearCamera.SetActive(false);
+        _bossCamera.SetActive(true);
     }
 
-    IEnumerator Event2() //会話・BGMをつける
+    void Event2() //会話・BGMをつける ストーリースキップはここからできるようにしたい
     {
-        yield return new WaitForSeconds(_event2StopSeconds);
-
         _audio.clip = _bossBGM;
         _audio.Play();
-        StartCoroutine("Event3");
-        yield break;
+        _event3 = true;
     }
 
-    IEnumerator Event3()
+    void Event3()
     {
-        yield return new WaitForSeconds(_event3StopSeconds);
+        //カメラ
+        _bossCamera.SetActive(false);
+        _mainCamera.SetActive(true);
 
+        //UIを表示
         _bossSlider.SetActive(true);
         _authorityGage.SetActive(true);
         _uiController.Group1();
         _uiController.Group2();
+
+        //行動制限解除
         _inputController.PlayerAwake();
+        _inputController.AuthortySkill();
         GameObject boss = GameObject.FindWithTag("Boss");
         Boss_Attack bossAttack = boss.GetComponent<Boss_Attack>();
         bossAttack.enabled = true;
@@ -120,26 +152,36 @@ public class Main3_EventManager : MonoBehaviour
             {
                 Destroy(enemy);
             }
-            StartCoroutine("EndScene");
+            EndScenePlay();
             _event4 = false;
         }
     }
 
-    IEnumerator EndScene()
+    void EndScenePlay()
     {
+        //行動制限・ UI非表示
         _inputController.PlayerStop();
         GameObject uiCanvas = GameObject.Find("UICanvas");
         uiCanvas.SetActive(false);
+
         _audio.clip = _endBGM;
         _audio.Play();
+
+        //シナリオ再生
+        _mainCamera.SetActive(false);
+        _nearCamera.SetActive(true);
         _textController.Main3End();
+        _endScene =  true;
+    }
 
-        yield return new WaitForSeconds(_endStopSeconds);
-
+    void EndScene()
+    {
         _fadePanel.SetActive(true); //暗転アニメーション
+        Invoke("EndingSwitch", 7);
+    }
 
-        yield return new WaitForSeconds(7);
-
+    void EndingSwitch()
+    {
         _scene.SceneChange();
     }
 }
