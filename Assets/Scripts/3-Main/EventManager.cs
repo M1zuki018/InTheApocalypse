@@ -27,6 +27,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] Vector3 _sponePosition;
     GameObject _eventZone2;
     GameObject _enemySensor;
+    GameObject _enemyAttack;
     [SerializeField] GameObject _event2Camera;
     [SerializeField] GameObject _event2AttackCamera;
 
@@ -238,6 +239,8 @@ public class EventManager : MonoBehaviour
         GameObject enemy = GameObject.FindWithTag("Enemy");
         _enemySensor = enemy.transform.GetChild(0).gameObject;
         _enemySensor.SetActive(false);
+        _enemyAttack = enemy.transform.GetChild(1).gameObject;
+        _enemyAttack.SetActive(false);
 
         //カメラをプレイヤーとエネミーに合わせる
         _event2Camera.SetActive(true);
@@ -265,6 +268,7 @@ public class EventManager : MonoBehaviour
             _event2Camera.SetActive(false);　//メインカメラに戻す
             _inputController.AttackOnly();
             _enemySensor.SetActive(true);
+            _enemyAttack.SetActive(true);
 
             _eventZone4.SetActive(true); //後ろの移動制限
 
@@ -295,6 +299,8 @@ public class EventManager : MonoBehaviour
         GameObject enemy = GameObject.FindWithTag("Enemy");
         _enemySensor = enemy.transform.GetChild(0).gameObject;
         _enemySensor.SetActive(false);
+        _enemyAttack = enemy.transform.GetChild(1).gameObject;
+        _enemyAttack.SetActive(false);
 
         //カメラ
         _event2Camera.SetActive(true);
@@ -317,6 +323,7 @@ public class EventManager : MonoBehaviour
             _event2Camera.SetActive(false);
             _inputController.Event3();
             _enemySensor.SetActive(true);
+            _enemyAttack.SetActive(true);
 
             _event2_2Battle = true;
             _panel2 = false;
@@ -345,6 +352,8 @@ public class EventManager : MonoBehaviour
         GameObject enemy = GameObject.FindWithTag("Enemy");
         _enemySensor = enemy.transform.GetChild(0).gameObject;
         _enemySensor.SetActive(false);
+        _enemyAttack = enemy.transform.GetChild(1).gameObject;
+        _enemyAttack.SetActive(false);
 
         //カメラ
         _event2Camera.SetActive(true);
@@ -366,6 +375,7 @@ public class EventManager : MonoBehaviour
             _event2Camera.SetActive(false);
             _inputController.Event3_2();
             _enemySensor.SetActive(true);
+            _enemyAttack.SetActive(true);
 
             _event2_3Battle = true;
             _panel3 = false;

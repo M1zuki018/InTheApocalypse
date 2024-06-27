@@ -35,18 +35,21 @@ public class TextController : MonoBehaviour
 
     void Update()
     {
-        _timeElapsed += Time.deltaTime;
-
-        //最後のテキストが表示されたらスキップテキストを表示→スキップ処理
-        if (_textcount == _number - 1)
+        if (_textArea.activeSelf)
         {
-            _skipText.SetActive(true);
+            _timeElapsed += Time.deltaTime;
+
+            //最後のテキストが表示されたらスキップテキストを表示→スキップ処理
+            if (_textcount == _number - 1)
+            {
+                _skipText.SetActive(true);
+            }
+
+            if (_timeElapsed >= _interval) //時間を計測して、
+            {
+                TextUpdate();
+            }
         }
-
-        if (_timeElapsed >= _interval) //時間を計測して、
-        {
-            TextUpdate();
-        } 
     }
 
     #region これ以上の変更なし
@@ -66,6 +69,7 @@ public class TextController : MonoBehaviour
         //カウントがナンバーに追いついたらテキストボックスを消す
         if (_textcount == _number + 1) 
         {
+            _skipText.SetActive(false);
             _textArea.SetActive(false);
             return;
         }
@@ -117,18 +121,18 @@ public class TextController : MonoBehaviour
     #region Main1
     public void Event2Story()
     {
-        _textArea.SetActive(true); //オブジェクトを表示
         _textcount = 5; //5から始める
         _namecount = 5;
         _number = 10; //10になったら終わる
+        _textArea.SetActive(true); //オブジェクトを表示
     }
 
     public void Event5Story()
     {
-        _textArea.SetActive(true);
         _textcount = 10;
         _namecount = 10;
         _number = 18;
+        _textArea.SetActive(true);
     }
 
     #endregion

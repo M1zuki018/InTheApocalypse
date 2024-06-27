@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
@@ -21,12 +22,15 @@ public class Main2_EventManager : MonoBehaviour
 
     [Header("スーパー絶刃タイム")]
     public bool _zeppaEvent;
+    bool _zeppaEvent3; //操作説明
     bool _zeppaBattle;
+    bool _zeppaTalk;
     bool _isFirst2;
+    bool _isFirst2_2;
+    bool _isFirst2_3;
     bool _explanation;
-    [SerializeField] int _zeppaEventStopSeconds = 16;
-    [SerializeField] int _zeppaEventStopSeconds2 = 20;
-    [SerializeField] int _zeppaEventStopSeconds3;
+    [SerializeField] int _zeppaEventStopSeconds = 5;
+    [SerializeField] float _zeppaEventStopSeconds3 = 0.1f;
     [SerializeField] Vector3 _sponePosition3;
     [SerializeField] Vector3 _sponePosition4;
     [SerializeField] Vector3 _sponePosition5;
@@ -58,7 +62,10 @@ public class Main2_EventManager : MonoBehaviour
     GameObject _battle1Col5;
     GameObject _battle1Col6;
 
-
+    [Header("Camera")]
+    [SerializeField] GameObject _mainCamera;
+    [SerializeField] GameObject _nearCamera;
+    [SerializeField] GameObject _eventCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -88,12 +95,19 @@ public class Main2_EventManager : MonoBehaviour
         _battle1Col1.SetActive(false);
         _battle1Col3.SetActive(false);
         _battle1Col5.SetActive(false);
+
         _textController.Enabled();
         _textController.enabled = false;
+
         _uiController.Group1();
         _uiController.Group2();
         _authorityGage.SetActive(false);
+
         _inputController.PlayerAwake();
+
+        _mainCamera.SetActive(true);
+        _nearCamera.SetActive(false);
+        _eventCamera.SetActive(false);
     }
 
     // Update is called once per frame
@@ -112,10 +126,24 @@ public class Main2_EventManager : MonoBehaviour
             Battle1();
         }
 
+        #region 絶刃イベント
         if (_zeppaEvent && !_isFirst2)
         {
             _isFirst2 = true;
             ZeppaEvent();
+        }
+
+        //テキストカウントが丸になったらZeppaEvent_2()
+        if(_textController._textcount == 9 && !_isFirst2_2)
+        {
+            ZeppaEvent_2();
+            _isFirst2_2 = true;
+        }
+
+        if(_zeppaEvent3 && !_textController._textArea.activeSelf && !_isFirst2_3)
+        {
+            ZeppaEvent_3();
+            _isFirst2_3 = true;
         }
 
         if (_explanation)
@@ -133,6 +161,14 @@ public class Main2_EventManager : MonoBehaviour
         {
             ZeppaBattle();
         }
+
+        if (_zeppaTalk && !_textController._textArea.activeSelf)
+        {
+            _textController.Enabled();
+            _textController.enabled = false;
+        }
+
+        #endregion
 
         if (_battle2)
         {
@@ -171,6 +207,7 @@ public class Main2_EventManager : MonoBehaviour
         }
     }
 
+    #region 絶刃イベント
     void ZeppaEvent()
     {
         _inputController.PlayerStop();
@@ -180,28 +217,45 @@ public class Main2_EventManager : MonoBehaviour
         _textController.Set();
         _textController.ZeppaStory();
 
+        _mainCamera.SetActive(false);
+        _nearCamera.SetActive(true);
+
+        StartCoroutine(ZeppaEvent_1());
     }
 
-    IEnumerator ZeppaEvent1()
+    IEnumerator ZeppaEvent_1()
     {
-        
-
-        yield return new WaitForSeconds(_zeppaEventStopSeconds);
+        yield return new WaitForSeconds(_zeppaEventStopSeconds); //どばーっと流れる演出
 
         _textController.ZeppaStory1_2();
 
-        yield return new WaitForSeconds(_zeppaEventStopSeconds2);
+        yield break;
+    }
 
+    void ZeppaEvent_2()
+    {
         //敵を出現させる
         Instantiate(_enemyPrefab, _sponePosition3, Quaternion.identity);
+        GameObject enemy = GameObject.FindWithTag("Enemy");
         Instantiate(_enemyPrefab, _sponePosition4, Quaternion.identity);
         Instantiate(_enemyPrefab, _sponePosition5, Quaternion.identity);
         Instantiate(_enemyPrefab, _sponePosition6, Quaternion.identity);
         Instantiate(_enemyPrefab, _sponePosition7, Quaternion.identity);
 
-        //ストーリーが進む
+        _nearCamera.SetActive(false);
+        _eventCamera.SetActive(true);
+        CinemachineVirtualCamera eventcvc;
+        eventcvc = _eventCamera.GetComponent<CinemachineVirtualCamera>();
+    
+        eventcvc.Follow = enemy.transform;
 
-        yield return new WaitForSeconds(_zeppaEventStopSeconds2);
+        _zeppaEvent3 = true;
+    }
+
+    void ZeppaEvent_3()
+    {
+        _eventCamera.SetActive(false);
+        _mainCamera.SetActive(true);
 
         //権限の説明を表示する
         _zeppaPanel.SetActive(true);
@@ -229,19 +283,17 @@ public class Main2_EventManager : MonoBehaviour
         if (enemys.Length == 0)
         {
             _zeppaBattle = false;
-            StartCoroutine("Talk");
+            ZeppaTalk();
         }
     }
 
-    IEnumerator Talk()
+    void ZeppaTalk()
     {
-        _inputController.PlayerStop();
         _textController.Talk();
-
-        yield return new WaitForSeconds(_talkStopSeconds);
-
-        _inputController.PlayerAwake();
+        _zeppaTalk = true;
     }
+
+    #endregion
 
     void Battle2() //通常戦闘
     {
