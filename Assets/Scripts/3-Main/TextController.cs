@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TextController : MonoBehaviour
 {
-    [SerializeField] GameObject _textArea;　//親オブジェクトを登録
+    public GameObject _textArea;　//親オブジェクトを登録
     [SerializeField] UnityEngine.UI.Text _text;
 
     //立ち絵関係
@@ -18,7 +18,7 @@ public class TextController : MonoBehaviour
     public List<string> _textList;
 
     int _namecount;
-    int _textcount;
+    public int _textcount;
     int _number = 5; //テキストの終わり
 
     //時間経過関係
@@ -45,6 +45,11 @@ public class TextController : MonoBehaviour
 
             TextUpdate();
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return) && _textcount <= _number -1)
+        {
+            TextUpdate();
         }
     }
 

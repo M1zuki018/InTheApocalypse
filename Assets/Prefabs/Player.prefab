@@ -321,7 +321,7 @@ MonoBehaviour:
   _jumpPower: 8
   _avoidPower: 5
   _flipX: 1
-  _gameOverPanel: {fileID: 6034208988488964296, guid: dd9c7dd5953a2ea45983e95d8b83921b, type: 3}
+  _gameOverPanel: {fileID: 0}
 --- !u!114 &3245520183562516354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,7 +390,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _skillBounds: {x: 5.97, y: 0.4}
-  _charge: 15
+  _charge: 8
 --- !u!1 &7007296734442390604
 GameObject:
   m_ObjectHideFlags: 0

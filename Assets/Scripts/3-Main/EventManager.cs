@@ -16,25 +16,26 @@ public class EventManager : MonoBehaviour
     [SerializeField] GameObject _mainCamera;
 
     [Header("Event1：スタート時のイベント")]
-    [SerializeField] int _event1StopSeconds;
     [SerializeField] GameObject _movePanel;
     [SerializeField] GameObject _event1Camera;
+    bool _isFirst1;
 
     [Header("Event2：敵と遭遇")]
     bool _isFirst2;
     public bool _event2;
-    [SerializeField] int _event2StopSeconds;
+    bool _panel1;
     [SerializeField] GameObject _enemyPrefab;
     [SerializeField] Vector3 _sponePosition;
     GameObject _eventZone2;
     GameObject _enemySensor;
     [SerializeField] GameObject _event2Camera;
+    [SerializeField] GameObject _event2AttackCamera;
 
     [Header("Event3：操作のチュートリアル")]
     bool _event3;
     GameObject _event3PanelArea;
     SpriteRenderer _event3Panel;
-    [SerializeField] Sprite[] _event3Panels; //パネルを表示する
+    [SerializeField] GameObject[] _event3Panels; //パネルを表示する
     int _panelIndex;
 
     [Header("Event4：バトル①")]
@@ -64,7 +65,7 @@ public class EventManager : MonoBehaviour
     {
         GetComponents();
         Initialization();
-        StartCoroutine("Event1");
+        _inputController.PlayerStop();
     }
 
     void GetComponents() //componentを取得してくる
@@ -92,6 +93,11 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
+        if (!_isFirst1)
+        {
+            PanelActive();
+        }
+
         if (_movePanel.activeSelf == true && Input.GetButtonDown("Fire1"))
         {
             MoveStart();
@@ -101,6 +107,11 @@ public class EventManager : MonoBehaviour
         {
             _isFirst2 = true;
             Event2();
+        }
+
+        if(_panel1 && !_textController._textArea.activeSelf)
+        {
+            Event2Panel();
         }
 
         if (_event3)
@@ -133,23 +144,23 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    IEnumerator Event1()
+    #region Event1
+    void PanelActive()
     {
-        _inputController.PlayerStop();
-
-        yield return new WaitForSeconds(_event1StopSeconds);
-
-        _movePanel.SetActive(true);
-
-        yield break;
+        if (!_textController._textArea.activeSelf)
+        {
+            _movePanel.SetActive(true);
+            _isFirst1 = true;
+        }
     }
 
     void MoveStart()
-    {
+    {  
         _movePanel.SetActive(false);
         _event1Camera.SetActive(false);
         _inputController.PlayerAwake();
     }
+    #endregion
 
     #region Event2
 
@@ -159,27 +170,47 @@ public class EventManager : MonoBehaviour
         Instantiate(_enemyPrefab, _sponePosition, Quaternion.identity);
         _enemySensor = _enemyPrefab.transform.GetChild(0).gameObject;
         _enemySensor.SetActive(false);
+
+        //カメラ
         _event2Camera.SetActive(true);
         CinemachineVirtualCamera event2cvc;
         event2cvc = _event2Camera.GetComponent<CinemachineVirtualCamera>();
         GameObject enemy = GameObject.FindWithTag("Enemy");
         event2cvc.LookAt = enemy.transform;
-        StartCoroutine("Event2Coroutine");
+        
+        //操作説明
+        _inputController.PlayerStop();
+        _panel1 = true;
     }
 
-    IEnumerator Event2Coroutine()
+    void Event2Panel()
     {
-        _inputController.PlayerStop();
-
-        yield return new WaitForSeconds(_event2StopSeconds);
-
-        _event3Panel.sprite = _event3Panels[0];
+        //操作説明①のパネルとUIを表示する
+        _event3Panels[0].SetActive(true);
         _uiController.Group1();
         _uiController.Group2();
-        _event3 = true;
         Destroy(_eventZone2);
 
-        yield break;
+        //カメラ
+        _event2Camera.SetActive(false);
+        _event2AttackCamera.SetActive(true);
+        CinemachineVirtualCamera event2Acvc;
+        event2Acvc = _event2AttackCamera.GetComponent<CinemachineVirtualCamera>();
+        event2Acvc.LookAt = _event3Panels[0].transform;
+
+        //クリックしたら次の処理
+        if (Input.GetButtonDown("Fire1"))
+        {
+            _event3Panels[0].SetActive(false);
+            _event2AttackCamera.SetActive(false);
+            _inputController.PlayerAwake();
+            _enemySensor.SetActive(true);
+
+            _eventZone4.SetActive(true);
+            _event4 = true;
+            _event3 = false;
+            _panel1 = false;
+        }
     }
     #endregion
 
@@ -203,7 +234,7 @@ public class EventManager : MonoBehaviour
             _event3 = false;
             return;
         }
-        _event3Panel.sprite = _event3Panels[_panelIndex];
+        //_event3Panel.sprite = _event3Panels[_panelIndex];
     }
 
     void Event4() //バトル
