@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6829576106226407617}
   - component: {fileID: 4329703864401079028}
+  - component: {fileID: 1696815255949029800}
   m_Layer: 0
   m_Name: UIController
   m_TagString: Untagged
@@ -48,3 +49,19 @@ MonoBehaviour:
   _avoidSlider: {fileID: 0}
   _skill1Slider: {fileID: 0}
   _skill2Slider: {fileID: 0}
+  _authoritySkillGage: {fileID: 0}
+  _group1: {fileID: 0}
+  _group2: {fileID: 0}
+  _hpText: {fileID: 0}
+--- !u!114 &1696815255949029800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3248346858173270573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdc8e26a4844f94fa35f15db600b59a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MagicAController : MonoBehaviour
@@ -7,7 +5,8 @@ public class MagicAController : MonoBehaviour
     /// <summary>íeÇ™îÚÇ‘ë¨Ç≥</summary>
     [SerializeField] float _speed = 3f;
     /// <summary>íeÇÃê∂ë∂ä˙ä‘ÅiïbÅj</summary>
-    [SerializeField] float _lifeTime = 5f;
+    [SerializeField] float _lifeTime = 3f;
+    [SerializeField] int _damage = 10;
 
     GameObject _approachEnemy;
 
@@ -40,11 +39,11 @@ public class MagicAController : MonoBehaviour
             if (!enemyHp._danger)
             {
                 _approachEnemy = collision.gameObject;
-                enemyHp._enemyHp = enemyHp._enemyHp - 30;
+                enemyHp._enemyHp = enemyHp._enemyHp - _damage;
             }
             else
             {
-                enemyHp._breakCount = enemyHp._breakCount - 30;
+                enemyHp._breakCount = enemyHp._breakCount - _damage;
             }
 
             if (enemyHp._enemyHp <= 0)

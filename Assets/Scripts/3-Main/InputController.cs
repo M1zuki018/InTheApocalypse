@@ -78,6 +78,17 @@ public class InputController : MonoBehaviour
         _authortySkill.enabled = false;
     }
 
+    public void ASSkill() //権限スキル中
+    {
+        _playerController.enabled = false;
+        _attack.enabled = false;
+        _skill1.enabled = false;
+        _skill2.enabled = false;
+        _skillChange.enabled = false;
+        _magic1.enabled = false;
+        _magic2.enabled = false;
+    }
+
     public void Attack()　//全部使えるようにする
     {
         _attack.enabled = true;

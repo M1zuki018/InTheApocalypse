@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player_AuthoritySkill : MonoBehaviour
 {
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] Vector2 _skillBounds = Vector2.one;
+    [SerializeField] GameObject _sprite;
+    [SerializeField] GameObject _panel;
 
     GameObject _seObj;
     Main1_SEController _seController;
@@ -18,14 +21,27 @@ public class Player_AuthoritySkill : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && AuthorityGage._gageCount >= 1)
-        {
-            _seController.AuthoritySkill();
-        }
 
         RaycastHit2D[] hitInfo;
         hitInfo = Physics2D.BoxCastAll(transform.parent.position, _skillBounds, 0, Vector2.up, 100f, _enemyLayer, -10, 10);
         TaskOfInsideBounds(hitInfo);
+
+        if (Input.GetKeyDown(KeyCode.Q) && AuthorityGage._gageCount >= 1)
+        {
+            StartCoroutine(Performance());
+            _seController.AuthoritySkill();
+        }
+    }
+
+    IEnumerator Performance()
+    {
+        _sprite.SetActive(true);
+        _panel.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+    
+        _sprite.SetActive(false);
+        _panel.SetActive(false);
     }
 
     private static void TaskOfInsideBounds(RaycastHit2D[] hitInfo)
@@ -45,8 +61,15 @@ public class Player_AuthoritySkill : MonoBehaviour
                     // ìGÇ©Ç«Ç§Ç©Ç±Ç±Ç≈ï€è·
                     if (hit.transform.TryGetComponent<EnemyController>(out var enemy))
                     {
-                        enemy._enemyHp = enemy._enemyHp - 200;
-                        Debug.Log($"{hit.transform.name} is Damaged");
+                        if (!enemy._break)
+                        {
+                            enemy._enemyHp = enemy._enemyHp - 200;
+                            Debug.Log($"{hit.transform.name} is Damaged");
+                        }
+                        else
+                        {
+                            enemy._breakCount = enemy._breakCount - 200;
+                        }
 
                         if (enemy._enemyHp <= 0)
                         {

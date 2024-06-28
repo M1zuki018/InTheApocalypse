@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public static bool _facingRight;
 
     //HP
-    int _chara1MaxHp = 250; //250
+    public static int _chara1MaxHp = 250; //250
     public static int _chara1HP;
 
     //回避

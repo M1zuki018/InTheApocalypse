@@ -343,6 +343,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2693870056574545615, guid: 47da5c4a29767024cb4a0d2ef4681bbb, type: 3}
+      propertyPath: _mpText
+      value: 
+      objectReference: {fileID: 1308728998}
+    - target: {fileID: 2693870056574545615, guid: 47da5c4a29767024cb4a0d2ef4681bbb, type: 3}
       propertyPath: _mpSlider
       value: 
       objectReference: {fileID: 1067418959}
@@ -3409,6 +3413,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2646e4ab52487647a21a88523f820ab, type: 3}
+--- !u!114 &1308728998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5759139241472577547, guid: 83518dce41e8c7d418e128d71913b7ba, type: 3}
+  m_PrefabInstance: {fileID: 1067418958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1333996741
 GameObject:
   m_ObjectHideFlags: 0

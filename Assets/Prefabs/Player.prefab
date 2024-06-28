@@ -317,8 +317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca640903670ba34fb14492b02ad55c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movePower: 13
-  _jumpPower: 8
+  _movePower: 10
+  _jumpPower: 6
   _avoidPower: 5
   _flipX: 1
   _gameOverPanel: {fileID: 0}
@@ -439,6 +439,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _skillBounds: {x: 15.62, y: 9.6}
+  _sprite: {fileID: 0}
+  _panel: {fileID: 0}
 --- !u!1001 &7427399323257206686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -494,6 +496,10 @@ PrefabInstance:
     - target: {fileID: 2124333781740570192, guid: e49771c5b13c9fa4db8b031159396ea2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5834353311053290553, guid: e49771c5b13c9fa4db8b031159396ea2, type: 3}
+      propertyPath: _mpConsumption1
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

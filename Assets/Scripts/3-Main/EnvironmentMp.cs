@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 public class EnvironmentMp : MonoBehaviour
 {
@@ -12,19 +10,28 @@ public class EnvironmentMp : MonoBehaviour
     int _mpPlus = 0;
     public Slider _mpSlider;
 
+    [SerializeField] Text _mpText;
+
     // Start is called before the first frame update
     void Start()
     {
         _mp = _maxMP;
         _notEnoughMpObj.SetActive(false);
         _mpSlider.value = _mp;
+
+        _mpText.text = ("MP" + _mp + "/" + _maxMP);
     }
 
     // Update is called once per frame
     void Update()
     {
-        MagicPoint(); //MP自動回復
+        if (_mp < _maxMP)
+        {
+            MagicPoint(); //MP自動回復
+        }
+        
         _mpSlider.value = (float)_mp;
+        _mpText.text = ("MP" + _mp + "/" + _maxMP);
     }
 
     public void PlayerMagic() //魔法発動時の処理
@@ -46,7 +53,7 @@ public class EnvironmentMp : MonoBehaviour
     {
         _mpPlus++;
 
-        if (_mpPlus % 200 == 0)
+        if (_mpPlus % 300 == 0)
         {
             _mp++;
         }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,26 +12,31 @@ public class Enemy_HPSlider : MonoBehaviour
     GameObject _sliderBackground;
     GameObject _sliderFillArea;
 
+    //[SerializeField] Text _enemyHpText;
+
     private void Start()
     {
         _sliderBackground = transform.GetChild(0).gameObject;
         _sliderFillArea = transform.GetChild(1).gameObject;
 
+        //_enemyHpText.text = "";
     }
 
     void Update()
     {
         GetNearEnemy();
-        
+
         if (_nearestEnemy == null)
         {
             _sliderBackground.SetActive(false);
             _sliderFillArea.SetActive(false);
+            //_enemyHpText.gameObject.SetActive(false);
         }
         else
         {
             _sliderBackground.SetActive(true);
             _sliderFillArea.SetActive(true);
+            //_enemyHpText.gameObject.SetActive(true);
         }
 
         GetDate();
@@ -62,6 +65,8 @@ public class Enemy_HPSlider : MonoBehaviour
             _nearestEnemy.TryGetComponent(out EnemyController enemyHp);
             _enemyHpSlider.maxValue = enemyHp._enemyMaxHp;
             _enemyHpSlider.value = enemyHp._enemyHp;
+
+            //_enemyHpText.text = (_nearestEnemy.ToString() + " " + enemyHp._enemyHp + "/" + enemyHp._enemyMaxHp);
         }
     }
 }

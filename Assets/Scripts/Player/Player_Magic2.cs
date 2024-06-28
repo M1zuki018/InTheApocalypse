@@ -36,7 +36,7 @@ public class Player_Magic2 : MonoBehaviour
     {
         _mpController.TryGetComponent(out EnvironmentMp mp);
 
-        if (mp._mp >= _mpConsumption1 || PlayerController._chara1HP >= 100)
+        if (mp._mp >= _mpConsumption1 || PlayerController._chara1HP <= 250)
         {
             mp._mp = mp._mp - _mpConsumption1;
             _seController.Magic2();
