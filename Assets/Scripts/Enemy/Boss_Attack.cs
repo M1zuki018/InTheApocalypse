@@ -21,6 +21,9 @@ public class Boss_Attack : MonoBehaviour
     public bool _move;
     public bool _horizontarMove;
 
+    [SerializeField] GameObject _hpSlider;
+    [SerializeField] GameObject _breakSlider;
+
     [SerializeField] GameObject _attack2Zone;
     [SerializeField] GameObject _attack2;
     [SerializeField] Transform[] _attackHeight;
@@ -55,6 +58,7 @@ public class Boss_Attack : MonoBehaviour
         _attack2.SetActive(false);
         _attack3Zone.SetActive(false);
         _attack3.SetActive(false);
+        _hpSlider.SetActive(true);
     }
 
     // Update is called once per frame
@@ -188,6 +192,9 @@ public class Boss_Attack : MonoBehaviour
     //Update関数内で、「_danger」がtrueの時に呼ばれる
     void Attack4()
     {
+        _hpSlider.SetActive(false);
+        _breakSlider.SetActive(true);
+
         _time += Time.deltaTime;
         if (!_isFirst)
         {
@@ -197,7 +204,7 @@ public class Boss_Attack : MonoBehaviour
         }
         
         //breakテスト用
-        if (Input.GetKeyDown(KeyCode.G))
+        if (_enemyController._breakCount <= 0)
         {
             _enemyController._break = true;
         }
@@ -212,6 +219,7 @@ public class Boss_Attack : MonoBehaviour
         {
             PlayerController._chara1HP -= 90;
             _enemyController._danger = false;
+            _enemyController._breakCount = _enemyController._breakMaxCount;
             StartCoroutine("Attack1Coroutine"); //攻撃の最初に戻る
             _move = true;
             _isFirst = false;
@@ -235,6 +243,9 @@ public class Boss_Attack : MonoBehaviour
 
     IEnumerator BossBreak()
     {
+        _breakSlider.SetActive(false);
+        _hpSlider.SetActive(true);
+
         yield return new WaitForSeconds(_breakTime);
 
         StartCoroutine("Attack1Coroutine");

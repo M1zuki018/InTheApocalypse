@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -33,15 +31,15 @@ public class Boss_Move : MonoBehaviour
     {
         if (_attack._move)
         {
-           Movement();
+            Movement();
         }
         else if (_attack._horizontarMove)
         {
             HorizontarMovement();
         }
-        
+
     }
-    
+
     void Movement() //プレイヤーと一定の距離をとって移動（高さも変わる）
     {
         transform.position = _playerTf.position + _offset;

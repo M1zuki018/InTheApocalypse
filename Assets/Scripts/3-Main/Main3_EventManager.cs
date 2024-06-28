@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Main3_EventManager : MonoBehaviour
 {
     #region 宣言
     [SerializeField] GameObject _txtCtrl;
     TextController _textController;
+    TextSkip _textSkip;
     InputController _inputController;
 
     [SerializeField] GameObject _uiCtrl;
@@ -16,9 +16,9 @@ public class Main3_EventManager : MonoBehaviour
     Scene _scene;
 
     [Header("Event1：会話のあとBGMを止める・BOSSを沸かせる")]
-    [SerializeField] int _event1StopSeconds;
+    bool _event1;
+    bool _isFirst1;
     [SerializeField] GameObject _bossPrefab;
-    [SerializeField] Vector3 _bossSponePosition;
 
     [Header("Event2：会話・BGMをつける")]
     public bool _event2;
@@ -50,7 +50,7 @@ public class Main3_EventManager : MonoBehaviour
     void Start()
     {
         GetComponents();
-        StartCoroutine("Event1");
+        Event1();
         _nearCamera.SetActive(true);
         _bossCamera.SetActive(false);
         _mainCamera.SetActive(false);
@@ -59,6 +59,7 @@ public class Main3_EventManager : MonoBehaviour
     void GetComponents() //componentを取得してくる
     {
         _textController = _txtCtrl.GetComponent<TextController>();
+        _textSkip = _txtCtrl.GetComponent<TextSkip>();
         _inputController = GetComponent<InputController>();
         _uiController = _uiCtrl.GetComponent<UIController>();
         GameObject audioObj = GameObject.Find("Audio");
@@ -70,12 +71,19 @@ public class Main3_EventManager : MonoBehaviour
     void Update()
     {
 
-        if(_textController._textcount == 6 && !_isFirst2)
+        if (_event1 && _textController._textcount == 1 && !_isFirst1)
         {
-            Event2();
+            Event1_2();
+            _isFirst1 = true;
         }
 
-        if(!_textController._textArea.activeSelf && _event3 && !_isFirst3)
+        if (_textController._textcount == 5 && !_isFirst2)
+        {
+            Event2();
+            _isFirst2 = true;
+        }
+
+        if (!_textController._textArea.activeSelf && _event3 && !_isFirst3)
         {
             Event3();
             _isFirst3 = true;
@@ -93,30 +101,32 @@ public class Main3_EventManager : MonoBehaviour
         }
     }
 
-    IEnumerator Event1() //会話のあとBGMを止める・BOSSを沸かせる
+    void Event1()//会話のあとBGMを止める・BOSSを沸かせる
     {
         _inputController.PlayerStop();
         _textController.Main3();
-
-        yield return new WaitForSeconds(_event1StopSeconds);
-
+        _textSkip.enabled = false;
+        _event1 = true;
+    }
+    void Event1_2()
+    {
         _audio.Stop();
 
         //ボスを沸かせる
-        Instantiate(_bossPrefab, _bossSponePosition, Quaternion.identity);
-        GameObject boss = GameObject.FindWithTag("Boss");
-        Boss_Attack bossAttack = boss.GetComponent<Boss_Attack>();
+        _bossPrefab.SetActive(true);
+        Boss_Attack bossAttack = _bossPrefab.GetComponent<Boss_Attack>();
         bossAttack.enabled = false;
 
         //カメラ
         _nearCamera.SetActive(false);
         _bossCamera.SetActive(true);
-    }
 
+    }
     void Event2() //会話・BGMをつける ストーリースキップはここからできるようにしたい
     {
         _audio.clip = _bossBGM;
         _audio.Play();
+        _textSkip.enabled = true;
         _event3 = true;
     }
 
@@ -171,7 +181,7 @@ public class Main3_EventManager : MonoBehaviour
         _mainCamera.SetActive(false);
         _nearCamera.SetActive(true);
         _textController.Main3End();
-        _endScene =  true;
+        _endScene = true;
     }
 
     void EndScene()

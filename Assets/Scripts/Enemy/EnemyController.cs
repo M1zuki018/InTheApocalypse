@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     public int _enemyHp;
 
     //ŠëŒ¯ó‘Ô
-    public bool _danger;
+    public bool _danger; //‚±‚ÌŠÔbreak’l‚ğí‚é
     public bool _break;
     public int _breakMaxCount = 300;
     public int _breakCount = 300;

@@ -35,8 +35,6 @@ public class Player_Skill2 : MonoBehaviour
         TaskOfInsideBounds(hitInfo);
     }
 
-   
-
 
     private static void TaskOfInsideBounds(RaycastHit2D[] hitInfo)
     {
@@ -55,8 +53,15 @@ public class Player_Skill2 : MonoBehaviour
                     // ìGÇ©Ç«Ç§Ç©Ç±Ç±Ç≈ï€è·
                     if (hit.transform.TryGetComponent<EnemyController>(out var enemy))
                     {
-                        enemy._enemyHp = enemy._enemyHp - 60;
-                        Debug.Log($"{hit.transform.name} is Damaged");
+                        if (!enemy._danger)
+                        {
+                            enemy._enemyHp = enemy._enemyHp - 60;
+                            Debug.Log($"{hit.transform.name} is Damaged");
+                        }
+                        else
+                        {
+                            enemy._breakCount = enemy._breakCount - 60;
+                        }
 
                         if (enemy._enemyHp <= 0)
                         {

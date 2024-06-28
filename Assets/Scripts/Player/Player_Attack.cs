@@ -39,8 +39,16 @@ public class Player_Attack : MonoBehaviour
             // ìGÇ©Ç«Ç§Ç©Ç±Ç±Ç≈ï€è·
             if (hit.transform.TryGetComponent<EnemyController>(out var enemy))
             {
-                enemy._enemyHp = enemy._enemyHp - 10;
-                Debug.Log($"{hit.transform.name} is Damaged");
+                if (!enemy._danger)
+                {
+                    enemy._enemyHp = enemy._enemyHp - 10;
+                    Debug.Log($"{hit.transform.name} is Damaged");
+                }
+                else
+                {
+                    enemy._breakCount = enemy._breakCount - 10;
+                }
+                
 
                 if (enemy._enemyHp <= 0)
                 {

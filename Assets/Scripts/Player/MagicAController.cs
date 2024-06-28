@@ -37,8 +37,15 @@ public class MagicAController : MonoBehaviour
     {
         if (collision.TryGetComponent(out EnemyController enemyHp))
         {
-            _approachEnemy = collision.gameObject;
-            enemyHp._enemyHp = enemyHp._enemyHp - 30;
+            if (!enemyHp._danger)
+            {
+                _approachEnemy = collision.gameObject;
+                enemyHp._enemyHp = enemyHp._enemyHp - 30;
+            }
+            else
+            {
+                enemyHp._breakCount = enemyHp._breakCount - 30;
+            }
 
             if (enemyHp._enemyHp <= 0)
             {
