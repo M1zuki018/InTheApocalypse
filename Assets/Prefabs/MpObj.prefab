@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e38d97d469b7042b99996981994758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mp: 100
+  _mp: 150
   _mpNotEnough: 0
   _notEnoughMpObj: {fileID: 0}
   _mpSlider: {fileID: 0}
+  _mpText: {fileID: 0}

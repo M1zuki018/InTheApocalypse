@@ -96,6 +96,8 @@ public class EventManager : MonoBehaviour
         _eventZone4.SetActive(false);
         _event6Col1.SetActive(false);
         _event6Col2.SetActive(false);
+        _uiController._group1.gameObject.SetActive(false);
+        _uiController._group2.gameObject.SetActive(false);
     }
 
     void Update()

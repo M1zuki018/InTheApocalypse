@@ -152,7 +152,7 @@ public class Main2_EventManager : MonoBehaviour
             _isFirst2_2 = true;
         }
 
-        if(_zeppaEvent3 && !_textController._textArea.activeSelf && !_isFirst2_3)
+        if(_zeppaEvent3 && !_textController._textArea.activeSelf && !_isFirst2_3) //パネルを表示する
         {
             ZeppaEvent_3();
             _isFirst2_3 = true;
@@ -164,7 +164,7 @@ public class Main2_EventManager : MonoBehaviour
             {
                 _zeppaPanel.SetActive(false);
                 Destroy(_zeppaEventCol);
-                StartCoroutine("ZeppaEvent2");
+                ZeppaBattleStart();
                 _explanation = false;
             }
         }
@@ -289,16 +289,11 @@ public class Main2_EventManager : MonoBehaviour
         _explanation = true;
     }
 
-    IEnumerator ZeppaEvent2()
+    void ZeppaBattleStart()
     {
-        //ストーリーが進む
-
-        yield return new WaitForSeconds(_zeppaEventStopSeconds3);
-
-        _inputController.AuthortySkill();
         _inputController.PlayerAwake();
+        _inputController.AuthortySkill();
         _zeppaBattle = true;
-
     }
 
     void ZeppaBattle()
@@ -307,7 +302,7 @@ public class Main2_EventManager : MonoBehaviour
 
         if (enemys.Length == 0)
         {
-            ZeppaTalk();
+            Invoke("ZeppaTalk",2);
             _zeppaBattle = false;
         }
     }

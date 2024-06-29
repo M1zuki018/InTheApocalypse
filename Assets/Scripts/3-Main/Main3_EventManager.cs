@@ -103,6 +103,7 @@ public class Main3_EventManager : MonoBehaviour
 
     void Event1()//会話のあとBGMを止める・BOSSを沸かせる
     {
+        _uiController._authoritySkillGage.gameObject.SetActive(true);
         _inputController.PlayerStop();
         _textController.Main3();
         _textSkip.enabled = false;

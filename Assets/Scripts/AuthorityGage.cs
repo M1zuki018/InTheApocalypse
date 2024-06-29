@@ -3,7 +3,7 @@ using UnityEngine;
 public class AuthorityGage : MonoBehaviour
 {
     [SerializeField] SpriteRenderer[] _gage;
-    public static int _gageCount = 3;
+    public static int _gageCount = 0;
 
     [SerializeField] int _countUpCount = 20;
     int _push = 0;

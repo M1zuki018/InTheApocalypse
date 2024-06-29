@@ -26,10 +26,11 @@ public class Player_AuthoritySkill : MonoBehaviour
         hitInfo = Physics2D.BoxCastAll(transform.parent.position, _skillBounds, 0, Vector2.up, 100f, _enemyLayer, -10, 10);
         TaskOfInsideBounds(hitInfo);
 
-        if (Input.GetKeyDown(KeyCode.Q) && AuthorityGage._gageCount >= 1)
+        if (Input.GetKeyDown(KeyCode.Q) && AuthorityGage._gageCount > 0)
         {
             StartCoroutine(Performance());
             _seController.AuthoritySkill();
+            AuthorityGage._gageCount--;
         }
     }
 
@@ -50,9 +51,9 @@ public class Player_AuthoritySkill : MonoBehaviour
         //  hitInfo はキャストの結果を返すので失敗したなら
         //  Nullを返すからここで一度ヴァリデーション
         {
-            if (Input.GetKeyDown(KeyCode.Q) && AuthorityGage._gageCount >= 1)
+            if (Input.GetKeyDown(KeyCode.Q) && AuthorityGage._gageCount > 0)
             {
-                AuthorityGage._gageCount--;
+
                 // 範囲内の全てのオブジェクトに対して特定の操作　（ダメージ処理）
                 foreach (RaycastHit2D hit in hitInfo)
                 {
@@ -76,7 +77,7 @@ public class Player_AuthoritySkill : MonoBehaviour
                             Destroy(hit.collider.gameObject);
                         }
                     }
-
+                    
                 }
             }
         }

@@ -7,10 +7,10 @@ public class UIController : MonoBehaviour
     [SerializeField] Slider _avoidSlider;
     [SerializeField] Slider _skill1Slider;
     [SerializeField] Slider _skill2Slider;
-    [SerializeField] GameObject _authoritySkillGage;
+    public GameObject _authoritySkillGage;
 
-    [SerializeField] GameObject _group1;
-    [SerializeField] GameObject _group2;
+    public GameObject _group1;
+    public GameObject _group2;
 
     [SerializeField] Text _hpText;
 

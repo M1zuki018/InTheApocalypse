@@ -30,6 +30,11 @@ public class EnvironmentMp : MonoBehaviour
             MagicPoint(); //MP自動回復
         }
         
+        if (_mp < 0)
+        {
+            _mp = 0;
+        }
+
         _mpSlider.value = (float)_mp;
         _mpText.text = ("MP" + _mp + "/" + _maxMP);
     }
