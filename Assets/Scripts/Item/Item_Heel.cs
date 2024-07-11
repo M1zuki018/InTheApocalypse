@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class Item_Heel : MonoBehaviour
+
+public class Item_Heel : ItemBase
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    public override void Activate()
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            PlayerController._chara1HP = PlayerController._chara1HP + 10;
-            Destroy(gameObject);
-        }
+        PlayerController._chara1HP = PlayerController._chara1HP + 10;
     }
+    
 }

@@ -3171,7 +3171,7 @@ MonoBehaviour:
   - "\uFF1A\u9053\u4E2D\u5B87\u5B99\u8239\u306E\u30D1\u30FC\u30C4\u306F\u898B\u3064\u304B\u3089\\n\u306A\u304B\u3063\u305F\u3051\u3069..."
   - "\uFF1A\u30A2\u30A4\u30C4\u304C\u6301\u3063\u3066\u3044\u308B\u304B\u3082\u3057\u308C\u306A\u3044\u308F\u3002"
   - "\uFF1A\u5909\u306B\u52D5\u6A5F\u3092\u8003\u3048\u306A\u304F\u3066\u3082\u3001\u6226\u3063\u3066\u3044\u3044\\n\u3067\u3059\u3088\u3002"
-  - "\uFF1A...\u3042\u3089\u3002\u30D0\u30EC\u3061\u3083\u3063\u305F\u3002"
+  - "\uFF1A\u3042\u3089\u3001\u6226\u3044\u305F\u3044\u3060\u3051\u306A\u306E\u30D0\u30EC\u3061\u3083\\n\u3063\u305F\uFF1F"
   - "\uFF1A\u30D0\u30EC\u30D0\u30EC\u3067\u3059\u3002"
   - "\uFF1A\u3044\u3064\u3082\u3069\u304A\u308A\u5F8C\u308D\u304B\u3089\u773A\u3081\u3066\u308B\u306A\u30FC\u3002"
   - "\uFF1A\u3048\u3048\u3002"
@@ -4184,7 +4184,7 @@ Transform:
   m_GameObject: {fileID: 1947028414}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 75, y: 75, z: 180}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4485,7 +4485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5463996851719686821, guid: 50e4163612837b44388c5b8a8cd3d31e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.18
+      value: -4.09
       objectReference: {fileID: 0}
     - target: {fileID: 5463996851719686821, guid: 50e4163612837b44388c5b8a8cd3d31e, type: 3}
       propertyPath: m_LocalPosition.z

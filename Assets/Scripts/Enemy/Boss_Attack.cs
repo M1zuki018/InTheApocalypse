@@ -127,7 +127,7 @@ public class Boss_Attack : MonoBehaviour
         _attack2.transform.position = _attackHeight[_attackCount].position;
         _attack2.SetActive(true);
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         _attack2.SetActive(false);
         _attackCount++;
 

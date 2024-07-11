@@ -32,7 +32,7 @@ public class Main2_EventManager : MonoBehaviour
     bool _isFirst2_3;
     bool _explanation;
     [SerializeField] int _zeppaEventStopSeconds = 4;
-    [SerializeField] float _zeppaEventStopSeconds3 = 0.1f;
+
     [SerializeField] Vector3 _sponePosition3;
     [SerializeField] Vector3 _sponePosition4;
     [SerializeField] Vector3 _sponePosition5;
